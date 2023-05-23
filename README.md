@@ -1,3 +1,20 @@
+# Setup
+```
+git clone https://github.com/SENG499-COMPANY4/frontend.git
+cd frontend
+npm install
+```
+#### How to Start the Website
+```
+npm start
+```
+
+#### If it is bugging you about not having preline or react-router-dom, also run these:
+```
+npm install react-router-dom
+npm install preline
+```
+---
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
