@@ -1,5 +1,5 @@
 import './App.css';
-import NavBar from './components/Navbar';
+import AdminNavbar from './components/AdminNavbar';
 import About from './pages/About';
 import { Routes, Route } from 'react-router-dom'
 
@@ -9,7 +9,7 @@ function App() {
   return (
 
     <div class="container mx-auto px-10 max-w-screen-lg">
-      <NavBar></NavBar>
+      <AdminNavbar></AdminNavbar>
       <Routes>
         <Route path="/about" component={About} />
       </Routes>
