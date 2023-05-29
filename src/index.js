@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <body class="dark:bg-gray-800 dark:text-gray-500 min-h-screen ">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
@@ -19,6 +20,7 @@ root.render(
         <Route path="/administrator" element={<Administrator />} />
       </Routes>
     </BrowserRouter>
+    </body>
   </React.StrictMode>
 );
 
