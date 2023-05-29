@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
 
-    <Navbar isLoggedIn={true} isAdmin={true} isProfessor={false} />
+    <Navbar isLoggedIn={true} isAdmin={false} isProfessor={true} />
 
     <body class="dark:bg-gray-800 dark:text-gray-500 min-h-screen ">
 
@@ -30,6 +30,7 @@ root.render(
           <Route path="/administrator" element={<Administrator />} />
           <Route path="/help" element={<Help />} />
           <Route path="/admininbox" element={<AdminInbox />} />
+          <Route path="/schedule" element={<Professor />} />
         </Routes>
       </BrowserRouter>
     </body>
