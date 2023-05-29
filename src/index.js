@@ -5,6 +5,7 @@ import App from './App';
 import Professor from './Professor';
 import Administrator from './Administrator';
 import ProfPreferences from './ProfPreferences';
+import Help from './pages/Help';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -18,6 +19,7 @@ root.render(
         <Route path="/preferences" element={<ProfPreferences />} />
         <Route path="/professor" element={<Professor />} />
         <Route path="/administrator" element={<Administrator />} />
+        <Route path="/help" element={<Help />} />
       </Routes>
     </BrowserRouter>
     </body>
