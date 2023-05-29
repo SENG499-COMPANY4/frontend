@@ -6,6 +6,7 @@ import Professor from './Professor';
 import Administrator from './Administrator';
 import ProfPreferences from './ProfPreferences';
 import Help from './pages/Help';
+import AdminInbox from './pages/AdminInbox';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -20,6 +21,7 @@ root.render(
         <Route path="/professor" element={<Professor />} />
         <Route path="/administrator" element={<Administrator />} />
         <Route path="/help" element={<Help />} />
+        <Route path="/admininbox" element={<AdminInbox />} />
       </Routes>
     </BrowserRouter>
     </body>
