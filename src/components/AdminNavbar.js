@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../logo.png'
 import { HiOutlineMail } from 'react-icons/hi'
+import { BiHelpCircle } from 'react-icons/bi';
 
 // NavBar component
 const AdminNavbar = () => {
@@ -27,7 +28,8 @@ const AdminNavbar = () => {
           <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
             <div class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
 
-              <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="#"><HiOutlineMail /></a>
+              <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/preferences"><HiOutlineMail /></a>
+              <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/help"><BiHelpCircle /></a>
               {/* <a class="font-medium text-blue-600 hover:text-gray-400 sm:py-6 dark:text-blue-500 dark:hover:text-gray-500" href="#"><HiOutlineMail /></a> */}
 
               <a class="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 sm:border-l sm:border-gray-300 sm:my-6 sm:pl-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500" href="#" data-hs-overlay="#login-modal">
