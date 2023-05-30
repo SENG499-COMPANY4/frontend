@@ -56,7 +56,7 @@ const AdminNavbar = () => {
                           <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20">
                                 <div class="p-6 sm:p-12">
                                     <div class="space-y-4">
-                                    <img src={require('./uvicLogo.svg').default} loading="lazy" className="w-20" alt="uvic logo" />
+                                    <img src={require('../uvicLogo.svg').default} loading="lazy" className="w-20" alt="uvic logo" />
                                         <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in to Scheduler <br /></h2>
                                     </div>
                                     <div class="mt-16 grid space-y-4">
@@ -84,22 +84,17 @@ const AdminNavbar = () => {
                                     </div>
 
                                     <div class="mt-32 space-y-4 text-gray-600 text-center sm:-mb-8">
-                                        <p class="text-xs">By proceeding, you agree to our <a href="#" class="underline">Terms of Use</a> and confirm you have read our <a href="#" class="underline">Privacy and Cookie Statement</a>.</p>
-                                        <p class="text-xs">This site is protected by reCAPTCHA and the <a href="#" class="underline">Google Privacy Policy</a> and <a href="#" class="underline">Terms of Service</a> apply.</p>
+                                        <p class="text-xs">By proceeding, you agree to our <a href="#" class="underline">Terms of Use </a></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
           </div>
         </div>
       </div>
-
-
-
 
   );
 }
