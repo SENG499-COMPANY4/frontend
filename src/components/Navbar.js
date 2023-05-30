@@ -52,7 +52,7 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
 
 
               {/* Log in button */}
-              {isLoggedIn ? (
+              {false ? (
                 // If logged in
                 <a class="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 sm:border-l sm:border-gray-300 sm:my-3 sm:pl-6 dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500">
 
@@ -93,7 +93,7 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
                           <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20">
                                 <div class="p-6 sm:p-12">
                                     <div class="space-y-4">
-                                    <img src={require('../uvicLogo.svg').default} loading="lazy" className="w-20" alt="uvic logo" />
+                                    <img src={logo} loading="lazy" className="w-60" alt="uvic logo" />
                                         <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in to Scheduler <br /></h2>
                                     </div>
                                     <div class="mt-16 grid space-y-4">
