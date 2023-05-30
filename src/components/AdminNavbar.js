@@ -50,18 +50,49 @@ const AdminNavbar = () => {
         <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
           <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
             
-            <div class="p-4 overflow-y-auto">
-              <p class="text-gray-800 dark:text-gray-400">
-                This is a wider card with supporting text below as a natural lead-in to additional content.
-              </p>
-            </div>
-            <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
-              <button type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#login-modal">
-                Close
-              </button>
-              <a class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
-                Save changes
-              </a>
+            <div class="p-20 overflow-y-auto">
+                    <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-10">
+                        <div class="m-auto md:w-[80%] lg:w-[80%] xl:w-full">
+                          <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20">
+                                <div class="p-6 sm:p-12">
+                                    <div class="space-y-4">
+                                    <img src={require('./uvicLogo.svg').default} loading="lazy" className="w-20" alt="uvic logo" />
+                                        <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in to Scheduler <br /></h2>
+                                    </div>
+                                    <div class="mt-16 grid space-y-4">
+                                        <input
+                                          type="text"
+                                          placeholder="Username"
+                                          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                                          hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                                        />
+                                    
+                                    <input
+                                          type="text"
+                                          placeholder="Password"
+                                          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                                          hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+                                        />
+                                    </div>
+                                    
+                                    <div class="flex justify-end items-end">
+                                        <button class="group h-12 px-5 border-2 border-gray-300 rounded-full transition duration-300 
+                                            bg-blue-800 text-white hover:bg-blue-200 focus:bg-blue-50 active:bg-blue-100 mt-4 active:text-white mt-4 ml-auto" 
+                                            name="submit" id="form-submit" accesskey="l" type="submit">
+                                            <span>Sign in</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="mt-32 space-y-4 text-gray-600 text-center sm:-mb-8">
+                                        <p class="text-xs">By proceeding, you agree to our <a href="#" class="underline">Terms of Use</a> and confirm you have read our <a href="#" class="underline">Privacy and Cookie Statement</a>.</p>
+                                        <p class="text-xs">This site is protected by reCAPTCHA and the <a href="#" class="underline">Google Privacy Policy</a> and <a href="#" class="underline">Terms of Service</a> apply.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
           </div>
         </div>
@@ -69,7 +100,6 @@ const AdminNavbar = () => {
 
 
 
-    </div>
 
   );
 }
