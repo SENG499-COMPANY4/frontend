@@ -1,6 +1,6 @@
 import './App.css';
-import NavBar from './components/Navbar';
-import About from './pages/About';
+import AdminNavbar from './components/AdminNavbar';
+import About from './pages/Help';
 import { Routes, Route } from 'react-router-dom'
 
 import('preline')
@@ -9,10 +9,7 @@ function App() {
   return (
 
     <div class="container mx-auto px-10 max-w-screen-lg">
-      <NavBar></NavBar>
-      <Routes>
-        <Route path="/about" component={About} />
-      </Routes>
+      <AdminNavbar></AdminNavbar>
 
       <div class="flex flex-col bg-white border shadow-sm rounded-xl p-4 my-10 md:p-5 dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] dark:text-gray-400">
         <input type="text" class="py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:outline-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" placeholder="This is placeholder" />

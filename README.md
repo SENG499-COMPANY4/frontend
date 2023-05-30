@@ -14,6 +14,10 @@ npm start
 npm install react-router-dom
 npm install preline
 ```
+
+#### Check out [Preline](https://preline.co/examples.html) for premade buttons, navbars, and other components:
+
+
 ---
 # Getting Started with Create React App
 
