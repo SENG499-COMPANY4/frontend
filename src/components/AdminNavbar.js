@@ -68,23 +68,19 @@ const AdminNavbar = () => {
                                         />
                                     
                                     <input
-                                          type="text"
+                                          type="Password"
                                           placeholder="Password"
                                           class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                           hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
                                         />
                                     </div>
                                     
-                                    <div class="flex justify-end items-end">
+                                    <div class="mt-5 flex justify-end items-end">
                                         <button class="group h-12 px-5 border-2 border-gray-300 rounded-full transition duration-300 
                                             bg-blue-800 text-white hover:bg-blue-200 focus:bg-blue-50 active:bg-blue-100 mt-4 active:text-white mt-4 ml-auto" 
                                             name="submit" id="form-submit" accesskey="l" type="submit">
                                             <span>Sign in</span>
                                         </button>
-                                    </div>
-
-                                    <div class="mt-32 space-y-4 text-gray-600 text-center sm:-mb-8">
-                                        <p class="text-xs">By proceeding, you agree to our <a href="#" class="underline">Terms of Use </a></p>
                                     </div>
                                 </div>
                             </div>
