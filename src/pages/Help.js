@@ -1,11 +1,7 @@
-import { BiHelpCircle } from 'react-icons/bi';
-import AdminNavbar from '../components/AdminNavbar';
-
 //About React component
 const Help = () => {
     return (
         <div class="container mx-auto px-10 max-w-screen-lg">
-            <AdminNavbar />
             {/* <!-- FAQ --> */}
             <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                 {/* <!-- Title --> */}
