@@ -7,7 +7,6 @@ import { Routes, Route } from 'react-router-dom';
 export default function Example() {
   return (
     <div class="container mx-auto px-10 max-w-screen-lg">
-      <ProfNavbar></ProfNavbar>
       <Routes>
       </Routes>
       <div>

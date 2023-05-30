@@ -1,10 +1,7 @@
-import AdminNavbar from '../components/AdminNavbar';
-
 //About React component
 const AdminInbox = () => {
     return (
         <div class="container mx-auto px-10 max-w-screen-lg">
-            <AdminNavbar />
             {/* <!-- Table Section --> */}
             <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
                 {/* <!-- Card --> */}
@@ -47,7 +44,7 @@ const AdminInbox = () => {
                                             <th scope="col" class="pl-6 py-3 text-left">
                                                 <label for="hs-at-with-checkboxes-main" class="flex">
                                                     <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-main" />
-                                                        <span class="sr-only">Checkbox</span>
+                                                    <span class="sr-only">Checkbox</span>
                                                 </label>
                                             </th>
 
@@ -101,7 +98,7 @@ const AdminInbox = () => {
                                                 <div class="pl-6 py-3">
                                                     <label for="hs-at-with-checkboxes-1" class="flex">
                                                         <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-1" />
-                                                            <span class="sr-only">Checkbox</span>
+                                                        <span class="sr-only">Checkbox</span>
                                                     </label>
                                                 </div>
                                             </td>
@@ -115,9 +112,9 @@ const AdminInbox = () => {
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
-                                                            <div class="grow">
-                                                                <span class="text-sm text-gray-600 dark:text-gray-400">Christina Bersh</span>
-                                                            </div>
+                                                        <div class="grow">
+                                                            <span class="text-sm text-gray-600 dark:text-gray-400">Christina Bersh</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -183,7 +180,7 @@ const AdminInbox = () => {
                                                 <div class="pl-6 py-3">
                                                     <label for="hs-at-with-checkboxes-2" class="flex">
                                                         <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-2" />
-                                                            <span class="sr-only">Checkbox</span>
+                                                        <span class="sr-only">Checkbox</span>
                                                     </label>
                                                 </div>
                                             </td>
@@ -197,9 +194,9 @@ const AdminInbox = () => {
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
-                                                            <div class="grow">
-                                                                <span class="text-sm text-gray-600 dark:text-gray-400">David Harrison</span>
-                                                            </div>
+                                                        <div class="grow">
+                                                            <span class="text-sm text-gray-600 dark:text-gray-400">David Harrison</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -265,7 +262,7 @@ const AdminInbox = () => {
                                                 <div class="pl-6 py-3">
                                                     <label for="hs-at-with-checkboxes-3" class="flex">
                                                         <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-3" />
-                                                            <span class="sr-only">Checkbox</span>
+                                                        <span class="sr-only">Checkbox</span>
                                                     </label>
                                                 </div>
                                             </td>
@@ -349,7 +346,7 @@ const AdminInbox = () => {
                                                 <div class="pl-6 py-3">
                                                     <label for="hs-at-with-checkboxes-4" class="flex">
                                                         <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-4" />
-                                                            <span class="sr-only">Checkbox</span>
+                                                        <span class="sr-only">Checkbox</span>
                                                     </label>
                                                 </div>
                                             </td>
@@ -363,9 +360,9 @@ const AdminInbox = () => {
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80" alt="Image Description" />
-                                                            <div class="grow">
-                                                                <span class="text-sm text-gray-600 dark:text-gray-400">Samia Kartoon</span>
-                                                            </div>
+                                                        <div class="grow">
+                                                            <span class="text-sm text-gray-600 dark:text-gray-400">Samia Kartoon</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -431,7 +428,7 @@ const AdminInbox = () => {
                                                 <div class="pl-6 py-3">
                                                     <label for="hs-at-with-checkboxes-5" class="flex">
                                                         <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-5" />
-                                                            <span class="sr-only">Checkbox</span>
+                                                        <span class="sr-only">Checkbox</span>
                                                     </label>
                                                 </div>
                                             </td>
@@ -515,7 +512,7 @@ const AdminInbox = () => {
                                                 <div class="pl-6 py-3">
                                                     <label for="hs-at-with-checkboxes-6" class="flex">
                                                         <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-6" />
-                                                            <span class="sr-only">Checkbox</span>
+                                                        <span class="sr-only">Checkbox</span>
                                                     </label>
                                                 </div>
                                             </td>
@@ -529,9 +526,9 @@ const AdminInbox = () => {
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
-                                                            <div class="grow">
-                                                                <span class="text-sm text-gray-600 dark:text-gray-400">Brian Halligan</span>
-                                                            </div>
+                                                        <div class="grow">
+                                                            <span class="text-sm text-gray-600 dark:text-gray-400">Brian Halligan</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
