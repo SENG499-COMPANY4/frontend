@@ -93,10 +93,10 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
                           <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20">
                                 <div class="p-6 sm:p-12">
                                     <div class="space-y-4">
-                                    <img src={logo} loading="lazy" className="w-60" alt="uvic logo" />
-                                        <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in to Scheduler <br /></h2>
+                                    <img src={logo} loading="lazy" className="w-55" alt="uvic logo" />
+                                        <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in <br /></h2>
                                     </div>
-                                    <div class="mt-16 grid space-y-4">
+                                    <div class="mt-6 grid space-y-4">
                                         <input
                                           type="text"
                                           placeholder="Username"
