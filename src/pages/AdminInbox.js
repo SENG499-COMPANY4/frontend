@@ -13,11 +13,8 @@ const AdminInbox = () => {
                                 <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                                     <div>
                                         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                            API Keys
+                                            Inbox
                                         </h2>
-                                        <p class="text-sm text-gray-600 dark:text-gray-400">
-                                            Keys you have generated to connect with third-party clients or access the <a class="inline-flex items-center gap-x-1.5 text-blue-600 decoration-2 hover:underline font-medium" href="#">Preline API.</a>
-                                        </p>
                                     </div>
 
                                     <div>
@@ -26,12 +23,6 @@ const AdminInbox = () => {
                                                 View all
                                             </a>
 
-                                            <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
-                                                <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                    <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                                                </svg>
-                                                Create
-                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -41,33 +32,11 @@ const AdminInbox = () => {
                                 <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead>
                                         <tr>
-                                            <th scope="col" class="pl-6 py-3 text-left">
-                                                <label for="hs-at-with-checkboxes-main" class="flex">
-                                                    <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-main" />
-                                                    <span class="sr-only">Checkbox</span>
-                                                </label>
-                                            </th>
 
                                             <th scope="col" class="px-6 py-3 text-left">
                                                 <div class="flex items-center gap-x-2">
                                                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                        Name
-                                                    </span>
-                                                </div>
-                                            </th>
-
-                                            <th scope="col" class="px-6 py-3 text-left">
-                                                <div class="flex items-center gap-x-2">
-                                                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                        Created by
-                                                    </span>
-                                                </div>
-                                            </th>
-
-                                            <th scope="col" class="px-6 py-3 text-left">
-                                                <div class="flex items-center gap-x-2">
-                                                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                        API Key
+                                                        Professor
                                                     </span>
                                                 </div>
                                             </th>
@@ -83,7 +52,7 @@ const AdminInbox = () => {
                                             <th scope="col" class="px-6 py-3 text-left">
                                                 <div class="flex items-center gap-x-2">
                                                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                                                        Created
+                                                        Date
                                                     </span>
                                                 </div>
                                             </th>
@@ -95,20 +64,6 @@ const AdminInbox = () => {
                                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                                         <tr>
                                             <td class="h-px w-px whitespace-nowrap">
-                                                <div class="pl-6 py-3">
-                                                    <label for="hs-at-with-checkboxes-1" class="flex">
-                                                        <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-1" />
-                                                        <span class="sr-only">Checkbox</span>
-                                                    </label>
-                                                </div>
-                                            </td>
-
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="text-sm text-gray-600 dark:text-gray-400">Streamlab</span>
-                                                </div>
-                                            </td>
-                                            <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
@@ -118,17 +73,7 @@ const AdminInbox = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center gap-x-2.5 py-2 px-2.5 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-                                                        Copy Key
-                                                        <svg class="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
+
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
@@ -176,20 +121,7 @@ const AdminInbox = () => {
                                         </tr>
 
                                         <tr>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="pl-6 py-3">
-                                                    <label for="hs-at-with-checkboxes-2" class="flex">
-                                                        <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-2" />
-                                                        <span class="sr-only">Checkbox</span>
-                                                    </label>
-                                                </div>
-                                            </td>
 
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="text-sm text-gray-600 dark:text-gray-400">Node</span>
-                                                </div>
-                                            </td>
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
@@ -202,22 +134,11 @@ const AdminInbox = () => {
                                             </td>
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
-                                                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center gap-x-2.5 py-2 px-2.5 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-                                                        Copy Key
-                                                        <svg class="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
                                                     <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-green-200">
                                                         <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                                             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
                                                         </svg>
-                                                        Warning
+                                                        Pending
                                                     </span>
                                                 </div>
                                             </td>
@@ -258,20 +179,7 @@ const AdminInbox = () => {
                                         </tr>
 
                                         <tr>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="pl-6 py-3">
-                                                    <label for="hs-at-with-checkboxes-3" class="flex">
-                                                        <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-3" />
-                                                        <span class="sr-only">Checkbox</span>
-                                                    </label>
-                                                </div>
-                                            </td>
 
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="text-sm text-gray-600 dark:text-gray-400">FrontMail</span>
-                                                </div>
-                                            </td>
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
@@ -282,17 +190,6 @@ const AdminInbox = () => {
                                                             <span class="text-sm text-gray-600 dark:text-gray-400">Anne Richard</span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center gap-x-2.5 py-2 px-2.5 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-                                                        Copy Key
-                                                        <svg class="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                                        </svg>
-                                                    </button>
                                                 </div>
                                             </td>
                                             <td class="h-px w-px whitespace-nowrap">
@@ -342,20 +239,7 @@ const AdminInbox = () => {
                                         </tr>
 
                                         <tr>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="pl-6 py-3">
-                                                    <label for="hs-at-with-checkboxes-4" class="flex">
-                                                        <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-4" />
-                                                        <span class="sr-only">Checkbox</span>
-                                                    </label>
-                                                </div>
-                                            </td>
 
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="text-sm text-gray-600 dark:text-gray-400">MobileAPI</span>
-                                                </div>
-                                            </td>
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
@@ -364,17 +248,6 @@ const AdminInbox = () => {
                                                             <span class="text-sm text-gray-600 dark:text-gray-400">Samia Kartoon</span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center gap-x-2.5 py-2 px-2.5 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-                                                        Copy Key
-                                                        <svg class="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                                        </svg>
-                                                    </button>
                                                 </div>
                                             </td>
                                             <td class="h-px w-px whitespace-nowrap">
@@ -424,20 +297,7 @@ const AdminInbox = () => {
                                         </tr>
 
                                         <tr>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="pl-6 py-3">
-                                                    <label for="hs-at-with-checkboxes-5" class="flex">
-                                                        <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-5" />
-                                                        <span class="sr-only">Checkbox</span>
-                                                    </label>
-                                                </div>
-                                            </td>
 
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="text-sm text-gray-600 dark:text-gray-400">RachelsKey</span>
-                                                </div>
-                                            </td>
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
@@ -450,24 +310,14 @@ const AdminInbox = () => {
                                                     </div>
                                                 </div>
                                             </td>
+
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
-                                                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center gap-x-2.5 py-2 px-2.5 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-                                                        Copy Key
-                                                        <svg class="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-green-200">
+                                                    <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                                                         <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                                             <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"></path>
                                                         </svg>
-                                                        Danger
+                                                        New Preference
                                                     </span>
                                                 </div>
                                             </td>
@@ -509,20 +359,6 @@ const AdminInbox = () => {
 
                                         <tr>
                                             <td class="h-px w-px whitespace-nowrap">
-                                                <div class="pl-6 py-3">
-                                                    <label for="hs-at-with-checkboxes-6" class="flex">
-                                                        <input type="checkbox" class="shrink-0 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-at-with-checkboxes-6" />
-                                                        <span class="sr-only">Checkbox</span>
-                                                    </label>
-                                                </div>
-                                            </td>
-
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <span class="text-sm text-gray-600 dark:text-gray-400">Gulp</span>
-                                                </div>
-                                            </td>
-                                            <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
@@ -532,17 +368,7 @@ const AdminInbox = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="h-px w-px whitespace-nowrap">
-                                                <div class="px-6 py-3">
-                                                    <button type="button" class="inline-flex flex-shrink-0 justify-center items-center gap-x-2.5 py-2 px-2.5 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-xs dark:bg-gray-800 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-                                                        Copy Key
-                                                        <svg class="h-3.5 w-3.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                                            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                                                            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </td>
+
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
