@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import Professor from './Professor';
 import Administrator from './Administrator';
+import ProfessorList from './pages/ProfessorList';
 import ProfPreferences from './ProfPreferences';
 import Help from './pages/Help';
 import AdminInbox from './pages/AdminInbox';
@@ -31,6 +32,7 @@ root.render(
           <Route path="/help" element={<Help />} />
           <Route path="/admininbox" element={<AdminInbox />} />
           <Route path="/schedule" element={<Professor />} />
+          <Route path="/professorList" element={<ProfessorList />} />
         </Routes>
       </BrowserRouter>
     </body>
