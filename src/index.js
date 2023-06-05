@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
 
-    <Navbar isLoggedIn={true} isAdmin={false} isProfessor={true} />
+    <Navbar isLoggedIn={true} isAdmin={true} isProfessor={true} />
 
     <body class="dark:bg-gray-800 dark:text-gray-500 min-h-screen ">
 
