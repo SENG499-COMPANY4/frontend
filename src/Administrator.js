@@ -7,7 +7,9 @@ import AdminSchedule from './components/AdminSchedule'
 export default class DemoApp extends React.Component {
   render() {
     return (
-      <AdminSchedule />
+      <div class="container mx-auto px-10 max-w-screen-lg">
+        <AdminSchedule />
+      </div>
     )
   }
 }

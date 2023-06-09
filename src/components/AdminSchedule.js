@@ -3,7 +3,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin!
 
 const AdminSchedule = () => {
-    <div>
+    return (<div>
         <FullCalendar
             schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
             plugins={[resourceTimelinePlugin]}
@@ -33,6 +33,7 @@ const AdminSchedule = () => {
             ]}
         />
     </div>
+    );
 }
 
 export default AdminSchedule;
