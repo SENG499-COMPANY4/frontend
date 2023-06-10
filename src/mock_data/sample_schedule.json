@@ -1,7 +1,8 @@
 {
 	"schedule": [
 		{
-			"timeslot": 830,
+			"start": "2023-06-09T10:00:00",
+			"end": "2023-06-09T11:20:00",
 			"day": ["Monday", "Thursday"],
 			"coursename": "SENG499",
 			"room": "ECS123",
@@ -9,11 +10,21 @@
 			"type": "lecture"
 		},
 		{
-			"timeslot": 830,
+			"start": "2023-06-09T13:00:00",
+			"end": "2023-06-09T13:50:00",
 			"day": ["Tuesday", "Wednesday", "Friday"],
 			"coursename": "SENG440",
 			"room": "ECS125",
-			"professor": "Mihai SIMA",
+			"professor": "Mihai Sima",
+			"type": "lecture"
+		},
+		{
+			"start": "2023-06-09T13:00:00",
+			"end": "2023-06-09T13:50:00",
+			"day": ["Monday", "Thursday"],
+			"coursename": "SENG426",
+			"room": "DTBA102",
+			"professor": "Khalid Al-Hammuri",
 			"type": "lecture"
 		}
 
