@@ -1,0 +1,798 @@
+{
+    "Bob Wright Centre (BWC)": {
+        "rooms": [
+            {
+                "id": "BWC A104",
+                "size": "Large"
+            },
+            {
+                "id": "BWC B150",
+                "size": "Large"
+            }
+        ]
+    },
+    "Business & Economics Building (BEC)": {
+        "rooms": [
+            {
+                "id": "BEC363",
+                "size": "Small"
+            }
+        ]
+    },
+    "Clearihue Building (CLE)": {
+        "rooms": [
+            {
+                "id": "CLEA118",
+                "size": "Small"
+            },
+            {
+                "id": "CLEA208",
+                "size": "Small"
+            },
+            {
+                "id": "CLEA326",
+                "size": "Small"
+            },
+            {
+                "id": "CLEA329",
+                "size": "Small"
+            },
+            {
+                "id": "CLEA330",
+                "size": "Small"
+            },
+            {
+                "id": "CLEB019",
+                "size": "Small"
+            },
+            {
+                "id": "CLEB021",
+                "size": "Small"
+            },
+            {
+                "id": "CLEB215",
+                "size": "Small"
+            },
+            {
+                "id": "CLEB315",
+                "size": "Small"
+            },
+            {
+                "id": "CLEB415",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC108",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC109",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC111",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC113",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC115",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC116",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC118",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC214",
+                "size": "Small"
+            },
+            {
+                "id": "CLEC316",
+                "size": "Small"
+            },
+            {
+                "id": "CLED123",
+                "size": "Small"
+            },
+            {
+                "id": "CLED125",
+                "size": "Small"
+            },
+            {
+                "id": "CLED126",
+                "size": "Small"
+            },
+            {
+                "id": "CLED127",
+                "size": "Small"
+            },
+            {
+                "id": "CLED129",
+                "size": "Small"
+            },
+            {
+                "id": "CLED130",
+                "size": "Small"
+            },
+            {
+                "id": "CLED131",
+                "size": "Small"
+            },
+            {
+                "id": "CLED132",
+                "size": "Small"
+            },
+            {
+                "id": "CLED133",
+                "size": "Small"
+            },
+            {
+                "id": "CLED134",
+                "size": "Small"
+            },
+            {
+                "id": "CLED261",
+                "size": "Small"
+            },
+            {
+                "id": "CLEA207",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA216",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA217",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA221",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA225",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA312",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA313",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA317",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA320",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA325",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEC110",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEC112",
+                "size": "Medium"
+            },
+            {
+                "id": "CLEA127",
+                "size": "Large"
+            },
+            {
+                "id": "CLEA224",
+                "size": "Large"
+            }
+        ]
+    },
+    "Continuing Studies Building (CST)": {
+        "rooms": [
+            {
+                "id": "CST020",
+                "size": "Small"
+            },
+            {
+                "id": "CST024",
+                "size": "Medium"
+            }
+        ]
+    },
+    "Cornett Building (COR)": {
+        "rooms": [
+            {
+                "id": "CORA128",
+                "size": "Small"
+            },
+            {
+                "id": "CORA132",
+                "size": "Small"
+            },
+            {
+                "id": "CORA228",
+                "size": "Small"
+            },
+            {
+                "id": "CORA125",
+                "size": "Medium"
+            },
+            {
+                "id": "CORA129",
+                "size": "Medium"
+            },
+            {
+                "id": "CORA225",
+                "size": "Medium"
+            },
+            {
+                "id": "CORA229",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB107",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB108",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB111",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB112",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB129",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB135",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB143",
+                "size": "Medium"
+            },
+            {
+                "id": "CORB145",
+                "size": "Medium"
+            },
+            {
+                "id": "CORA120",
+                "size": "Large"
+            },
+            {
+                "id": "CORA121",
+                "size": "Large"
+            },
+            {
+                "id": "CORA221",
+                "size": "Large"
+            }
+        ]
+    },
+    "Cunningham Building (CUN)": {
+        "rooms": [
+            {
+                "id": "CUN146",
+                "size": "Medium"
+            }
+        ]
+    },
+    "David Strong Building (DSB)": {
+        "rooms": [
+            {
+                "id": "DSBC114",
+                "size": "Small"
+            },
+            {
+                "id": "DSBC124",
+                "size": "Small"
+            },
+            {
+                "id": "DSBC126",
+                "size": "Small"
+            },
+            {
+                "id": "DSBC128",
+                "size": "Small"
+            },
+            {
+                "id": "DSBC130",
+                "size": "Small"
+            },
+            {
+                "id": "DSBC108",
+                "size": "Medium"
+            },
+            {
+                "id": "DSBC112",
+                "size": "Medium"
+            },
+            {
+                "id": "DSBC113",
+                "size": "Medium"
+            },
+            {
+                "id": "DSBC116",
+                "size": "Medium"
+            },
+            {
+                "id": "DSBC118",
+                "size": "Medium"
+            },
+            {
+                "id": "DSBC122",
+                "size": "Medium"
+            },
+            {
+                "id": "DSBC103",
+                "size": "Large"
+            }
+        ]
+    },
+    "David Turpin Building (DTB)": {
+        "rooms": [
+            {
+                "id": "DTBA102",
+                "size": "Large"
+            },
+            {
+                "id": "DTBA104",
+                "size": "Large"
+            },
+            {
+                "id": "DTBA110",
+                "size": "Large"
+            },
+            {
+                "id": "DTBA120",
+                "size": "Large"
+            }
+        ]
+    },
+    "Dr. W. Harry Hickman Building (HHB)": {
+        "rooms": [
+            {
+                "id": "HHB128",
+                "size": "Small"
+            },
+            {
+                "id": "HHB110",
+                "size": "Medium"
+            },
+            {
+                "id": "HHB116",
+                "size": "Medium"
+            },
+            {
+                "id": "HHB105",
+                "size": "Large"
+            }
+        ]
+    },
+    "Elliott Building (ELL)": {
+        "rooms": [
+            {
+                "id": "ELL161",
+                "size": "Small"
+            },
+            {
+                "id": "ELL060",
+                "size": "Medium"
+            },
+            {
+                "id": "ELL061",
+                "size": "Medium"
+            },
+            {
+                "id": "ELL062",
+                "size": "Medium"
+            },
+            {
+                "id": "ELL160",
+                "size": "Medium"
+            },
+            {
+                "id": "ELL162",
+                "size": "Medium"
+            },
+            {
+                "id": "ELL167",
+                "size": "Large"
+            },
+            {
+                "id": "ELL168",
+                "size": "Large"
+            }
+        ]
+    },
+    "Engineering & Computer Science": {
+        "rooms": [
+            {
+                "id": "ECS128",
+                "size": "Small"
+            },
+            {
+                "id": "ECS130",
+                "size": "Small"
+            },
+            {
+                "id": "ECS104",
+                "size": "Medium"
+            },
+            {
+                "id": "ECS108",
+                "size": "Medium"
+            },
+            {
+                "id": "ECS124",
+                "size": "Medium"
+            },
+            {
+                "id": "ECS116",
+                "size": "Large"
+            },
+            {
+                "id": "ECS123",
+                "size": "Large"
+            }
+        ]
+    },
+    "Fine Arts Building (FIA)": {
+        "rooms": [
+            {
+                "id": "FIA104",
+                "size": "Small"
+            },
+            {
+                "id": "FIA108",
+                "size": "Small"
+            },
+            {
+                "id": "FIA124",
+                "size": "Small"
+            },
+            {
+                "id": "FIA209",
+                "size": "Small"
+            },
+            {
+                "id": "FIA103",
+                "size": "Medium"
+            }
+        ]
+    },
+    "First Peoples House (FPH)": {
+        "rooms": [
+            {
+                "id": "FPH160",
+                "size": "Small"
+            },
+            {
+                "id": "FPH110",
+                "size": "Large"
+            }
+        ]
+    },
+    "Halpern Centre For Graduate Students (GSC)": {
+        "rooms": [
+            {
+                "id": "GSC108",
+                "size": "Small"
+            },
+            {
+                "id": "GSC112",
+                "size": "Small"
+            }
+        ]
+    },
+    "Human & Social Development Building (HSD)": {
+        "rooms": [
+            {
+                "id": "HSDA250",
+                "size": "Small"
+            },
+            {
+                "id": "HSDA264",
+                "size": "Small"
+            },
+            {
+                "id": "HSDA270",
+                "size": "Small"
+            },
+            {
+                "id": "HSDA451",
+                "size": "Small"
+            },
+            {
+                "id": "HSDB347",
+                "size": "Small"
+            },
+            {
+                "id": "HSDA240",
+                "size": "Large"
+            }
+        ]
+    },
+    "Jamie Cassels Centre (JCC)": {
+        "rooms": [
+            {
+                "id": "JCCA180",
+                "size": "Large"
+            },
+            {
+                "id": "JCCB144",
+                "size": "Large"
+            }
+        ]
+    },
+    "Maclaurin Building (MAC)": {
+        "rooms": [
+            {
+                "id": "MACA166",
+                "size": "Small"
+            },
+            {
+                "id": "MACA326",
+                "size": "Small"
+            },
+            {
+                "id": "MACA341",
+                "size": "Small"
+            },
+            {
+                "id": "MACA520",
+                "size": "Small"
+            },
+            {
+                "id": "MACB016",
+                "size": "Small"
+            },
+            {
+                "id": "MACB120",
+                "size": "Small"
+            },
+            {
+                "id": "MACD105",
+                "size": "Small"
+            },
+            {
+                "id": "MACD107",
+                "size": "Small"
+            },
+            {
+                "id": "MACD109",
+                "size": "Small"
+            },
+            {
+                "id": "MACD111",
+                "size": "Small"
+            },
+            {
+                "id": "MACD203",
+                "size": "Small"
+            },
+            {
+                "id": "MACD283",
+                "size": "Small"
+            },
+            {
+                "id": "MACA168",
+                "size": "Medium"
+            },
+            {
+                "id": "MACA169",
+                "size": "Medium"
+            },
+            {
+                "id": "MACA193",
+                "size": "Medium"
+            },
+            {
+                "id": "MACA195",
+                "size": "Medium"
+            },
+            {
+                "id": "MACB037",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD010",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD016",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD101",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD103",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD110",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD114",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD115",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD116",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD207",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD287",
+                "size": "Medium"
+            },
+            {
+                "id": "MACD288",
+                "size": "Medium"
+            },
+            {
+                "id": "MACA144",
+                "size": "Large"
+            },
+            {
+                "id": "MACB125",
+                "size": "Large"
+            }
+        ]
+    },
+    "Mckinnon Building (MCK)": {
+        "rooms": [
+            {
+                "id": "MCK092",
+                "size": "Small"
+            },
+            {
+                "id": "MCK155",
+                "size": "Medium"
+            },
+            {
+                "id": "MCK150",
+                "size": "Large"
+            }
+        ]
+    },
+    "Multifaith Centre (MFC)": {
+        "rooms": [
+            {
+                "id": "MFC110",
+                "size": "Large"
+            }
+        ]
+    },
+    "Murray And Anne Fraser Building (FRA)": {
+        "rooms": [
+            {
+                "id": "FRA142",
+                "size": "Small"
+            },
+            {
+                "id": "FRA204",
+                "size": "Small"
+            },
+            {
+                "id": "FRA205",
+                "size": "Small"
+            },
+            {
+                "id": "FRA152",
+                "size": "Medium"
+            },
+            {
+                "id": "FRA157",
+                "size": "Medium"
+            },
+            {
+                "id": "FRA158",
+                "size": "Medium"
+            },
+            {
+                "id": "FRA159",
+                "size": "Large"
+            }
+        ]
+    },
+    "Student Union Building (SUB)": {
+        "rooms": [
+            {
+                "id": "SUBB024",
+                "size": "Small"
+            },
+            {
+                "id": "SUBB025",
+                "size": "Small"
+            },
+            {
+                "id": "SUBB028",
+                "size": "Small"
+            },
+            {
+                "id": "SUBB110A",
+                "size": "Small"
+            },
+            {
+                "id": "SUBB110B",
+                "size": "Small"
+            },
+            {
+                "id": "SUBA121",
+                "size": "Large"
+            },
+            {
+                "id": "SUBA121A",
+                "size": "Large"
+            },
+            {
+                "id": "SUBA121B",
+                "size": "Large"
+            },
+            {
+                "id": "SUBB146",
+                "size": "Large"
+            }
+        ]
+    },
+    "University Club (UCL)": {
+        "rooms": [
+            {
+                "id": "UCL122",
+                "size": "Small"
+            },
+            {
+                "id": "UCL120",
+                "size": "Medium"
+            },
+            {
+                "id": "UCL108",
+                "size": "Large"
+            }
+        ]
+    },
+    "Visual Arts Building (VIA)": {
+        "rooms": [
+            {
+                "id": "VIAA107",
+                "size": "Small"
+            },
+            {
+                "id": "VIAA220",
+                "size": "Small"
+            },
+            {
+                "id": "VIAA248",
+                "size": "Small"
+            }
+        ]
+    }
+}
