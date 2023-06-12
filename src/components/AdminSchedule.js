@@ -63,6 +63,11 @@ const AdminSchedule = () => {
                 schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
                 plugins={[resourceTimelinePlugin]}
                 editable={true}
+                
+                slotMinTime={'08:00:00'}
+                slotMaxTime={'21:00:00'}
+                slotDuration={'01:00:00'}
+                
                 headerToolbar={{
                     left: 'today prev,next',
                     center: 'title',
