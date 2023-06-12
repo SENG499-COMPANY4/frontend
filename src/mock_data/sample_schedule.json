@@ -5,6 +5,7 @@
 			"end": "2023-06-09T11:20:00",
 			"day": ["Monday", "Thursday"],
 			"coursename": "SENG499",
+			"building": "Electrical & Computer Science",
 			"room": "ECS123",
 			"professor": "Navneet Popli",
 			"type": "lecture"
@@ -14,6 +15,7 @@
 			"end": "2023-06-09T13:50:00",
 			"day": ["Tuesday", "Wednesday", "Friday"],
 			"coursename": "SENG440",
+			"building": "Electrical & Computer Science",
 			"room": "ECS125",
 			"professor": "Mihai Sima",
 			"type": "lecture"
@@ -23,6 +25,7 @@
 			"end": "2023-06-09T13:50:00",
 			"day": ["Monday", "Thursday"],
 			"coursename": "SENG426",
+			"building": "David Turpin",
 			"room": "DTBA102",
 			"professor": "Khalid Al-Hammuri",
 			"type": "lecture"
