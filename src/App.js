@@ -1,62 +1,141 @@
 import './App.css';
 import { Link } from 'react-router-dom';
-import logo from './logo.png'
+import logo from './logo.png';
 
-import('preline')
+import('preline');
 
 function App() {
-
   return (
+    <html class="h-full">
+      <body class="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16 min-h-screen">
+        <main class="w-full max-w-md mx-auto p-6">
+          <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-4 sm:p-7">
+              <div class="text-center">
+                <img src={logo} loading="lazy" class="w-50 px-20 py-5" alt="uvic logo" />
+                <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Sign in</h1>
+              </div>
+              <div class="mt-5">
+                <div class="py-3 flex items-center text-xs text-gray-400 uppercase border-t border-gray-200 dark:text-gray-500 dark:border-gray-600"></div>
 
-          <div class=" flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 mt-0 opacity-100 duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto sm:ml-auto smin-h-[calc(100%-3.5rem)] flex items-center">
-            <div class="flex flex-col item-center bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-              <div class="p-20">
-                <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-10">
-                  <div class="m-auto md:w-[80%] lg:w-[80%] xl:w-full">
-                    <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20 flex items-center">
-                      <div class="p-6 sm:p-12">
-                      <div class="flex flex-col items-center space-y-4">
-                        <img src={logo} loading="lazy" class="w-55" alt="uvic logo" />
-                        <h2 class="mb-10 text-2xl text-cyan-900 font-bold">Sign in</h2>
-                        </div>
-
-                        <div class="mt-6 grid space-y-4 flex items-center">
-                          <input
-                            type="text"
-                            placeholder="Username"
-                            class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
-                            hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                          />
-
-                          <input
-                            type="Password"
-                            placeholder="Password"
-                            class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
-                            hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                          />
-                        </div>
-
-                        <div className="mt-2 flex justify-end items-end">
-                            <Link
-                              to="/administrator"
-                              className="group h-10 px-4 border-2 border-gray-300 rounded-full transition duration-300 
-                                        bg-blue-800 text-white hover:bg-blue-200 focus:bg-blue-50 active:bg-blue-100 mt-4 active:text-white mt-4 ml-auto"
-                              name="submit"
-                              id="form-submit"
-                              accessKey="l"
-                            >
-                              <span class="mt-1 flex justify-end items-end" >Sign in</span>
-                            </Link>
+                {/* <!-- Form --> */}
+                <form>
+                  <div class="grid gap-y-4">
+                    {/* <!-- Form Group --> */}
+                    <div>
+                      <label for="username" class="block text-sm mb-2 dark:text-white">Username</label>
+                      <div class="relative">
+                        <input
+                          type="text"
+                          id="username"
+                          name="username"
+                          class="py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+                          required
+                          aria-describedby="username-error"
+                        />
+                        <div class="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
+                          <svg
+                            class="h-5 w-5 text-red-500"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            aria-hidden="true"
+                          >
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                          </svg>
                         </div>
                       </div>
+                      <p class="hidden text-xs text-red-600 mt-2" id="username-error">
+                        Please include a valid username so we can get back to you
+                      </p>
                     </div>
+                    {/* <!-- End Form Group --> */}
+
+                    {/* <!-- Form Group --> */}
+                    <div>
+                      <div class="flex justify-between items-center">
+                        <label for="password" class="block text-sm mb-2 dark:text-white">Password</label>
+                        <a
+                          class="text-sm text-blue-600 decoration-2 hover:underline font-medium"
+                          href="../examples/html/recover-account.html"
+                        >
+                          Forgot password?
+                        </a>
+                      </div>
+                      <div class="relative">
+                        <input
+                          type="password"
+                          id="password"
+                          name="password"
+                          class="py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 "
+                          required
+                          aria-describedby="password-error"
+                        />
+                        <div class="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
+                          <svg
+                            class="h-5 w-5 text-red-500"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            aria-hidden="true"
+                          >
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
+                    </div>
+                    {/* <!-- End Form Group --> */}
+
+                    {/* <!-- Checkbox --> */}
+                    <div class="flex items-center">
+                      <div class="flex">
+                        <input
+                          id="remember-me"
+                          name="remember-me"
+                          type="checkbox"
+                          class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:focus:ring-offset-gray-800"
+                        />
+
+                      </div>
+                      <div class="ml-3">
+                        <label for="remember-me" class="text-sm dark:text-white">Remember me</label>
+                      </div>
+                    </div>
+                    {/* <!-- End Checkbox --> */}
+
+                    {/* <button
+                      type="submit"
+                      class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+                    >
+                      Sign in
+                    </button> */}
+
+                    <Link
+                      to="/administrator"
+                      className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 w-full"
+                      name="submit"
+                      id="form-submit"
+                      accessKey="l"
+                    >
+                      <span class="mt-1 flex justify-end items-end" >Sign in</span>
+                    </Link>
+
+
+
                   </div>
-                </div>
+                </form>
+                {/* <!-- End Form --> */}
               </div>
             </div>
           </div>
+        </main>
+      </body>
+    </html>
 
-      );
+  );
 }
 
 export default App;
