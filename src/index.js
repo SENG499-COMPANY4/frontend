@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Professor from './Professor';
@@ -10,22 +10,19 @@ import ProfPreferences from './ProfPreferences';
 import Help from './pages/Help';
 import AdminInbox from './pages/AdminInbox';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from './components/Navbar';
 import CourseList from './components/CourseList';
 
+const Root = () => {
+  const location = useLocation();
+  const isFirstPage = location.pathname === '/';
 
+  return (
+    <React.StrictMode>
+      {isFirstPage? null: <Navbar isLoggedIn={true} isAdmin={true} isProfessor={true}/>}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-
-    <Navbar isLoggedIn={true} isAdmin={true} isProfessor={true} />
-
-    <body class="dark:bg-gray-800 dark:text-gray-500 min-h-screen ">
-
-
-      <BrowserRouter>
+      <div className="dark:bg-gray-800 dark:text-gray-500 min-h-screen">
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/preferences" element={<ProfPreferences />} />
@@ -37,9 +34,16 @@ root.render(
           <Route path="/professorList" element={<ProfessorList />} />
           <Route path="/courseList" element={<CourseListAdmin />} />
         </Routes>
-      </BrowserRouter>
-    </body>
-  </React.StrictMode>
+      </div>
+    </React.StrictMode>
+  );
+};
+
+ReactDOM.render(
+  <BrowserRouter>
+    <Root />
+  </BrowserRouter>,
+  document.getElementById('root')
 );
 
 reportWebVitals();
