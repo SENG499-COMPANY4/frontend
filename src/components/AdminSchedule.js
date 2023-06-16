@@ -144,6 +144,8 @@ const AdminSchedule = () => {
                 slotMaxTime={'21:00:00'} // 9pm
                 slotDuration={'01:00:00'}
 
+                eventOverlap={false}
+
                 resourceAreaWidth={'20%'}
 
                 headerToolbar={{
