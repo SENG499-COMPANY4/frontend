@@ -1,22 +1,24 @@
 import './App.css';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import UserContext from './contexts/UserContext'; // adjust the path as needed
 import logo from './logo.png';
 
 import('preline');
 
 function App() {
-
-  const navigate = useNavigate(); // Hook for navigation
-  const [username, setUsername] = useState(''); // State to store username
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const { setUser } = useContext(UserContext);
 
   const handleFormSubmit = (event) => {
-    event.preventDefault(); // Prevent page refresh
+    event.preventDefault();
 
-    // Navigate based on username
     if (username === 'admin') {
+      setUser({ role: 'admin' });
       navigate('/administrator');
     } else if (username === 'professor') {
+      setUser({ role: 'professor' });
       navigate('/professor');
     }
   };
