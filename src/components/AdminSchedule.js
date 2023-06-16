@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin!
 import scheduleData from '../mock_data/sample_schedule.json';
@@ -46,7 +46,14 @@ function convertJson(input) {
             end: item.end,
             startTime: startTime,
             endTime: endTime,
-            daysOfWeek: item.day.map(day => dayMap[day])
+            daysOfWeek: item.day.map(day => dayMap[day]),
+            extendedProps: {
+                professor: item.professor,
+                building: item.building,
+                room: item.room,
+                startTime: startTime,
+                endTime: endTime
+            }
         };
         // add the new schedule item to the events
         events.push(scheduleItem);
@@ -56,31 +63,85 @@ function convertJson(input) {
 
 const { resources, events } = convertJson(scheduleData);
 
+const convertTime = (time24) => {
+    let [hours, minutes] = time24.split(':');
+    const suffix = hours >= 12 ? 'PM' : 'AM';
+    hours = ((hours % 12) || 12) + ':' + minutes + ' ' + suffix;
+    return hours;
+}
+
+
+
 const AdminSchedule = () => {
+
+    const [tooltip, setTooltip] = useState(null);
+    const [tooltipContent, setTooltipContent] = useState('');
+
+    const handleMouseEnter = (info) => {
+        // Change event color on hover
+        info.el.style.backgroundColor = '#2a67a4';
+
+        const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.extendedProps.startTime)} - ${convertTime(info.event.extendedProps.endTime)}`;
+
+        const rect = info.el.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+
+        setTooltip({
+            top: rect.top + scrollTop - 10,
+            left: rect.left + scrollLeft + rect.width / 2
+        });
+
+        setTooltipContent(content);
+    }
+
+    const handleMouseLeave = () => {
+
+        // Change event color back to default
+        const events = document.getElementsByClassName('fc-event');
+        for (let i = 0; i < events.length; i++) {
+            events[i].style.backgroundColor = '#3788d8';
+        }
+
+        setTooltip(null);
+        setTooltipContent('');
+    }
     return (
         <div>
             <FullCalendar
                 schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
                 plugins={[resourceTimelinePlugin]}
                 editable={true}
-                
+
                 slotMinTime={'08:00:00'}
                 slotMaxTime={'21:00:00'}
                 slotDuration={'01:00:00'}
 
                 resourceAreaWidth={'20%'}
-                
+
                 headerToolbar={{
                     left: 'today prev,next',
                     center: 'title',
                     right: 'resourceTimelineDay,resourceTimelineWeek'
                 }}
+
                 initialView='resourceTimelineDay'
                 resourceGroupField='building'
                 resources={resources}
                 contentHeight={'auto'}
                 events={events}
+
+
+
+                eventMouseEnter={handleMouseEnter}
+                eventMouseLeave={handleMouseLeave}
             />
+            {tooltip &&
+                <div className="absolute z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre"
+                    style={{ top: tooltip.top, left: tooltip.left, transform: 'translate(-50%, -100%)' }}>
+                    {tooltipContent}
+                </div>
+            }
         </div>
     );
 }
