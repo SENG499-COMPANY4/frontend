@@ -1,12 +1,12 @@
 //About React component
-import axios from 'axios';
 import { useEffect } from 'react';
+import API from "../api";
 
 const CourseListAdmin = () => {
         const fetchData = async () => {
         
         try{
-            const response = await axios.get('http://localhost:8000/');
+            const response = await API.get('/');
             console.log('response  ', response)
             return response.data;
         }catch(error) {
@@ -21,7 +21,7 @@ const CourseListAdmin = () => {
         }
         try {
             // Make the POST request to the API endpoint
-            const response = await axios.post('http://localhost:8000/', {
+            const response = await API.post('/', {
                 body,
             });
       
