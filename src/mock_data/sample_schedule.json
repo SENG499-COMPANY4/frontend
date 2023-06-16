@@ -1,32 +1,384 @@
 {
 	"schedule": [
-		{
-			"start": "2023-06-09T10:00:00",
-			"end": "2023-06-09T11:20:00",
-			"day": ["Monday", "Thursday"],
-			"coursename": "SENG499",
-			"room": "ECS123",
-			"professor": "Navneet Popli",
-			"type": "lecture"
-		},
-		{
-			"start": "2023-06-09T13:00:00",
-			"end": "2023-06-09T13:50:00",
-			"day": ["Tuesday", "Wednesday", "Friday"],
-			"coursename": "SENG440",
-			"room": "ECS125",
-			"professor": "Mihai Sima",
-			"type": "lecture"
-		},
-		{
-			"start": "2023-06-09T13:00:00",
-			"end": "2023-06-09T13:50:00",
-			"day": ["Monday", "Thursday"],
-			"coursename": "SENG426",
-			"room": "DTBA102",
-			"professor": "Khalid Al-Hammuri",
-			"type": "lecture"
-		}
-
+	{
+	"start": "2023-06-09T10:00:00",
+	"end": "2023-06-09T11:20:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "SENG499",
+	"building": "Electrical & Computer Science",
+	"room": "ECS123",
+	"professor": "Navneet Popli",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:00:00",
+	"end": "2023-06-09T13:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "SENG440",
+	"building": "Electrical & Computer Science",
+	"room": "ECS125",
+	"professor": "Mihai Sima",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:00:00",
+	"end": "2023-06-09T13:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "SENG426",
+	"building": "David Turpin",
+	"room": "DTBA102",
+	"professor": "Khalid Al-Hammuri",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "CSC111",
+	"building": "Engineering & Computer Science",
+	"room": "ECS116",
+	"professor": "Jennifer Thompson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "CSC115",
+	"building": "Engineering & Computer Science",
+	"room": "ECS108",
+	"professor": "Robert Johnson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "ENGR110",
+	"building": "David Strong Building (DSB)",
+	"room": "DSBC112",
+	"professor": "Emily Roberts",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T14:30:00",
+	"end": "2023-06-09T15:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "ENGR120",
+	"building": "Clearihue Building (CLE)",
+	"room": "CLEA208",
+	"professor": "Michael Anderson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "ENGR130",
+	"building": "Business & Economics Building (BEC)",
+	"room": "BEC363",
+	"professor": "Jessica Davis",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "ENGR141",
+	"building": "Human & Social Development Building (HSD)",
+	"room": "HSDA264",
+	"professor": "Matthew Wilson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "MATH100",
+	"building": "Maclaurin Building (MAC)",
+	"room": "MACA166",
+	"professor": "Stephanie Foster",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "MATH109",
+	"building": "Elliott Building (ELL)",
+	"room": "ELL161",
+	"professor": "Jonathan Murphy",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "MATH101",
+	"building": "Engineering & Computer Science",
+	"room": "ECS130",
+	"professor": "Rebecca Turner",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "MATH110",
+	"building": "Bob Wright Centre (BWC)",
+	"room": "BWC B150",
+	"professor": "Nicholas Hill",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "PHYS111",
+	"building": "Cunningham Building (CUN)",
+	"room": "CUN146",
+	"professor": "Samantha Cooper",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "PHYS110",
+	"building": "Human & Social Development Building (HSD)",
+	"room": "HSDA250",
+	"professor": "Daniel Allen",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "ECE255",
+	"building": "David Strong Building (DSB)",
+	"room": "DSBC118",
+	"professor": "Olivia Young",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "CSC230",
+	"building": "Bob Wright Centre (BWC)",
+	"room": "BWC A104",
+	"professor": "William Roberts",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "CSC225",
+	"building": "Clearihue Building (CLE)",
+	"room": "CLEA118",
+	"professor": "Amelia Johnson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "CHEM101",
+	"building": "Maclaurin Building (MAC)",
+	"room": "MACA166",
+	"professor": "Benjamin Thompson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "ECON180",
+	"building": "Business & Economics Building (BEC)",
+	"room": "BEC363",
+	"professor": "Sophia Lewis",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "ECE260",
+	"building": "David Turpin Building (DTB)",
+	"room": "DTBA104",
+	"professor": "Christopher Wright",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "ECE310",
+	"building": "Elliott Building (ELL)",
+	"room": "ELL161",
+	"professor": "Natalie Harris",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "MATH122",
+	"building": "Engineering & Computer Science",
+	"room": "ECS104",
+	"professor": "David Turner",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T14:30:00",
+	"end": "2023-06-09T15:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "SENG275",
+	"building": "Engineering & Computer Science",
+	"room": "ECS124",
+	"professor": "Sophie Roberts",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "SENG265",
+	"building": "Clearihue Building (CLE)",
+	"room": "CLEA118",
+	"professor": "Jonathan Thompson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T16:30:00",
+	"end": "2023-06-09T17:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "SENG310",
+	"building": "Human & Social Development Building (HSD)",
+	"room": "HSDA250",
+	"professor": "Olivia Young",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "STAT260",
+	"building": "David Strong Building (DSB)",
+	"room": "DSBC113",
+	"professor": "William Roberts",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "ECE458",
+	"building": "Clearihue Building (CLE)",
+	"room": "CLEA208",
+	"professor": "Jessica Davis",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "CSC361",
+	"building": "Engineering & Computer Science",
+	"room": "ECS116",
+	"professor": "Benjamin Thompson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "ECE355",
+	"building": "Human & Social Development Building (HSD)",
+	"room": "HSDA264",
+	"professor": "Emily Roberts",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "CSC226",
+	"building": "David Turpin Building (DTB)",
+	"room": "DTBA104",
+	"professor": "Daniel Allen",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "CSC320",
+	"building": "Cunningham Building (CUN)",
+	"room": "CUN146",
+	"professor": "Jennifer Thompson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "ECE360",
+	"building": "David Strong Building (DSB)",
+	"room": "DSBC118",
+	"professor": "Christopher Wright",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "CSC360",
+	"building": "Engineering & Computer Science",
+	"room": "ECS124",
+	"professor": "Robert Johnson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T16:30:00",
+	"end": "2023-06-09T17:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "SENG321",
+	"building": "Clearihue Building (CLE)",
+	"room": "CLEA208",
+	"professor": "Natalie Harris",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T13:30:00",
+	"end": "2023-06-09T14:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "CSC370",
+	"building": "Human & Social Development Building (HSD)",
+	"room": "HSDA250",
+	"professor": "Amelia Johnson",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T08:30:00",
+	"end": "2023-06-09T09:50:00",
+	"day": ["Monday", "Thursday"],
+	"coursename": "SENG371",
+	"building": "Engineering & Computer Science",
+	"room": "ECS108",
+	"professor": "Sophie Roberts",
+	"type": "lecture"
+	},
+	{
+	"start": "2023-06-09T10:30:00",
+	"end": "2023-06-09T11:50:00",
+	"day": ["Tuesday", "Wednesday", "Friday"],
+	"coursename": "SENG350",
+	"building": "Clearihue Building (CLE)",
+	"room": "CLEA118",
+	"professor": "Jonathan Murphy",
+	"type": "lecture"
+	}
 	]
 }

@@ -1,7 +1,9 @@
 import React from 'react';
 import logo from '../logo.png'
 import { HiOutlineMail } from 'react-icons/hi'
-import { BiHelpCircle, BiLogOut } from 'react-icons/bi';
+import { BiHelpCircle, BiLogOut, BiEnvelope } from 'react-icons/bi';
+import { AiOutlineSchedule, AiFillSchedule, AiOutlineMail, AiOutlineForm } from 'react-icons/ai';
+import { BsCalendarRange, BsEnvelopeFill, BsSend } from 'react-icons/bs';
 
 // NavBar component
 const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
@@ -10,7 +12,7 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
       <header class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full bg-white border-b border-gray-200 text-sm py-3 sm:py-0 dark:bg-gray-800 dark:border-gray-700">
         <nav class="relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8" aria-label="Global">
           <div class="flex items-center justify-between">
-            <a href='/'>
+            <a href='/administrator'>
               <img src={logo} class="flex-none h-auto w-24" alt="logo" />
             </a>
             {/* <img src={logo} className="App-logo" alt="logo" style={{ width: '150px', height: 'auto' }} /> */}
@@ -26,29 +28,49 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
             </div>
           </div>
           <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
+
+
             <div class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
-
-
-              {/* Admin inbox button */}
               {isAdmin && isLoggedIn && (
-                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/admininbox"><HiOutlineMail /></a>
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/admininbox">
+                  <div class="flex items-center">
+                    <span class="mr-2">Inbox</span>
+                    <BiEnvelope />
+                  </div>
+                </a>
               )}
-
-              {/* Admin help button */}
               {isAdmin && isLoggedIn && (
-                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/help"><BiHelpCircle /></a>
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/administrator">
+                  <div class="flex items-center">
+                    <span class="mr-2">Schedule</span>
+                    <BsCalendarRange />
+                  </div>
+                </a>
               )}
-
-              {/* Professor set preferences button */}
               {isProfessor && isLoggedIn && (
-                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/preferences">Set Preferences</a>
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/preferences">
+                  <div class="flex items-center">
+                    <span class="mr-2">Submit Preferences</span>
+                    <BsSend />
+                  </div>
+                </a>
               )}
-
-              {/* Professor view schedule button */}
               {isProfessor && isLoggedIn && (
-                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/schedule">View Schedule</a>
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/professor">
+                  <div class="flex items-center">
+                    <span class="mr-2">Schedule</span>
+                    <BsCalendarRange />
+                  </div>
+                </a>
               )}
-
+              {isAdmin && isLoggedIn && (
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/help">
+                  <div class="flex items-center">
+                    <span class="mr-2">Help</span>
+                    <BiHelpCircle />
+                  </div>
+                </a>
+              )}
 
 
               {/* Log in button */}
@@ -87,44 +109,44 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
       <div id="login-modal" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
         <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto min-h-[calc(100%-3.5rem)] flex items-center">
           <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-          <div class="p-20 overflow-y-auto">
-                    <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-10">
-                        <div class="m-auto md:w-[80%] lg:w-[80%] xl:w-full">
-                          <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20">
-                                <div class="p-6 sm:p-12">
-                                    <div class="space-y-4">
-                                    <img src={logo} loading="lazy" className="w-55" alt="uvic logo" />
-                                        <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in <br /></h2>
-                                    </div>
-                                    <div class="mt-6 grid space-y-4">
-                                        <input
-                                          type="text"
-                                          placeholder="Username"
-                                          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+            <div class="p-20 overflow-y-auto">
+              <div class="relative container m-auto px-6 text-gray-500 md:px-12 xl:px-10">
+                <div class="m-auto md:w-[80%] lg:w-[80%] xl:w-full">
+                  <div class="rounded-xl bg-white shadow-xl p-12 sm:p-20">
+                    <div class="p-6 sm:p-12">
+                      <div class="space-y-4">
+                        <img src={logo} loading="lazy" className="w-55" alt="uvic logo" />
+                        <h2 class="mb-8 text-2xl text-cyan-900 font-bold">Sign in <br /></h2>
+                      </div>
+                      <div class="mt-6 grid space-y-4">
+                        <input
+                          type="text"
+                          placeholder="Username"
+                          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                           hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                                        />
+                        />
 
-                                    <input
-                                          type="Password"
-                                          placeholder="Password"
-                                          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
+                        <input
+                          type="Password"
+                          placeholder="Password"
+                          class="group h-12 px-6 border-2 border-gray-300 rounded-full transition duration-300 
                                           hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-                                        />
-                                    </div>
+                        />
+                      </div>
 
-                                    <div class="mt-5 flex justify-end items-end">
-                                        <button class="group h-12 px-5 border-2 border-gray-300 rounded-full transition duration-300 
-                                            bg-blue-800 text-white hover:bg-blue-200 focus:bg-blue-50 active:bg-blue-100 mt-4 active:text-white mt-4 ml-auto" 
-                                            name="submit" id="form-submit" accesskey="l" type="submit">
-                                            <span>Sign in</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                      <div class="mt-5 flex justify-end items-end">
+                        <button class="group h-12 px-5 border-2 border-gray-300 rounded-full transition duration-300 
+                                            bg-blue-800 text-white hover:bg-blue-200 focus:bg-blue-50 active:bg-blue-100 mt-4 active:text-white mt-4 ml-auto"
+                          name="submit" id="form-submit" accesskey="l" type="submit">
+                          <span>Sign in</span>
+                        </button>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
