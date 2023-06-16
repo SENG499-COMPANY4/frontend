@@ -22,7 +22,7 @@ const ClassSchedule = () => {
                 className="form-checkbox"
                 onChange={() => handleDaySelection('Course 1')}
               />
-              <span className="ml-2">MTW</span>
+              <span className="ml-2 dark:text-white">MTW</span>
             </label>
           </li>
           <li>
@@ -32,7 +32,7 @@ const ClassSchedule = () => {
                 className="form-checkbox"
                 onChange={() => handleDaySelection('Course 2')}
               />
-              <span className="ml-2">TH</span>
+              <span className="ml-2 dark:text-white">TH</span>
             </label>
           </li>
           <li>
@@ -42,7 +42,7 @@ const ClassSchedule = () => {
                 className="form-checkbox"
                 onChange={() => handleDaySelection('Course 2')}
               />
-              <span className="ml-2">MWF</span>
+              <span className="ml-2 dark:text-white">MWF</span>
             </label>
           </li>
 

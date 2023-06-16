@@ -13,11 +13,11 @@ const ClassTimes = () => {
   };
 
   return (
-    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 dark:text-white">
       <div className="sm:col-span-2">
         <div className="flex space-x-4">
           <div>
-            <label htmlFor="start-time" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="start-time" className="block text-sm font-medium text-gray-700 dark:text-white">
               Start
             </label>
             <input
@@ -29,7 +29,7 @@ const ClassTimes = () => {
             />
           </div>
           <div>
-            <label htmlFor="end-time" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="end-time" className="block text-sm font-medium text-gray-700 dark:text-white">
               End
             </label>
             <input
