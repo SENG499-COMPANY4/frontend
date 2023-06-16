@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin!
 import scheduleData from '../mock_data/sample_schedule.json';
+import interactionPlugin from "@fullcalendar/interaction";
+
 
 
 function convertJson(input) {
@@ -128,8 +130,14 @@ const AdminSchedule = () => {
         <div>
             <FullCalendar
                 schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-                plugins={[resourceTimelinePlugin]}
+                plugins={[resourceTimelinePlugin, interactionPlugin]}
+                
                 editable={true}
+                eventStartEditable={true}
+                eventResizableFromStart={true}
+                eventDurationEditable={true}
+                selectable={true}
+                droppable={true}
 
                 slotMinTime={'08:00:00'}
                 slotMaxTime={'21:00:00'}
