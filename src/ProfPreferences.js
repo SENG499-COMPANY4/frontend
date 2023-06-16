@@ -3,6 +3,7 @@ import CourseList from './components/CourseList';
 import ClassSchedule from './components/ClassSchedule';
 import { Routes, Route } from 'react-router-dom';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 export default function Example() {
@@ -13,7 +14,6 @@ export default function Example() {
         event.preventDefault();
         const data = new FormData(event.target);
         const formJson = Object.fromEntries(data.entries());
-        console.log(formJson);
     };
 
   return (
@@ -86,6 +86,16 @@ export default function Example() {
                 />
                 
             </div>
+
+            <Link
+                      
+                      className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 w-full"
+                      name="submit"
+                      id="form-submit"
+                      accessKey="l"
+                    >
+                      <span class="mt-1 flex justify-end items-end" >Submit Preferences</span>
+                    </Link>
 
 
             
