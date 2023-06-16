@@ -1,6 +1,7 @@
 //About React component
 import { useState } from 'react';
 import PreferencesPopup from '../components/PreferencesPopup';
+import preferences from '../mock_data/sample_preferences.json';
 
 const AdminInbox = () => {
     const [showPopup, setShowPopup] = useState(false);
