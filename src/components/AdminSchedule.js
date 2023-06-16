@@ -138,9 +138,10 @@ const AdminSchedule = () => {
                 eventDurationEditable={true}
                 selectable={true}
                 droppable={true}
+                snapDuration={'00:10:00'}
 
-                slotMinTime={'08:00:00'}
-                slotMaxTime={'21:00:00'}
+                slotMinTime={'08:00:00'} // 8am
+                slotMaxTime={'21:00:00'} // 9pm
                 slotDuration={'01:00:00'}
 
                 resourceAreaWidth={'20%'}
