@@ -1,5 +1,45 @@
 //About React component
+import { useEffect } from 'react';
+import API from "../api";
+
 const CourseListAdmin = () => {
+        const fetchData = async () => {
+        
+        try{
+            const response = await API.get('/');
+            console.log('response  ', response)
+            return response.data;
+        }catch(error) {
+            return [];
+        }    
+        
+    }
+
+      const postData = async () => {
+        var body = {
+            "Data": "Hii!",
+        }
+        try {
+            // Make the POST request to the API endpoint
+            const response = await API.post('/', {
+                body,
+            });
+      
+            // Handle the response data if needed
+            console.log(response.data);
+      
+          } catch (error) {
+            // Handle any error that occurred
+            console.error(error);
+          }
+
+    }
+
+    useEffect(() => {
+        fetchData();
+        postData();
+      }, []);
+
     return (
         <div class="container mx-auto px-10 max-w-screen-lg">
             {/* <!-- Table Section --> */}
