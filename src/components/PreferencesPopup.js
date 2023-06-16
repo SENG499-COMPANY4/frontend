@@ -1,28 +1,39 @@
-import preferences from '../mock_data/sample_preferences.json'
-function Popup({ preferences, onClose, firstName}) {
-    return (
-      <div class="fixed inset-0">
-        <div class="absolute inset-0 flex flex-col items-center justify-center bg-gray-800 bg-opacity-50">
-          <div class="bg-white w-[400px] rounded-lg shadow-lg p-4">
-            <div class="flex justify-end">
-              <button class="text-gray-500 hover:text-gray-700 focus:outline-none" onClick={onClose}>
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-              </button>
-            </div>
-            <h3 class="text-lg font-semibold mb-2">Preferences - Christina Bersh</h3>
-            <p>This is the content of the pop-up.</p>
-  
-            {/* Display the form submission results */}
-            <h4 class="text-md font-semibold mt-4">Form Submission Results:</h4>
+import React from 'react';
+import preferencesData from '../mock_data/sample_preferences.json'
 
-            <pre class="text-sm mt-2">{JSON.stringify(preferences, null, 2)}</pre>
-            
-          </div>
+const AdminInbox = () => {
+    const { preferences } = preferencesData;
+
+    return (
+        <div className="container mx-auto">
+            {preferences.map((preference, index) => (
+                <div key={index} className="p-4 m-4 border border-gray-300 rounded">
+                    <h2 className="text-2xl font-bold mb-2">{preference.name}</h2>
+                    <div>
+                        <strong>Courses:</strong> {preference.courses.join(', ')}
+                    </div>
+                    <div>
+                        <strong>Start Time:</strong> {preference.startTime}
+                    </div>
+                    <div>
+                        <strong>End Time:</strong> {preference.endTime}
+                    </div>
+                    <div>
+                        <strong>Class Schedule:</strong> {preference.classSchedule.join(', ')}
+                    </div>
+                    <div>
+                        <strong>Class Size:</strong> {preference.classSize}
+                    </div>
+                    <div>
+                        <strong>Technical Requirements:</strong> {preference.technicalRequirements.join(', ')}
+                    </div>
+                    <div>
+                        <strong>Other:</strong> {preference.other}
+                    </div>
+                </div>
+            ))}
         </div>
-      </div>
     );
-  }
-  
-  export default Popup;
+};
+
+export default AdminInbox;
