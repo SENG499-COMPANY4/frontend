@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom';
 
 
 export default function Example() {
-    const [preferences, setPreferences] = useState({});
+    const [selectedCourses, setSelectedCourses] = useState([]);
+    const [selectedTimes, setSelectedTimes] = useState([]);
+    const [selectedSchedule, setSelectedSchedule] = useState([]);
+    const [selectedSize, setSelectedSize] = useState([]);
 
     const handleSubmit = (event) => {
         // submit the form and display the results in the admin inbox

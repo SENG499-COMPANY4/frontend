@@ -1,3 +1,4 @@
+import preferences from '../mock_data/sample_preferences.json'
 function Popup({ preferences, onClose, firstName}) {
     return (
       <div class="fixed inset-0">
@@ -15,9 +16,7 @@ function Popup({ preferences, onClose, firstName}) {
   
             {/* Display the form submission results */}
             <h4 class="text-md font-semibold mt-4">Form Submission Results:</h4>
-            {firstName !== '' &&
-        <p>Your name is {firstName}.</p>
-      }
+
             <pre class="text-sm mt-2">{JSON.stringify(preferences, null, 2)}</pre>
             
           </div>
