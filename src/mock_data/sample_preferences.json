@@ -1,0 +1,15 @@
+{
+    "preferences": [
+        {
+            "name": "Christina Bersh",
+            "courses": ["SENG499", "ECE455"],
+            "startTime": "10:00",
+            "endTime": "12:00",
+            "classSchedule": ["MTW", "TW"],
+            "classSize": 30,
+            "technicalRequirements": ["Projector", "Whiteboard"],
+            "other": "I would like to have a class with a lot of discussion and group work." 
+
+        }
+    ]
+}

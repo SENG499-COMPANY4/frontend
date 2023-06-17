@@ -5,10 +5,13 @@ const CourseList = () => {
 
   const handleCourseSelection = (courseName) => {
     if (selectedCourses.includes(courseName)) {
-      setSelectedCourses(selectedCourses.filter((course) => course !== courseName));
+      setSelectedCourses(
+        selectedCourses.filter((course) => course !== courseName)
+      );
     } else {
       setSelectedCourses([...selectedCourses, courseName]);
     }
+    console.log(selectedCourses);
   };
 
   return (
