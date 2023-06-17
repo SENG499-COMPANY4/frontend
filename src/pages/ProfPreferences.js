@@ -11,9 +11,11 @@ export default function Example() {
   const [selectedSchedule, setSelectedSchedule] = useState([]);
   const [selectedSize, setSelectedSize] = useState([]);
   const [other, setOther] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setIsSubmitted(true);
 
     const formData = new FormData(event.target);
     const courses = Array.from(formData.getAll('course'));
@@ -121,6 +123,8 @@ export default function Example() {
               id="form-submit"
               accessKey="l"
             />
+            {isSubmitted && <p class="text-sm mt-2 text-green-500">Preferences successfully saved!</p>}
+
 
 
             

@@ -64,6 +64,15 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
                 </a>
               )}
 
+              {isProfessor && isLoggedIn && (
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/help">
+                  <div class="flex items-center">
+                    <span class="mr-2">Help</span>
+                    <BiHelpCircle />
+                  </div>
+                </a>
+              )}
+
 
               {/* Log in button */}
               {isLoggedIn ? (
@@ -76,7 +85,7 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
                       <img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full ring-2 ring-white dark:ring-gray-80" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description"></img>
                     </button>
                     <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 sm:w-30 hidden z-10 bg-white sm:shadow-md rounded-lg p-2 dark:bg-gray-800 sm:dark:border dark:border-gray-700 dark:divide-gray-700 before:absolute top-full sm:border before:-top-5 before:left-0 before:w-full before:h-5">
-                      <a class="flex justify-between items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                      <a class="flex justify-between items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="/">
                         Log out <BiLogOut />
                       </a>
                     </div>
