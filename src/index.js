@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -13,14 +13,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from './components/Navbar';
 import CourseList from './components/CourseList';
+import UserContext from './contexts/UserContext';
 
 const Root = () => {
   const location = useLocation();
+  const { user } = useContext(UserContext);
+  const isAdmin = user?.role === 'admin';
+  const isProfessor = user?.role === 'professor';
   const isFirstPage = location.pathname === '/';
 
   return (
     <React.StrictMode>
-      {isFirstPage? null: <Navbar isLoggedIn={true} isAdmin={true} isProfessor={true}/>}
+      {isFirstPage ? null : <Navbar isLoggedIn={!!user} isAdmin={isAdmin} isProfessor={isProfessor} />}
 
       <div className="dark:bg-gray-800 dark:text-gray-500 min-h-screen">
         <Routes>
@@ -39,10 +43,34 @@ const Root = () => {
   );
 };
 
+const Main = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('user');
+    }
+  }, [user]);
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      <BrowserRouter>
+        <Root />
+      </BrowserRouter>
+    </UserContext.Provider>
+  );
+};
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Root />
-  </BrowserRouter>,
+  <Main />,
   document.getElementById('root')
 );
 

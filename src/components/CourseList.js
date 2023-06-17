@@ -15,7 +15,7 @@ const CourseList = () => {
   };
 
   return (
-    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-sm text-gray-700 ">
+    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-sm text-gray-700 dark:text-white">
       <div className="sm:col-span-2">
         <ul className="space-y-2">
           <li>

@@ -1,10 +1,32 @@
 import './App.css';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import UserContext from './contexts/UserContext'; // adjust the path as needed
 import logo from './logo.png';
 
 import('preline');
 
 function App() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const { setUser } = useContext(UserContext);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+
+    if (username === 'admin') {
+      setUser({ role: 'admin' });
+      navigate('/administrator');
+    } else if (username === 'professor') {
+      setUser({ role: 'professor' });
+      navigate('/professor');
+    }
+  };
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value); // Update username state when input changes
+  };
+
   return (
     <html class="h-full">
       <body class="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16 min-h-screen">
@@ -19,9 +41,8 @@ function App() {
                 <div class="py-3 flex items-center text-xs text-gray-400 uppercase border-t border-gray-200 dark:text-gray-500 dark:border-gray-600"></div>
 
                 {/* <!-- Form --> */}
-                <form>
+                <form onSubmit={handleFormSubmit}>
                   <div class="grid gap-y-4">
-                    {/* <!-- Form Group --> */}
                     <div>
                       <label for="username" class="block text-sm mb-2 dark:text-white">Username</label>
                       <div class="relative">
@@ -32,6 +53,8 @@ function App() {
                           class="py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
                           required
                           aria-describedby="username-error"
+                          value={username}
+                          onChange={handleUsernameChange}
                         />
                         <div class="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                           <svg
@@ -113,18 +136,23 @@ function App() {
                       Sign in
                     </button> */}
 
-                    <Link
+                    {/* <Link
                       to="/administrator"
+                      className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 w-full"
+                      name="submit"
+                      id="form-submit"
+                      accessKey="l"
+                    > */}
+
+                    <button
+                      type="submit"
                       className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800 w-full"
                       name="submit"
                       id="form-submit"
                       accessKey="l"
                     >
                       <span class="mt-1 flex justify-end items-end" >Sign in</span>
-                    </Link>
-
-
-
+                    </button>
                   </div>
                 </form>
                 {/* <!-- End Form --> */}
