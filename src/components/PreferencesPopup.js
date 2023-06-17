@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import preferencesData from '../mock_data/sample_preferences.json'
 
 const AdminInbox = () => {
-    const { preferences } = preferencesData;
+    const [preferences, setPreferences] = useState(preferencesData.preferences);
+
+    // This function will remove the preference with a given index
+    const removePreference = (indexToRemove) => {
+        setPreferences(preferences.filter((_, index) => index !== indexToRemove));
+    };
 
     return (
         <div className="container mx-auto">
             {preferences.map((preference, index) => (
-                <div key={index} className="p-4 m-4 border border-gray-300 rounded">
+                <div key={index} className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700 p-4 relative">
+                    <button className="absolute top-0 right-0 p-2" onClick={() => removePreference(index)}>X</button>
                     <h2 className="text-2xl font-bold mb-2">{preference.name}</h2>
                     <div>
                         <strong>Courses:</strong> {preference.courses.join(', ')}

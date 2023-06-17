@@ -1,10 +1,11 @@
 //About React component
 import { useState } from 'react';
 import PreferencesPopup from '../components/PreferencesPopup';
-import preferences from '../mock_data/sample_preferences.json';
+import submittedPreferences from '../mock_data/sample_preferences.json';
 
 const AdminInbox = () => {
     const [showPopup, setShowPopup] = useState(false);
+    const { preferences } = submittedPreferences;
 
     const togglePopup = () => {
         setShowPopup(!showPopup);
@@ -22,7 +23,7 @@ const AdminInbox = () => {
                                 <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
                                     <div>
                                         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                                            Preferences Inbox
+                                            Inbox
                                         </h2>
                                     </div>
 
@@ -70,19 +71,22 @@ const AdminInbox = () => {
                                         </tr>
                                     </thead>
 
+
+                                    {/* Insert loop here*/}
                                     <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                                    {submittedPreferences.preferences.length > 0 && submittedPreferences.preferences.map((preference, index) => (
                                         <tr>
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
                                                         <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
                                                         <div class="grow">
-                                                            <span class="text-sm text-gray-600 dark:text-gray-400">Christina Bersh</span>
+                                                            <span class="text-sm text-gray-600 dark:text-gray-400">{preference.name}</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-
+                                            
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
@@ -122,7 +126,7 @@ const AdminInbox = () => {
                                                 </div>
                                             </td>
                                         </tr>
-
+))}
                                     </tbody>
                                 </table>
                                 {/* <!-- End Table --> */}
@@ -131,7 +135,8 @@ const AdminInbox = () => {
                                 <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
                                     <div>
                                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                                            <span class="font-semibold text-gray-800 dark:text-gray-200">6</span> results
+                                        <span class="font-semibold text-gray-800 dark:text-gray-200">{submittedPreferences.preferences.length}</span> {submittedPreferences.preferences.length === 1 ? 'result' : 'results'}
+     
                                         </p>
                                     </div>
 
