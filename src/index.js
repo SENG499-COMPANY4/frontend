@@ -6,7 +6,7 @@ import Professor from './Professor';
 import Administrator from './Administrator';
 import ProfessorList from './pages/ProfessorList';
 import CourseListAdmin from './pages/CourseListAdmin';
-import ProfPreferences from './ProfPreferences';
+import ProfPreferences from './pages/ProfPreferences';
 import Help from './pages/Help';
 import AdminInbox from './pages/AdminInbox';
 import reportWebVitals from './reportWebVitals';
