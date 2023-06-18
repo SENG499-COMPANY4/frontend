@@ -1,84 +1,103 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin!
 import scheduleData from '../mock_data/sample_schedule.json';
 import interactionPlugin from "@fullcalendar/interaction";
-
-
-
-function convertJson(input) {
-    let events = [];
-    let resources = [];
-    let rooms = new Set();
-
-    // map day names to numbers
-    const dayMap = {
-        "Sunday": 0,
-        "Monday": 1,
-        "Tuesday": 2,
-        "Wednesday": 3,
-        "Thursday": 4,
-        "Friday": 5,
-        "Saturday": 6
-    }
-
-    // iterate over each item in the schedule
-    for (let item of input.schedule) {
-        // check if this room has already been added to the rooms set
-        if (!rooms.has(item.room)) {
-            rooms.add(item.room);
-            // create the new format for the room items
-            let roomItem = {
-                id: item.room,
-                building: item.building,
-                title: item.room
-            };
-            // add the new room item to the resources
-            resources.push(roomItem);
-        }
-
-        let startTime = item.start.split("T")[1];
-        let endTime = item.end.split("T")[1];
-
-        // create the new format for the schedule items
-        let scheduleItem = {
-            resourceId: item.room,
-            title: item.coursename,
-            start: item.start,
-            end: item.end,
-            startTime: startTime,
-            endTime: endTime,
-            daysOfWeek: item.day.map(day => dayMap[day]),
-            extendedProps: {
-                professor: item.professor,
-                building: item.building,
-                room: item.room,
-                startTime: startTime,
-                endTime: endTime
-            }
-        };
-        // add the new schedule item to the events
-        events.push(scheduleItem);
-    }
-    return { resources, events };
-}
-
-const { resources, events } = convertJson(scheduleData);
-
-const convertTime = (time24) => {
-    let [hours, minutes] = time24.split(':');
-    const suffix = hours >= 12 ? 'PM' : 'AM';
-    hours = ((hours % 12) || 12) + ':' + minutes + ' ' + suffix;
-    return hours;
-}
-
-
+import API from "../api";
 
 const AdminSchedule = () => {
 
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
     const [clickedEvents, setClickedEvents] = useState([]);
+    const [ schedule, setSchedule] = useState([]);
+    const [ resources, setResources] = useState([]);
+    const [ events, setEvents] = useState([]);
+
+    function convertJson() {
+
+        let rooms = new Set();
+    
+        // map day names to numbers
+        const dayMap = {
+            "Sunday": 0,
+            "Monday": 1,
+            "Tuesday": 2,
+            "Wednesday": 3,
+            "Thursday": 4,
+            "Friday": 5,
+            "Saturday": 6
+        }
+    
+        // iterate over each item in the schedule
+        for (let item of schedule) {
+            // check if this room has already been added to the rooms set
+            if (!rooms.has(item.room)) {
+                rooms.add(item.room);
+                // create the new format for the room items
+                let roomItem = {
+                    id: item.room,
+                    building: item.building,
+                    title: item.room
+                };
+                // add the new room item to the resources
+                resources.push(roomItem);
+            }
+    
+            let startTime = item.start.split("T")[1];
+            let endTime = item.end.split("T")[1];
+    
+            // create the new format for the schedule items
+            let scheduleItem = {
+                resourceId: item.room,
+                title: item.coursename,
+                start: item.start,
+                end: item.end,
+                startTime: startTime,
+                endTime: endTime,
+                daysOfWeek: item.day.map(day => dayMap[day]),
+                extendedProps: {
+                    professor: item.professor,
+                    building: item.building,
+                    room: item.room,
+                    startTime: startTime,
+                    endTime: endTime
+                }
+            };
+            // add the new schedule item to the events
+            events.push(scheduleItem);
+        }
+        setResources({resources});
+        setEvents({events});
+        return;
+    }
+
+    const fetchData = async () => {
+        try{
+            const response = await API.get('/administrator');
+            setSchedule(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+      }, []);
+
+    useEffect(() => {
+        if(schedule.length > 0){
+            convertJson(schedule);
+        }
+    }, [schedule]);
+
+    const convertTime = (time24) => {
+        let [hours, minutes] = time24.split(':');
+        const suffix = hours >= 12 ? 'PM' : 'AM';
+        hours = ((hours % 12) || 12) + ':' + minutes + ' ' + suffix;
+        return hours;
+    }      
 
     const handleMouseEnter = (info) => {
         // // Change event color on hover
