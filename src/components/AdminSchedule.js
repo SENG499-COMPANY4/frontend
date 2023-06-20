@@ -96,7 +96,7 @@ const AdminSchedule = () => {
 
         }
 
-        setProfessors(Array.from(extractedProfessors));
+        setProfessors(Array.from(extractedProfessors).sort());
         setResources(updatedResources);
         setEvents(updatedEvents);
         return;
