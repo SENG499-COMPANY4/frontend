@@ -7,17 +7,24 @@ import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
 
 const AdminSchedule = () => {
-
+    
+    const [filter, setFilter] = useState('');
+    const [isFilterVisible, setFilterVisible] = useState(false);
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
     const [clickedEvents, setClickedEvents] = useState([]);
     const [ schedule, setSchedule] = useState([]);
     const [ resources, setResources] = useState([]);
     const [ events, setEvents] = useState([]);
+    const [professors, setProfessors] = useState([]);
+
 
     function convertJson() {
 
         let rooms = new Set();
+        let updatedResources = [];
+        let updatedEvents = [];
+        let extractedProfessors = [];
     
         // map day names to numbers
         const dayMap = {
@@ -42,7 +49,22 @@ const AdminSchedule = () => {
                     title: item.room
                 };
                 // add the new room item to the resources
-                resources.push(roomItem);
+
+                // Updated this code because i was getting errors when updating
+                // resrources with resource.push. So now I create new array and 
+                // update the state with the new array
+                updatedResources = Array.from(rooms).map(room => {
+                    return {
+                      id: room,
+                      building: room,
+                      title: room
+                    };
+                  });            
+            }
+
+            //Adding professors, to professor list for filter 
+            if (!extractedProfessors.includes(item.professor)) {
+                extractedProfessors.push(item.professor);
             }
     
             let startTime = item.start.split("T")[1];
@@ -65,11 +87,18 @@ const AdminSchedule = () => {
                     endTime: endTime
                 }
             };
+
+
             // add the new schedule item to the events
-            events.push(scheduleItem);
+            if ((scheduleItem.extendedProps.professor.toLowerCase() === filter.toLowerCase()) || filter === '' ){
+                updatedEvents.push(scheduleItem);
+            }
+
         }
-        setResources({resources});
-        setEvents({events});
+
+        setProfessors(Array.from(extractedProfessors).sort());
+        setResources(updatedResources);
+        setEvents(updatedEvents);
         return;
     }
 
@@ -90,7 +119,7 @@ const AdminSchedule = () => {
         if(schedule.length > 0){
             convertJson(schedule);
         }
-    }, [schedule]);
+    }, [schedule,filter]);
 
     const convertTime = (time24) => {
         let [hours, minutes] = time24.split(':');
@@ -147,6 +176,25 @@ const AdminSchedule = () => {
 
     return (
         <div>
+            <div className="flex justify-end mb-4">
+                <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
+                <select
+                    value={filter}
+                    onChange={(e) => setFilter(e.target.value)}
+                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                    title="day view"
+                    aria-pressed="true"
+                    >
+                    <option value="">All Professors</option>
+                    {professors.map((professor) => (
+                        <option key={professor} value={professor}>
+                        {professor}
+                        </option>
+                    ))}
+                    </select>
+                </div>
+            </div>
+
             <FullCalendar
                 schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
                 plugins={[resourceTimelinePlugin, interactionPlugin]}
