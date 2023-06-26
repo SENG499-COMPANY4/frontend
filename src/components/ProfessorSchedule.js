@@ -161,7 +161,7 @@ const ProfessorSchedule = () => {
                 headerToolbar={{
                     left: 'prev,next',
                     center: 'title',
-                    right: 'timeGridWeek'
+                    right: ''
                 }}
                 initialView='timeGridWeek'
                 resourceGroupField='building'
