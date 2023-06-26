@@ -7,15 +7,15 @@ import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
 
 const AdminSchedule = () => {
-    
+
     const [filter, setFilter] = useState('');
     const [isFilterVisible, setFilterVisible] = useState(false);
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
     const [clickedEvents, setClickedEvents] = useState([]);
-    const [ schedule, setSchedule] = useState([]);
-    const [ resources, setResources] = useState([]);
-    const [ events, setEvents] = useState([]);
+    const [schedule, setSchedule] = useState([]);
+    const [resources, setResources] = useState([]);
+    const [events, setEvents] = useState([]);
     const [professors, setProfessors] = useState([]);
 
 
@@ -26,7 +26,7 @@ const AdminSchedule = () => {
         let updatedResources = [];
         let updatedEvents = [];
         let extractedProfessors = [];
-    
+
         // map day names to numbers
         const dayMap = {
             "Sunday": 0,
@@ -37,13 +37,13 @@ const AdminSchedule = () => {
             "Friday": 5,
             "Saturday": 6
         }
-    
+
         // iterate over each item in the schedule
         for (let item of schedule) {
             // check if this room has already been added to the rooms map
             if (!roomMap.has(item.room)) {
                 roomMap.set(item.room, item.building);
-                
+
                 // add the new room item to the resources
 
                 // Updated this code because i was getting errors when updating
@@ -55,17 +55,17 @@ const AdminSchedule = () => {
                         building: building,
                         title: room
                     };
-                });            
+                });
             }
 
             //Adding professors, to professor list for filter 
             if (!extractedProfessors.includes(item.professor)) {
                 extractedProfessors.push(item.professor);
             }
-    
+
             let startTime = item.start.split("T")[1];
             let endTime = item.end.split("T")[1];
-    
+
             // create the new format for the schedule items
             let scheduleItem = {
                 resourceId: item.room,
@@ -86,7 +86,7 @@ const AdminSchedule = () => {
 
 
             // add the new schedule item to the events
-            if ((scheduleItem.extendedProps.professor.toLowerCase() === filter.toLowerCase()) || filter === '' ){
+            if ((scheduleItem.extendedProps.professor.toLowerCase() === filter.toLowerCase()) || filter === '') {
                 updatedEvents.push(scheduleItem);
             }
 
@@ -99,7 +99,7 @@ const AdminSchedule = () => {
     }
 
     const fetchData = async () => {
-        try{
+        try {
             const response = await API.get('/administrator');
             setSchedule(response.data);
         } catch (error) {
@@ -109,20 +109,20 @@ const AdminSchedule = () => {
 
     useEffect(() => {
         fetchData();
-      }, []);
+    }, []);
 
     useEffect(() => {
-        if(schedule.length > 0){
+        if (schedule.length > 0) {
             convertJson(schedule);
         }
-    }, [schedule,filter]);
+    }, [schedule, filter]);
 
     const convertTime = (time24) => {
         let [hours, minutes] = time24.split(':');
         const suffix = hours >= 12 ? 'PM' : 'AM';
         hours = ((hours % 12) || 12) + ':' + minutes + ' ' + suffix;
         return hours;
-    }      
+    }
 
     const handleMouseEnter = (info) => {
         // // Change event color on hover
@@ -158,35 +158,79 @@ const AdminSchedule = () => {
         const clickedId = info.event.id;
         const indexOfClicked = clickedEvents.indexOf(clickedId);
         const eventEl = info.el;
-      
+
         if (indexOfClicked === -1) {
-          // Event was not clicked before, add it to clickedEvents and change its color to red
-          setClickedEvents([...clickedEvents, clickedId]);
-          eventEl.style.backgroundColor = 'red';
+            // Event was not clicked before, add it to clickedEvents and change its color to red
+            setClickedEvents([...clickedEvents, clickedId]);
+            eventEl.style.backgroundColor = 'red';
         } else {
-          // Event was clicked before, remove it from clickedEvents and change its color back to default
-          setClickedEvents(clickedEvents.filter(id => id !== clickedId));
-          eventEl.style.backgroundColor = '#3788d8';
+            // Event was clicked before, remove it from clickedEvents and change its color back to default
+            setClickedEvents(clickedEvents.filter(id => id !== clickedId));
+            eventEl.style.backgroundColor = '#3788d8';
         }
-      };
+    };
+
+    // Define a function to find and update an event in our events state
+    const updateEvent = (title, changes) => {
+
+        
+        // Find the index of the event with the matching title
+        // const index = events.findIndex(event => event.title === title);
+        
+        //print all events
+        console.log(events);
+    }
+
+   // Define our eventDrop handler
+   const handleEventDrop = (info) => {
+    // info.event contains the event that has been moved
+    // We want to update this event in our state to reflect this change
+
+
+    //print all the info
+    console.log(info);
+
+    console.log(info.event.title);
+    console.log(info.event.start);
+    console.log(info.event.end);
+
+
+    updateEvent(info.event.title, {
+        start: "2023-06-26T10:00:00",
+        end: "2023-06-26T15:00:00",
+        // start: info.event.start,
+        // end: info.event.end,
+    });
+}
+
+
+// Define our eventResize handler
+const handleEventResize = (info) => {
+    // info.event contains the event that has been resized
+    // We want to update this event in our state to reflect this change
+    updateEvent(info.event.title, {
+        start: info.event.start,
+        end: info.event.end,
+    });
+}
 
     return (
         <div>
             <div className="flex justify-end mb-4">
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
-                <select
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
-                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    title="day view"
-                    aria-pressed="true"
+                    <select
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                        title="day view"
+                        aria-pressed="true"
                     >
-                    <option value="">All Professors</option>
-                    {professors.map((professor) => (
-                        <option key={professor} value={professor}>
-                        {professor}
-                        </option>
-                    ))}
+                        <option value="">All Professors</option>
+                        {professors.map((professor) => (
+                            <option key={professor} value={professor}>
+                                {professor}
+                            </option>
+                        ))}
                     </select>
                 </div>
             </div>
@@ -194,7 +238,7 @@ const AdminSchedule = () => {
             <FullCalendar
                 schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
                 plugins={[resourceTimelinePlugin, interactionPlugin]}
-                
+
                 editable={true}
                 eventStartEditable={true}
                 eventResizableFromStart={true}
@@ -221,7 +265,10 @@ const AdminSchedule = () => {
                 resourceGroupField='building'
                 resources={resources}
                 contentHeight={'auto'}
+
                 events={events}
+                eventDrop={handleEventDrop}
+                eventResize={handleEventResize}
 
                 eventMouseEnter={handleMouseEnter}
                 eventMouseLeave={handleMouseLeave}
