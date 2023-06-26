@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin!
 import scheduleData from '../mock_data/sample_schedule.json';
@@ -18,6 +17,10 @@ const AdminSchedule = () => {
     const [events, setEvents] = useState([]);
     const [professors, setProfessors] = useState([]);
 
+    useEffect(() => {
+        console.log("Schedule: ")
+        console.log(events);
+    }, [events]);
 
     function convertJson() {
 
@@ -172,47 +175,54 @@ const AdminSchedule = () => {
 
     // Define a function to find and update an event in our events state
     const updateEvent = (title, changes) => {
+        const index = events.findIndex(event => event.title === title);
+        const updatedEvents = [...events];
 
-        
-        // Find the index of the event with the matching title
-        // const index = events.findIndex(event => event.title === title);
-        
-        //print all events
-        console.log(events);
+        updatedEvents[index] = {
+            ...updatedEvents[index],
+            title: "AAA",
+            start: changes.start,
+            end: changes.end,
+            startTime: changes.startTime,
+            endTime: changes.endTime
+        };
+
+        setEvents(updatedEvents);
+
+
+        console.log(changes)
     }
 
-   // Define our eventDrop handler
-   const handleEventDrop = (info) => {
-    // info.event contains the event that has been moved
-    // We want to update this event in our state to reflect this change
+    // Define our eventDrop handler
+    const handleEventDrop = (info) => {
+        // info.event contains the event that has been moved
+        // We want to update this event in our state to reflect this change
 
 
-    //print all the info
-    console.log(info);
 
-    console.log(info.event.title);
-    console.log(info.event.start);
-    console.log(info.event.end);
+        updateEvent(info.event.title, {
 
+            // Kinda broken
+            start: info.event.start,
+            end: info.event.end.toTimeString(),
+            startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+            endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false })
 
-    updateEvent(info.event.title, {
-        start: "2023-06-26T10:00:00",
-        end: "2023-06-26T15:00:00",
-        // start: info.event.start,
-        // end: info.event.end,
-    });
-}
+        });
+    }
 
 
-// Define our eventResize handler
-const handleEventResize = (info) => {
-    // info.event contains the event that has been resized
-    // We want to update this event in our state to reflect this change
-    updateEvent(info.event.title, {
-        start: info.event.start,
-        end: info.event.end,
-    });
-}
+    // Define our eventResize handler
+    const handleEventResize = (info) => {
+        // info.event contains the event that has been resized
+        // We want to update this event in our state to reflect this change
+
+
+        updateEvent(info.event.title, {
+            start: info.event.start,
+            end: info.event.end,
+        });
+    }
 
     return (
         <div>
