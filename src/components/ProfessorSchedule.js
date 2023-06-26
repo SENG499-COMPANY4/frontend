@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import FullCalendar from '@fullcalendar/react' // must go before plugins
+import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
-import scheduleData from '../mock_data/sample_schedule.json';
-import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
 
 const ProfessorSchedule = () => {
@@ -11,15 +9,11 @@ const ProfessorSchedule = () => {
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
     const [ schedule, setSchedule] = useState([]);
-    const [ resources, setResources] = useState([]);
     const [ events, setEvents] = useState([]);
 
 
     function convertJson() {
 
-        let rooms = new Set();
-        let roomMap = new Map();
-        let updatedResources = [];
         let updatedEvents = [];
         let hard_coded_professor = "David Turner";
         console.log("hello1");
@@ -36,29 +30,12 @@ const ProfessorSchedule = () => {
         }
     
         // iterate over each item in the schedule
-
         for (let item of schedule) {
-            console.log(item.professor.toLowerCase());
-            console.log(hard_coded_professor.toLowerCase());
+            //Only display the event for the desired professor
             if (item.professor.toLowerCase() === hard_coded_professor.toLowerCase()){
-                // check if this room has already been added to the rooms map
-                if (!roomMap.has(item.room)) {
-                    roomMap.set(item.room, item.building);
-                    
-                    
-                    // add the new room item to the resources
-                    updatedResources = Array.from(roomMap.entries()).map(([room, building]) => {
-                        return {
-                            id: room,
-                            building: building,
-                            title: room
-                        };
-                    });            
-                }
-        
                 let startTime = item.start.split("T")[1];
                 let endTime = item.end.split("T")[1];
-        
+    
                 // create the new format for the schedule items
                 let scheduleItem = {
                     resourceId: item.room,
@@ -77,12 +54,10 @@ const ProfessorSchedule = () => {
                     }
                 };
                 // add the new schedule item to the events
-                if ((scheduleItem.extendedProps.professor.toLowerCase() === hard_coded_professor.toLowerCase())){
                     updatedEvents.push(scheduleItem);
-                }
             }
         }
-        setResources(updatedResources);
+
         setEvents(updatedEvents);
         return;
     }
@@ -146,18 +121,11 @@ const ProfessorSchedule = () => {
             <FullCalendar schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"               
                 plugins={[timeGridPlugin]} 
                 
-                selectable={true}
-                droppable={true}
-                snapDuration={'00:10:00'}
-
                 slotMinTime={'08:00:00'} // 8am
                 slotMaxTime={'21:00:00'} // 9pm
                 slotDuration={'01:00:00'}
-
                 eventOverlap={false}
-
                 resourceAreaWidth={'20%'}
-
                 headerToolbar={{
                     left: 'prev,next',
                     center: 'title',
@@ -165,7 +133,6 @@ const ProfessorSchedule = () => {
                 }}
                 initialView='timeGridWeek'
                 resourceGroupField='building'
-                resources={resources}
                 contentHeight={'auto'}
                 events={events}
                 allDaySlot = {false}
