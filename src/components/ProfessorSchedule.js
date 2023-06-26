@@ -36,11 +36,8 @@ const ProfessorSchedule = () => {
         }
     
         // iterate over each item in the schedule
-        console.log("hello2");
 
         for (let item of schedule) {
-            console.log("hello3");
-
             console.log(item.professor.toLowerCase());
             console.log(hard_coded_professor.toLowerCase());
             if (item.professor.toLowerCase() === hard_coded_professor.toLowerCase()){
