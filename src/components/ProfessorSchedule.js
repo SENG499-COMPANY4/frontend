@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
-import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin!
+import timeGridPlugin from '@fullcalendar/timegrid'
 import scheduleData from '../mock_data/sample_schedule.json';
 import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
@@ -134,14 +134,20 @@ const ProfessorSchedule = () => {
 
         setTooltip(null);
         setTooltipContent('');
-    };
+    }
+
+    const eventContent = (arg) => {
+        // Customize the event content to only show the event title
+        return (
+          <div className="fc-content">{arg.event.title}</div>
+        );
+      };;
 
     return (
         <div className="mb-4 ml-5 mr-5">
 
-            <FullCalendar
-                schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
-                plugins={[resourceTimelinePlugin, interactionPlugin]}
+            <FullCalendar schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"               
+                plugins={[timeGridPlugin]} 
                 
                 selectable={true}
                 droppable={true}
@@ -156,19 +162,20 @@ const ProfessorSchedule = () => {
                 resourceAreaWidth={'20%'}
 
                 headerToolbar={{
-                    left: 'today prev,next',
+                    left: 'prev,next',
                     center: 'title',
-                    right: 'resourceTimelineDay,resourceTimelineWeek'
+                    right: 'timeGridWeek'
                 }}
-
-                initialView='resourceTimelineDay'
+                initialView='timeGridWeek'
                 resourceGroupField='building'
                 resources={resources}
                 contentHeight={'auto'}
                 events={events}
-
+                allDaySlot = {false}
                 eventMouseEnter={handleMouseEnter}
                 eventMouseLeave={handleMouseLeave}
+                eventContent={eventContent} 
+
             />
             {tooltip &&
                 <div className="absolute z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre"
