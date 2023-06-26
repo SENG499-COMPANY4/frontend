@@ -22,6 +22,7 @@ const AdminSchedule = () => {
     function convertJson() {
 
         let rooms = new Set();
+        let roomMap = new Map();
         let updatedResources = [];
         let updatedEvents = [];
         let extractedProfessors = [];
@@ -39,27 +40,22 @@ const AdminSchedule = () => {
     
         // iterate over each item in the schedule
         for (let item of schedule) {
-            // check if this room has already been added to the rooms set
-            if (!rooms.has(item.room)) {
-                rooms.add(item.room);
-                // create the new format for the room items
-                let roomItem = {
-                    id: item.room,
-                    building: item.building,
-                    title: item.room
-                };
+            // check if this room has already been added to the rooms map
+            if (!roomMap.has(item.room)) {
+                roomMap.set(item.room, item.building);
+                
                 // add the new room item to the resources
 
                 // Updated this code because i was getting errors when updating
                 // resrources with resource.push. So now I create new array and 
                 // update the state with the new array
-                updatedResources = Array.from(rooms).map(room => {
+                updatedResources = Array.from(roomMap.entries()).map(([room, building]) => {
                     return {
-                      id: room,
-                      building: room,
-                      title: room
+                        id: room,
+                        building: building,
+                        title: room
                     };
-                  });            
+                });            
             }
 
             //Adding professors, to professor list for filter 
