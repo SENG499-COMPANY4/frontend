@@ -5,11 +5,12 @@ import submittedPreferences from '../mock_data/sample_preferences.json';
 
 const AdminInbox = () => {
     const [showPopup, setShowPopup] = useState(false);
-    const { preferences } = submittedPreferences;
+    const {preferences} = submittedPreferences;
 
     const togglePopup = () => {
         setShowPopup(!showPopup);
     };
+
     return (
         <div class="container mx-auto px-10 max-w-screen-lg">
             {/* <!-- Table Section --> */}
@@ -166,6 +167,7 @@ const AdminInbox = () => {
                 {/* <!-- End Card --> */}
             </div>
             {/* <!-- End Table Section --> */}
+
             {showPopup && (
                 <PreferencesPopup onClose={togglePopup} />
 
