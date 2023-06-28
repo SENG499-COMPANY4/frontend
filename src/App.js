@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from './contexts/UserContext'; // adjust the path as needed
 import logo from './logo.png';
+import API from "./api";
 
 import('preline');
 
@@ -10,18 +11,39 @@ function App() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const { setUser } = useContext(UserContext);
+  const [password, setPassword] = useState('')
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    if (username === 'admin') {
-      setUser({ role: 'admin' });
-      navigate('/administrator');
-    } else if (username === 'professor') {
-      setUser({ role: 'professor' });
-      navigate('/professor');
-    }
+    let result = await logIn(username, password);
   };
+
+  const logIn = async (username, password) => {
+    try {
+        let result = await API.post("/login", { username, password });
+        var resultData = result.data;
+        localStorage.setItem('username', username);
+        localStorage.setItem('accountType', resultData['accountType']);
+        if (resultData.accountType === "admin") {
+            setUser({ role: 'admin' });
+            navigate('/administrator');            } 
+        else if(resultData.accountType == "professor"){
+            setUser({ role: 'professor' });
+            navigate('/professor');            }
+        else {
+            navigate('/');
+        }
+        
+    } catch (err) {
+        console.error(err);
+        if (err.response.status === 401) {
+          // The request returned a 401 Unauthorized error
+          console.log("Unauthorized access. Please check your credentials.");
+          alert("Unauthorized access. Please check your credentials.");
+
+        }
+    }
+};
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value); // Update username state when input changes
@@ -94,6 +116,8 @@ function App() {
                           class="py-3 px-4 block w-full border border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 "
                           required
                           aria-describedby="password-error"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                         <div class="hidden absolute inset-y-0 right-0 flex items-center pointer-events-none pr-3">
                           <svg
