@@ -306,6 +306,8 @@ const AdminSchedule = () => {
                 slotDuration={'01:00:00'}
 
                 eventOverlap={false}
+                hiddenDays={[0, 6]} // Hide Sunday and Saturday
+
 
                 resourceAreaWidth={'20%'}
 
