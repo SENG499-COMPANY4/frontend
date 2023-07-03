@@ -20,7 +20,9 @@ const AdminSchedule = () => {
     useEffect(() => {
         console.log("Schedule: ")
         console.log(events);
+        convertEventsToJSONSchedule();
     }, [events]);
+    
 
     function convertJson() {
 
@@ -178,39 +180,53 @@ const AdminSchedule = () => {
         const index = events.findIndex(event => event.title === title);
         const updatedEvents = [...events];
 
+        //only update resourceId and room if it is not undefined or null
         updatedEvents[index] = {
             ...updatedEvents[index],
             start: changes.start,
             end: changes.end,
             startTime: changes.startTime,
-            endTime: changes.endTime
+            endTime: changes.endTime,
+            resourceId: (changes.resourceId !== undefined && changes.resourceId !== null) ? changes.resourceId : updatedEvents[index].resourceId,
+            extendedProps: {
+                ...updatedEvents[index].extendedProps,
+                room: (changes.resourceId !== undefined && changes.resourceId !== null) ? changes.resourceId : updatedEvents[index].resourceId,
+            }
         };
+        
 
         setEvents(updatedEvents);
 
-
-        console.log(changes)
     }
 
-    // Define our eventDrop handler
     const handleEventDrop = (info) => {
         // info.event contains the event that has been moved
         // We want to update this event in our state to reflect this change
+    
+        const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
+        const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
 
 
-        const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
-        const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+
+        var newResourceId = null;
+
+        if(info.newResource !== null){
+            newResourceId = info.newResource.id;
+        }
+
 
 
         updateEvent(info.event.title, {
             start: start_formatted,
             end: end_formatted,
             startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-            endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false })
-
+            endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+            resourceId: newResourceId, 
+            room: newResourceId
         });
-    }
 
+    }
+    
 
     // Define our eventResize handler
     const handleEventResize = (info) => {
@@ -228,6 +244,31 @@ const AdminSchedule = () => {
             endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false })
         });
     }
+
+    const convertEventsToJSONSchedule = () => {
+        const jsonSchedule = [];
+
+        for (let i = 0; i < events.length; i++) {
+            const event = events[i];
+            const jsonEvent = {
+                start: event.start,
+                end: event.end,
+                // day: event.start.getDay(),
+                coursename: event.title,
+                building: event.extendedProps.building,
+                room: event.resourceId,
+                professor: event.extendedProps.professor,
+            }
+            jsonSchedule.push(jsonEvent);
+
+        }
+
+        console.log(JSON.stringify(jsonSchedule, null, 2));
+
+
+        return jsonSchedule;
+    }
+
 
     return (
         <div>
@@ -258,6 +299,7 @@ const AdminSchedule = () => {
                 eventStartEditable={true}
                 eventResizableFromStart={true}
                 eventDurationEditable={true}
+                eventResourceEditable={true}
                 selectable={true}
                 droppable={true}
                 snapDuration={'00:10:00'}
@@ -284,6 +326,7 @@ const AdminSchedule = () => {
                 events={events}
                 eventDrop={handleEventDrop}
                 eventResize={handleEventResize}
+
 
                 eventMouseEnter={handleMouseEnter}
                 eventMouseLeave={handleMouseLeave}
