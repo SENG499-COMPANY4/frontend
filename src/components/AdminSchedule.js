@@ -180,7 +180,6 @@ const AdminSchedule = () => {
 
         updatedEvents[index] = {
             ...updatedEvents[index],
-            title: "AAA",
             start: changes.start,
             end: changes.end,
             startTime: changes.startTime,
@@ -199,12 +198,13 @@ const AdminSchedule = () => {
         // We want to update this event in our state to reflect this change
 
 
+        const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
+        const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+
 
         updateEvent(info.event.title, {
-
-            // Kinda broken
-            start: info.event.start,
-            end: info.event.end.toTimeString(),
+            start: start_formatted,
+            end: end_formatted,
             startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
             endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false })
 
@@ -217,10 +217,15 @@ const AdminSchedule = () => {
         // info.event contains the event that has been resized
         // We want to update this event in our state to reflect this change
 
+        const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
+        const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+
 
         updateEvent(info.event.title, {
-            start: info.event.start,
-            end: info.event.end,
+            start: start_formatted,
+            end: end_formatted,
+            startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+            endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false })
         });
     }
 
