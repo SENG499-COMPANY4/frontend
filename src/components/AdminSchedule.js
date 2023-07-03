@@ -84,8 +84,6 @@ const AdminSchedule = () => {
                     professor: item.professor,
                     building: item.building,
                     room: item.room,
-                    startTime: startTime,
-                    endTime: endTime
                 }
             };
 
@@ -122,18 +120,17 @@ const AdminSchedule = () => {
         }
     }, [schedule, filter]);
 
-    const convertTime = (time24) => {
-        let [hours, minutes] = time24.split(':');
-        const suffix = hours >= 12 ? 'PM' : 'AM';
-        hours = ((hours % 12) || 12) + ':' + minutes + ' ' + suffix;
-        return hours;
+    const convertTime = (time) => {
+        return time.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     }
 
     const handleMouseEnter = (info) => {
         // // Change event color on hover
         // info.el.style.backgroundColor = '#2a67a4';
 
-        const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.extendedProps.startTime)} - ${convertTime(info.event.extendedProps.endTime)}`;
+        console.log("eventt", info.event)
+
+        const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
         const rect = info.el.getBoundingClientRect();
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
