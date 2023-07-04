@@ -9,6 +9,7 @@ import CourseListAdmin from './pages/CourseListAdmin';
 import ProfPreferences from './pages/ProfPreferences';
 import Help from './pages/Help';
 import AdminInbox from './pages/AdminInbox';
+import AllCourses from './pages/AllCourses';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from './components/Navbar';
@@ -34,6 +35,7 @@ const Root = () => {
           <Route path="/administrator" element={<Administrator />} />
           <Route path="/help" element={<Help />} />
           <Route path="/admininbox" element={<AdminInbox />} />
+          <Route path="/allcourses" element={<AllCourses />} />
           <Route path="/schedule" element={<Professor />} />
           <Route path="/professorList" element={<ProfessorList />} />
           <Route path="/courseList" element={<CourseListAdmin />} />

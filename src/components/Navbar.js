@@ -3,7 +3,7 @@ import logo from '../logo.png'
 import { HiOutlineMail } from 'react-icons/hi'
 import { BiHelpCircle, BiLogOut, BiEnvelope } from 'react-icons/bi';
 import { AiOutlineSchedule, AiFillSchedule, AiOutlineMail, AiOutlineForm } from 'react-icons/ai';
-import { BsCalendarRange, BsEnvelopeFill, BsSend } from 'react-icons/bs';
+import { BsCalendar2Check, BsCalendar2DateFill, BsCalendar2WeekFill, BsCalendarRange, BsEnvelopeFill, BsFillBookmarksFill, BsFillBox2Fill, BsFillCalendarXFill, BsFillClipboardDataFill, BsFillTabletFill, BsFillTabletLandscapeFill, BsSend } from 'react-icons/bs';
 
 // NavBar component
 const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
@@ -36,6 +36,14 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
                   <div class="flex items-center">
                     <span class="mr-2">Inbox</span>
                     <BiEnvelope />
+                  </div>
+                </a>
+              )}
+              {isAdmin && isLoggedIn && (
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/allcourses">
+                  <div class="flex items-center">
+                    <span class="mr-2">All Courses</span>
+                    <BsFillBox2Fill />
                   </div>
                 </a>
               )}
