@@ -1,0 +1,5 @@
+.custom-select {
+  width: 150px; /* Set the desired width for the select element */
+  max-width: 100%; /* Prevent the select element from exceeding its container's width */
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}

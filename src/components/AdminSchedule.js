@@ -6,6 +6,7 @@ import scheduleData from '../mock_data/sample_schedule.json';
 import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
 import ProfessorSchedule from './ProfessorSchedule';
+import './AdminSchedule.css';
 
 const AdminSchedule = () => {
     
@@ -18,7 +19,7 @@ const AdminSchedule = () => {
     const [ resources, setResources] = useState([]);
     const [ events, setEvents] = useState([]);
     const [professors, setProfessors] = useState([]);
-    const [isCalendarPublished, setIsCalendarPublished] = useState(false);
+   // const [isCalendarPublished, setIsCalendarPublished] = useState(false);
 
 
 
@@ -111,7 +112,6 @@ const AdminSchedule = () => {
     }
 
     useEffect(() => {
-        fetchData();
       }, []);
 
     useEffect(() => {
@@ -120,9 +120,9 @@ const AdminSchedule = () => {
         }
     }, [schedule,filter]);
 
-    const handlePublishCalendar = () => {
-        setIsCalendarPublished(!isCalendarPublished);
-    };
+    // const handlePublishCalendar = () => {
+    //     setIsCalendarPublished(!isCalendarPublished);
+    // };
 
     const convertTime = (time24) => {
         let [hours, minutes] = time24.split(':');
@@ -179,18 +179,18 @@ const AdminSchedule = () => {
 
     return (
         <div>
-            <div className="flex justify-end mb-4">
+            {/* <div className="flex justify-end mb-4">
                 <button onClick={handlePublishCalendar} className="btn-publish">
                 {isCalendarPublished ? 'Unpublish Calendar' : 'Publish Calendar'}
                 </button>
-            </div>
+            </div> */}
 
             <div className="flex justify-end mb-4">
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                 <select
                     value={filter}
                     onChange={(e) => setFilter(e.target.value)}
-                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                    className="custom-select"
                     title="day view"
                     aria-pressed="true"
                     >
@@ -224,11 +224,21 @@ const AdminSchedule = () => {
 
                 resourceAreaWidth={'20%'}
 
+                customButtons={{
+                    generateButton: {
+                        text: 'Generate Schedule',
+                        click: function() {
+                            fetchData();
+                        },
+                    },
+                }}
+
                 headerToolbar={{
                     left: 'today prev,next',
                     center: 'title',
-                    right: 'resourceTimelineDay,resourceTimelineWeek'
+                    right: 'generateButton resourceTimelineDay,resourceTimelineWeek'
                 }}
+
 
                 initialView='resourceTimelineDay'
                 resourceGroupField='building'
@@ -246,9 +256,6 @@ const AdminSchedule = () => {
                     {tooltipContent}
                 </div>
             }
-            <ProfessorSchedule
-                isCalendarPublished={isCalendarPublished}
-            />
         </div>
     );
 }
