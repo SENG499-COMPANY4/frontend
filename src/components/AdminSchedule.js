@@ -5,6 +5,7 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin
 import scheduleData from '../mock_data/sample_schedule.json';
 import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
+import ProfessorSchedule from './ProfessorSchedule';
 
 const AdminSchedule = () => {
     
@@ -17,6 +18,8 @@ const AdminSchedule = () => {
     const [ resources, setResources] = useState([]);
     const [ events, setEvents] = useState([]);
     const [professors, setProfessors] = useState([]);
+    const [isCalendarPublished, setIsCalendarPublished] = useState(false);
+
 
 
     function convertJson() {
@@ -117,6 +120,10 @@ const AdminSchedule = () => {
         }
     }, [schedule,filter]);
 
+    const handlePublishCalendar = () => {
+        setIsCalendarPublished(!isCalendarPublished);
+    };
+
     const convertTime = (time24) => {
         let [hours, minutes] = time24.split(':');
         const suffix = hours >= 12 ? 'PM' : 'AM';
@@ -172,6 +179,12 @@ const AdminSchedule = () => {
 
     return (
         <div>
+            <div className="flex justify-end mb-4">
+                <button onClick={handlePublishCalendar} className="btn-publish">
+                {isCalendarPublished ? 'Unpublish Calendar' : 'Publish Calendar'}
+                </button>
+            </div>
+
             <div className="flex justify-end mb-4">
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                 <select
@@ -233,6 +246,9 @@ const AdminSchedule = () => {
                     {tooltipContent}
                 </div>
             }
+            <ProfessorSchedule
+                isCalendarPublished={isCalendarPublished}
+            />
         </div>
     );
 }
