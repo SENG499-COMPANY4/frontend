@@ -246,9 +246,6 @@ const AdminSchedule = () => {
                     {tooltipContent}
                 </div>
             }
-            <ProfessorSchedule
-                isCalendarPublished={isCalendarPublished}
-            />
         </div>
     );
 }
