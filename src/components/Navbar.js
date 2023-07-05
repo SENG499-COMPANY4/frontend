@@ -63,6 +63,14 @@ const Navbar = ({ isLoggedIn, isAdmin, isProfessor }) => {
                   </div>
                 </a>
               )}
+              {isProfessor && isLoggedIn && (
+                <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/professor">
+                  <div class="flex items-center">
+                    <span class="mr-2">Schedule</span>
+                    <BsCalendarRange />
+                  </div>
+                </a>
+              )}
               {isAdmin && isLoggedIn && (
                 <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 dark:text-gray-400 dark:hover:text-gray-500" href="/help">
                   <div class="flex items-center">
