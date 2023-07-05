@@ -8,7 +8,7 @@ const AllCourses = () => {
     const sortedSchedule = schedule.sort((a, b) => a.coursename.localeCompare(b.coursename));
   
     return (
-      <div className="container mx-auto px-10 max-w-screen-lg">
+      <div className="container mx-auto max-w-screen-max-w-xl">
         {/* Table Section */}
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
           {/* Card */}
