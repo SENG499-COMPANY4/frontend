@@ -22,28 +22,29 @@ function App() {
     try {
         let result = await API.post("/login", { username, password });
         var resultData = result.data;
-        localStorage.setItem('username', username);
-        localStorage.setItem('accountType', resultData['accountType']);
+        
         if (resultData.accountType === "admin") {
-            setUser({ role: 'admin' });
-            navigate('/administrator');            } 
-        else if(resultData.accountType == "professor"){
-            setUser({ role: 'professor' });
-            navigate('/professor');            }
+            setUser({ role: 'admin', username: username });
+            navigate('/administrator');            
+        } 
+        else if(resultData.accountType === "professor"){
+            setUser({ role: 'professor', username: username });
+            navigate('/professor');            
+        }
         else {
             navigate('/');
         }
         
     } catch (err) {
         console.error(err);
-        if (err.response.status === 401) {
+        if (err.response && err.response.status === 401) {
           // The request returned a 401 Unauthorized error
           console.log("Unauthorized access. Please check your credentials.");
           alert("Unauthorized access. Please check your credentials.");
-
         }
     }
-};
+  };
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value); // Update username state when input changes
