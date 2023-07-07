@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const DEV_URL = 'http://localhost:8000';
-const STAGE_URL = 'https://seng-499-backend.up.railway.app/api';
+const STAGE_URL = 'https://spring-sky-3750.fly.dev/api';
 
 
 const API = axios.create({
