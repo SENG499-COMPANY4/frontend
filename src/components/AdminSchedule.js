@@ -127,6 +127,10 @@ const AdminSchedule = () => {
         return time.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     }
 
+    const handlePublishCalendar = () => {
+        setIsCalendarPublished(!isCalendarPublished);
+    };
+
     const handleMouseEnter = (info) => {
         // // Change event color on hover
         // info.el.style.backgroundColor = '#2a67a4';
@@ -272,6 +276,20 @@ const AdminSchedule = () => {
 
     return (
         <div>
+
+            <div className="flex justify-right mb-4">
+                <div className="absolute z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
+                <button
+                    onClick={handlePublishCalendar}
+                    title="Publish Calendar to Professors"
+                    aria-pressed="true"
+                >
+                    {isCalendarPublished ? 'Unpublish Calendar' : 'Publish Calendar to Professors'}
+                </button>
+                </div>
+            </div>
+
+
             <div className="flex justify-end mb-4">
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                     <select
@@ -340,6 +358,9 @@ const AdminSchedule = () => {
                     {tooltipContent}
                 </div>
             }
+            <ProfessorSchedule
+                isCalendarPublished={isCalendarPublished}
+            />
         </div>
     );
 }
