@@ -12,7 +12,6 @@ const AdminSchedule = () => {
     const [isFilterVisible, setFilterVisible] = useState(false);
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
-    const [clickedEvents, setClickedEvents] = useState([]);
     const [schedule, setSchedule] = useState([]);
     const [resources, setResources] = useState([]);
     const [events, setEvents] = useState([]);
@@ -25,7 +24,7 @@ const AdminSchedule = () => {
         console.log(events);
         convertEventsToJSONSchedule();
     }, [events]);
-    
+
 
     function convertJson() {
 
@@ -160,19 +159,24 @@ const AdminSchedule = () => {
     }
 
     const handleEventClick = (info) => {
-        const clickedId = info.event.id;
-        const indexOfClicked = clickedEvents.indexOf(clickedId);
-        const eventEl = info.el;
+        // const clickedId = info.event.id;
+        // const eventEl = info.el;
 
-        if (indexOfClicked === -1) {
-            // Event was not clicked before, add it to clickedEvents and change its color to red
-            setClickedEvents([...clickedEvents, clickedId]);
-            eventEl.style.backgroundColor = 'red';
-        } else {
-            // Event was clicked before, remove it from clickedEvents and change its color back to default
-            setClickedEvents(clickedEvents.filter(id => id !== clickedId));
-            eventEl.style.backgroundColor = '#3788d8';
-        }
+        // open modal
+        document.getElementById('hs-cookies').classList.remove('hidden');
+
+        
+        document.getElementById('hs-cookies-child').classList.remove('opacity-0');
+
+        // populate modal content
+        document.querySelector('#event-title').textContent = info.event.title;
+        document.querySelector('#event-start').textContent = info.event.start;
+        document.querySelector('#event-end').textContent = info.event.end;
+        // etc..
+
+
+
+
     };
 
     // Define a function to find and update an event in our events state
@@ -193,7 +197,7 @@ const AdminSchedule = () => {
                 room: (changes.resourceId !== undefined && changes.resourceId !== null) ? changes.resourceId : updatedEvents[index].resourceId,
             }
         };
-        
+
 
         setEvents(updatedEvents);
 
@@ -202,7 +206,7 @@ const AdminSchedule = () => {
     const handleEventDrop = (info) => {
         // info.event contains the event that has been moved
         // We want to update this event in our state to reflect this change
-    
+
         const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
         const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
 
@@ -210,7 +214,7 @@ const AdminSchedule = () => {
 
         var newResourceId = null;
 
-        if(info.newResource !== null){
+        if (info.newResource !== null) {
             newResourceId = info.newResource.id;
         }
 
@@ -221,12 +225,12 @@ const AdminSchedule = () => {
             end: end_formatted,
             startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
             endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-            resourceId: newResourceId, 
+            resourceId: newResourceId,
             room: newResourceId
         });
 
     }
-    
+
 
     // Define our eventResize handler
     const handleEventResize = (info) => {
@@ -260,7 +264,6 @@ const AdminSchedule = () => {
                 professor: event.extendedProps.professor,
             }
             jsonSchedule.push(jsonEvent);
-
         }
 
         console.log(JSON.stringify(jsonSchedule, null, 2));
@@ -340,6 +343,54 @@ const AdminSchedule = () => {
                     {tooltipContent}
                 </div>
             }
+
+            {/* Modal */}
+
+            <div class="text-center">
+                <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+                    Open modal
+                </button>
+            </div>
+
+            <div id="hs-cookies" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto">
+                <div id="hs-cookies-child" class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+                    <div class="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-gray-800">
+                        <div class="absolute top-2 right-2">
+                            <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+                                <span class="sr-only">Close</span>
+                                <svg class="w-3.5 h-3.5" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10078 7.10672 7.22708 7.10552 7.35818C7.10442 7.48928 7.05182 7.61468 6.95912 7.70738C6.86642 7.80018 6.74102 7.85268 6.60992 7.85388C6.47882 7.85498 6.35252 7.80458 6.25822 7.71348L3.61171 5.06702L0.965207 7.71348C0.870907 7.80458 0.744606 7.85498 0.613506 7.85388C0.482406 7.85268 0.357007 7.80018 0.264297 7.70738C0.171597 7.61468 0.119017 7.48928 0.117877 7.35818C0.116737 7.22708 0.167126 7.10078 0.258206 7.00648L2.90471 4.36002L0.258206 1.71352C0.164476 1.61976 0.111816 1.4926 0.111816 1.36002C0.111816 1.22744 0.164476 1.10028 0.258206 1.00652Z" fill="currentColor" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="p-4 sm:p-14 text-center overflow-y-auto">
+
+                            <h3 id="event-title"></h3>
+                            <p>Start: <span id="event-start"></span></p>
+                            <p>End: <span id="event-end"></span></p>
+
+                            <h3 class="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-200">
+                                Cookies!
+                            </h3>
+                            <p class="text-gray-500">
+                                This website uses cookies to make your experience better.
+                            </p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-bl-xl bg-gray-100 border border-transparent font-semibold text-gray-800 hover:text-blue-600 focus:outline-none focus:ring-2 ring-offset-white focus:ring-gray-100 focus:ring-offset-2 transition-all text-sm dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+                                Privacy Policy
+                            </button>
+                            <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+                                Got it
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     );
 }
