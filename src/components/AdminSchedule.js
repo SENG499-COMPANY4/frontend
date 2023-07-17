@@ -165,14 +165,16 @@ const AdminSchedule = () => {
         // open modal
         document.getElementById('hs-cookies').classList.remove('hidden');
 
-        
+
         document.getElementById('hs-cookies-child').classList.remove('opacity-0');
 
         // populate modal content
         document.querySelector('#event-title').textContent = info.event.title;
-        document.querySelector('#event-start').textContent = info.event.start;
-        document.querySelector('#event-end').textContent = info.event.end;
-        // etc..
+        document.querySelector('#event-professor').textContent = info.event.extendedProps.professor;
+        document.querySelector('#event-building').textContent = info.event.extendedProps.building;
+        document.querySelector('#event-room').textContent = info.event.extendedProps.room;
+        document.querySelector('#event-time').textContent = `${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
+
 
 
 
@@ -366,24 +368,65 @@ const AdminSchedule = () => {
 
                         <div class="p-4 sm:p-14 text-center overflow-y-auto">
 
-                            <h3 id="event-title"></h3>
-                            <p>Start: <span id="event-start"></span></p>
-                            <p>End: <span id="event-end"></span></p>
-
-                            <h3 class="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-200">
+                            {/* <h3 id="event-title"></h3> */}
+                            <h3 id="event-title" class="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-200">
                                 Cookies!
                             </h3>
-                            <p class="text-gray-500">
-                                This website uses cookies to make your experience better.
-                            </p>
+                            <p>Professor: <span id="event-professor"></span></p>
+                            <p>Building: <span id="event-building"></span></p>
+                            <p>Room: <span id="event-room"></span></p>
+                            <p>Time: <span id="event-time"></span></p>
+
+                            {/* Professor Dropdown */}
+                            <div class="hs-dropdown relative inline-flex">
+                                <button id="hs-dropdown-default" type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                                    Professor
+                                    <svg class="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                </button>
+
+                                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-72 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700" aria-labelledby="hs-dropdown-default">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        Newsletter
+                                    </a>
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        Purchases
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            {/* Class Dropdown */}
+                            <div class="hs-dropdown relative inline-flex">
+                                <button id="hs-dropdown-default" type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
+                                    Room
+                                    <svg class="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    </svg>
+                                </button>
+
+                                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-72 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700" aria-labelledby="hs-dropdown-default">
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        Newsletter
+                                    </a>
+                                    <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                                        Purchases
+                                    </a>
+
+                                </div>
+                            </div>
+
                         </div>
+
+
 
                         <div class="flex items-center">
                             <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-bl-xl bg-gray-100 border border-transparent font-semibold text-gray-800 hover:text-blue-600 focus:outline-none focus:ring-2 ring-offset-white focus:ring-gray-100 focus:ring-offset-2 transition-all text-sm dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
-                                Privacy Policy
+                                Cancel
                             </button>
                             <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
-                                Got it
+                                Save
                             </button>
                         </div>
                     </div>
