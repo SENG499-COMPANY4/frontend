@@ -310,7 +310,7 @@ const AdminSchedule = () => {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-            title="day view"
+            
             aria-pressed="true"
           >
             <option value="">All Professors</option>
@@ -401,7 +401,7 @@ const AdminSchedule = () => {
                     // value={filter}
                     // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    title="day view"
+                    
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
@@ -421,7 +421,7 @@ const AdminSchedule = () => {
                     // value={filter}
                     // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    title="day view"
+                    
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
@@ -441,7 +441,7 @@ const AdminSchedule = () => {
                     // value={filter}
                     // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    title="day view"
+                    
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
@@ -461,7 +461,7 @@ const AdminSchedule = () => {
                     // value={filter}
                     // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    title="day view"
+                    
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
