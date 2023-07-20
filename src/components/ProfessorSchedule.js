@@ -32,14 +32,13 @@ const ProfessorSchedule = () => {
         // iterate over each item in the schedule
         for (let item of schedule) {
             //Only display the event for the desired professor
-            if (item.professor.toLowerCase() === hard_coded_professor.toLowerCase()){
                 let startTime = item.start.split("T")[1];
                 let endTime = item.end.split("T")[1];
-    
+                const courseTitle = item.coursename.split(' ').slice(-2).join(' ');
                 // create the new format for the schedule items
                 let scheduleItem = {
                     resourceId: item.room,
-                    title: item.coursename,
+                    title: courseTitle,
                     start: item.start,
                     end: item.end,
                     startTime: startTime,
@@ -56,7 +55,7 @@ const ProfessorSchedule = () => {
                 // add the new schedule item to the events
                     updatedEvents.push(scheduleItem);
             }
-        }
+        
 
         setEvents(updatedEvents);
         return;
@@ -64,7 +63,7 @@ const ProfessorSchedule = () => {
 
     const fetchData = async () => {
         try{
-            const response = await API.get('/administrator');
+            const response = await API.get('/schedule');
             setSchedule(response.data);
         } catch (error) {
             console.error(error);
@@ -76,7 +75,10 @@ const ProfessorSchedule = () => {
       }, []);
     
       useEffect(() => {
-        convertJson();
+        if(schedule.length > 0){
+            console.log(schedule);
+            convertJson(schedule);
+        }
       }, [schedule]);
 
     const convertTime = (time24) => {
