@@ -4,7 +4,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import API from "../api";
 
-const ProfessorSchedule = ({ isCalendarPublished }) => {
+const ProfessorSchedule = () => {
     
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
@@ -117,7 +117,6 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
 
     return (
         <div className="mb-4 ml-5 mr-5">
-            {isCalendarPublished ? (
             <FullCalendar schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"               
                 plugins={[timeGridPlugin]} 
                 
@@ -141,9 +140,6 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
                 eventContent={eventContent} 
 
             />
-            ) : (
-                <div>The calendar has not been published.</div>
-            )}
             {tooltip &&
                 <div className="absolute z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre"
                     style={{ top: tooltip.top, left: tooltip.left, transform: 'translate(-50%, -100%)' }}>
