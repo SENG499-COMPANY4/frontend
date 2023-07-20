@@ -127,9 +127,21 @@ const AdminSchedule = () => {
         return time.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     }
 
-    const handlePublishCalendar = () => {
-        setIsCalendarPublished(!isCalendarPublished);
-    };
+    const handlePublishCalendar = async () => {
+        try {
+          // If the calendar is already published, send a request to unpublish it.
+          if (isCalendarPublished) {
+            await API.post('/api/publish', { published: false });
+            setIsCalendarPublished(false);
+          } else {
+            // If the calendar is not published, send a request to publish it.
+            await API.post('/api/publish', { published: true });
+            setIsCalendarPublished(true);
+          }
+        } catch (error) {
+          console.error("Error publishing/unpublishing calendar:", error);
+        }
+      };
 
     const handleMouseEnter = (info) => {
         // // Change event color on hover
