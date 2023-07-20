@@ -4,7 +4,6 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline' // a plugin
 import scheduleData from '../mock_data/sample_schedule.json';
 import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
-import ProfessorSchedule from './ProfessorSchedule';
 
 const AdminSchedule = () => {
 
@@ -17,7 +16,7 @@ const AdminSchedule = () => {
     const [resources, setResources] = useState([]);
     const [events, setEvents] = useState([]);
     const [professors, setProfessors] = useState([]);
-    const [isCalendarPublished, setIsCalendarPublished] = useState(false);
+    const [publishStatus, setPublishStatus] = useState(false);
 
 
     useEffect(() => {
@@ -106,8 +105,15 @@ const AdminSchedule = () => {
 
     const fetchData = async () => {
         try {
-            const response = await API.get('/administrator');
-            setSchedule(response.data);
+            const sched = await API.get('/schedule');
+            setPublishStatus(sched.data.publishStatus);
+
+            let newSched = [];
+            for (let i = 0; i < 99; i += 1) {
+                newSched.push(sched.data.schedule[i]);
+            }
+
+            setSchedule(newSched);
         } catch (error) {
             console.error(error);
         }
@@ -314,8 +320,19 @@ const AdminSchedule = () => {
 
                 resourceAreaWidth={'20%'}
 
+                customButtons={{
+                    publishButton: {
+                        text: publishStatus ? 'Unpublish' : 'Publish',
+                        click: async function() {
+                            // const output = await API.post('/schedule');
+                            // console.log(output.data.publishStatus);
+                            const result = await API.post('/schedule')
+                            setPublishStatus(result.data.publishStatus);
+                        },
+                    },
+                }}
                 headerToolbar={{
-                    left: 'today prev,next',
+                    left: 'today prev,next publishButton',
                     center: 'title',
                     right: 'resourceTimelineDay,resourceTimelineWeek'
                 }}

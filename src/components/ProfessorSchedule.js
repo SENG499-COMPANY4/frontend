@@ -4,7 +4,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import API from "../api";
 
-const ProfessorSchedule = ({ isCalendarPublished }) => {
+const ProfessorSchedule = () => {
     
     const [tooltip, setTooltip] = useState(null);
     const [tooltipContent, setTooltipContent] = useState('');
@@ -16,7 +16,6 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
 
         let updatedEvents = [];
         let hard_coded_professor = "David Turner";
-        console.log("hello1");
    
         // map day names to numbers
         const dayMap = {
@@ -32,14 +31,14 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
         // iterate over each item in the schedule
         for (let item of schedule) {
             //Only display the event for the desired professor
-            if (item.professor.toLowerCase() === hard_coded_professor.toLowerCase()){
                 let startTime = item.start.split("T")[1];
                 let endTime = item.end.split("T")[1];
-    
+                const courseTitle = item.coursename.split(' ').slice(-2).join(' ');
+
                 // create the new format for the schedule items
                 let scheduleItem = {
                     resourceId: item.room,
-                    title: item.coursename,
+                    title: courseTitle,
                     start: item.start,
                     end: item.end,
                     startTime: startTime,
@@ -55,7 +54,7 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
                 };
                 // add the new schedule item to the events
                     updatedEvents.push(scheduleItem);
-            }
+            
         }
 
         setEvents(updatedEvents);
@@ -64,8 +63,8 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
 
     const fetchData = async () => {
         try{
-            const response = await API.get('/administrator');
-            setSchedule(response.data);
+            const sched = await API.get('/schedule');
+            setSchedule(sched.data);
         } catch (error) {
             console.error(error);
         }
@@ -75,9 +74,13 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
         fetchData();
       }, []);
     
-      useEffect(() => {
-        convertJson();
-      }, [schedule]);
+    useEffect(() => {
+        console.log(schedule)
+
+        if (schedule.length > 0) {
+            convertJson(schedule);
+        }      
+    }, [schedule]);
 
     const convertTime = (time24) => {
         let [hours, minutes] = time24.split(':');
@@ -117,7 +120,6 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
 
     return (
         <div className="mb-4 ml-5 mr-5">
-            {isCalendarPublished ? (
             <FullCalendar schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"               
                 plugins={[timeGridPlugin]} 
                 
@@ -141,9 +143,6 @@ const ProfessorSchedule = ({ isCalendarPublished }) => {
                 eventContent={eventContent} 
 
             />
-            ) : (
-                <div>The calendar has not been published.</div>
-            )}
             {tooltip &&
                 <div className="absolute z-10 py-3 px-4 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre"
                     style={{ top: tooltip.top, left: tooltip.left, transform: 'translate(-50%, -100%)' }}>
