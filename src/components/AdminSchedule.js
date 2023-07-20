@@ -20,8 +20,8 @@ const AdminSchedule = () => {
 
 
   useEffect(() => {
-    console.log("Schedule: ")
-    console.log(events);
+    // console.log("Schedule: ")
+    // console.log(events);
     convertEventsToJSONSchedule();
   }, [events]);
 
@@ -144,7 +144,7 @@ const AdminSchedule = () => {
     // // Change event color on hover
     // info.el.style.backgroundColor = '#2a67a4';
 
-    console.log("eventt", info.event)
+    // console.log("event", info.event)
 
     const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
@@ -200,6 +200,8 @@ const AdminSchedule = () => {
     const index = events.findIndex(event => event.title === title);
     const updatedEvents = [...events];
 
+    // console.log(changes);
+
     //only update resourceId and room if it is not undefined or null
     updatedEvents[index] = {
       ...updatedEvents[index],
@@ -211,6 +213,7 @@ const AdminSchedule = () => {
       extendedProps: {
         ...updatedEvents[index].extendedProps,
         room: (changes.resourceId !== undefined && changes.resourceId !== null) ? changes.resourceId : updatedEvents[index].resourceId,
+        building: changes.building,
       }
     };
 
@@ -227,41 +230,51 @@ const AdminSchedule = () => {
     const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
 
 
-
+    console.log(info)
+    
     var newResourceId = null;
-
     if (info.newResource !== null) {
       newResourceId = info.newResource.id;
     }
-
-
-
+    
+    
+    var building = null;
+    if (info.newResource?.extendedProps?.building) {
+      building = info.newResource.extendedProps.building;
+    }
+    else{
+      building = info.oldEvent.extendedProps.building;
+    }
+    
     updateEvent(info.event.title, {
       start: start_formatted,
       end: end_formatted,
       startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
       endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
       resourceId: newResourceId,
-      room: newResourceId
+      room: newResourceId,
+      building: building,
     });
-
+    
   }
-
+  
 
   // Define our eventResize handler
   const handleEventResize = (info) => {
     // info.event contains the event that has been resized
     // We want to update this event in our state to reflect this change
-
+    
     const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
     const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
-
+    
+    console.log(info)
 
     updateEvent(info.event.title, {
       start: start_formatted,
       end: end_formatted,
       startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false })
+      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+      building: info.event.extendedProps.building,
     });
   }
 
@@ -282,7 +295,7 @@ const AdminSchedule = () => {
       jsonSchedule.push(jsonEvent);
     }
 
-    console.log(JSON.stringify(jsonSchedule, null, 2));
+    // console.log(JSON.stringify(jsonSchedule, null, 2));
 
 
     return jsonSchedule;
