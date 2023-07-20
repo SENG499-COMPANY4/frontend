@@ -112,6 +112,20 @@ const AdminSchedule = () => {
     }
   }
 
+  // async function fetchProfessorData() {
+  //   try {
+
+  //     console.log(await API);
+
+  //     const response = await API.get('/rooms');
+  //     console.log(response.data)
+  //     return response.data;
+  //   }
+  //   catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -163,10 +177,10 @@ const AdminSchedule = () => {
     // const eventEl = info.el;
 
     // open modal
-    document.getElementById('hs-cookies').classList.remove('hidden');
+    document.getElementById('modal').classList.remove('hidden');
 
 
-    document.getElementById('hs-cookies-child').classList.remove('opacity-0');
+    document.getElementById('modal-child').classList.remove('opacity-0');
 
     // populate modal content
     document.querySelector('#event-title').textContent = info.event.title;
@@ -349,16 +363,16 @@ const AdminSchedule = () => {
       {/* Modal */}
 
       <div class="text-center">
-        <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+        <button type="button" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
           Open modal
         </button>
       </div>
 
-      <div id="hs-cookies" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto flex items-center justify-center">
-        <div id="hs-cookies-child" class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-          <div class="relative flex flex-col bg-white shadow-lg rounded-xl dark:bg-gray-800">
+      <div id="modal" class="hs-overlay hidden w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto flex items-center justify-center">
+        <div id="modal-child" class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+          <div class="relative flex flex-col bg-white shadow-2xl rounded-xl dark:bg-gray-800">
             <div class="absolute top-2 right-2">
-              <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+              <button type="button" class="inline-flex flex-shrink-0 justify-center items-center h-8 w-8 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 <span class="sr-only">Close</span>
                 <svg class="w-3.5 h-3.5" width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10078 7.10672 7.22708 7.10552 7.35818C7.10442 7.48928 7.05182 7.61468 6.95912 7.70738C6.86642 7.80018 6.74102 7.85268 6.60992 7.85388C6.47882 7.85498 6.35252 7.80458 6.25822 7.71348L3.61171 5.06702L0.965207 7.71348C0.870907 7.80458 0.744606 7.85498 0.613506 7.85388C0.482406 7.85268 0.357007 7.80018 0.264297 7.70738C0.171597 7.61468 0.119017 7.48928 0.117877 7.35818C0.116737 7.22708 0.167126 7.10078 0.258206 7.00648L2.90471 4.36002L0.258206 1.71352C0.164476 1.61976 0.111816 1.4926 0.111816 1.36002C0.111816 1.22744 0.164476 1.10028 0.258206 1.00652Z" fill="currentColor" />
@@ -366,66 +380,101 @@ const AdminSchedule = () => {
               </button>
             </div>
 
-            <div class="p-4 sm:p-14 text-center overflow-y-auto">
+            <div class="p-4 sm:px-20 overflow-y-auto flex flex-col items-start justify-center w-full">
 
-              {/* <h3 id="event-title"></h3> */}
-              <h3 id="event-title" class="mb-2 text-2xl font-bold text-gray-800 dark:text-gray-200">
-                Cookies!
-              </h3>
-              <p>Professor: <span id="event-professor"></span></p>
-              <p>Building: <span id="event-building"></span></p>
-              <p>Room: <span id="event-room"></span></p>
-              <p>Time: <span id="event-time"></span></p>
+              <div class="flex justify-center w-full">
+                <h3 id="event-title" class="mb-5 text-2xl font-bold text-gray-800 dark:text-gray-200"></h3>
+              </div>
 
               {/* Professor Dropdown */}
-              <div class="hs-dropdown relative inline-flex">
-                <button id="hs-dropdown-default" type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-                  Professor
-                  <svg class="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                </button>
-
-                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-72 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700" aria-labelledby="hs-dropdown-default">
-                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                    Newsletter
-                  </a>
-                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                    Purchases
-                  </a>
-
+              <div class="mb-4 w-full flex items-center justify-between">
+                <p className='px-2'>Professor:</p>
+                <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
+                  <select
+                    // value={filter}
+                    // onChange={(e) => setFilter(e.target.value)}
+                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                    title="day view"
+                    aria-pressed="true"
+                  >
+                    {/* CHANGE TO USE NEW API INSTEAD */}
+                    <option id='event-professor'>
+                      Select Professor
+                    </option>
+                  </select>
                 </div>
               </div>
+              {/* End Professor Dropdown */}
 
-              {/* Class Dropdown */}
-              <div class="hs-dropdown relative inline-flex">
-                <button id="hs-dropdown-default" type="button" class="hs-dropdown-toggle py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-blue-600 transition-all text-sm dark:bg-slate-900 dark:hover:bg-slate-800 dark:border-gray-700 dark:text-gray-400 dark:hover:text-white dark:focus:ring-offset-gray-800">
-                  Room
-                  <svg class="hs-dropdown-open:rotate-180 w-2.5 h-2.5 text-gray-600" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                  </svg>
-                </button>
-
-                <div class="hs-dropdown-menu transition-[opacity,margin] duration-[0.1ms] hs-dropdown-open:opacity-100 opacity-0 w-72 hidden z-10 mt-2 min-w-[15rem] bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700 dark:divide-gray-700" aria-labelledby="hs-dropdown-default">
-                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                    Newsletter
-                  </a>
-                  <a class="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                    Purchases
-                  </a>
-
+              {/* Building Dropdown */}
+              <div class="mb-4 w-full flex items-center justify-between">
+                <p className='px-2'>Building:</p>
+                <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
+                  <select
+                    // value={filter}
+                    // onChange={(e) => setFilter(e.target.value)}
+                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                    title="day view"
+                    aria-pressed="true"
+                  >
+                    {/* CHANGE TO USE NEW API INSTEAD */}
+                    <option id='event-building'>
+                      Select Building
+                    </option>
+                  </select>
                 </div>
               </div>
+              {/* End Building Dropdown */}
+
+              {/* Room Dropdown */}
+              <div class="mb-4 w-full flex items-center justify-between">
+                <p className='px-2'>Room:</p>
+                <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
+                  <select
+                    // value={filter}
+                    // onChange={(e) => setFilter(e.target.value)}
+                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                    title="day view"
+                    aria-pressed="true"
+                  >
+                    {/* CHANGE TO USE NEW API INSTEAD */}
+                    <option id='event-room'>
+                      Select Room
+                    </option>
+                  </select>
+                </div>
+              </div>
+              {/* End Room Dropdown */}
+
+              {/* Time Dropdowns */}
+              <div class="mb-4 w-full flex items-center justify-between">
+                <p className='px-2'>Time:</p>
+                <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
+                  <select
+                    // value={filter}
+                    // onChange={(e) => setFilter(e.target.value)}
+                    className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
+                    title="day view"
+                    aria-pressed="true"
+                  >
+                    {/* CHANGE TO USE NEW API INSTEAD */}
+                    <option id='event-time'>
+                      Select Time
+                    </option>
+                  </select>
+                </div>
+              </div>
+              {/* End Time Dropdowns */}
 
             </div>
 
 
 
             <div class="flex items-center">
-              <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-bl-xl bg-gray-100 border border-transparent font-semibold text-gray-800 hover:text-blue-600 focus:outline-none focus:ring-2 ring-offset-white focus:ring-gray-100 focus:ring-offset-2 transition-all text-sm dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+              <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-bl-xl bg-gray-100 border border-transparent font-semibold text-gray-800 hover:text-blue-600 focus:outline-none focus:ring-2 ring-offset-white focus:ring-gray-100 focus:ring-offset-2 transition-all text-sm dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Cancel
               </button>
-              <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#hs-cookies">
+              <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Save
               </button>
             </div>
