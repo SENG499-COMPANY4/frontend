@@ -1,9 +1,8 @@
-import { Routes, Route, Form } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
 import React, { useState } from 'react';
 import API from '../api';
 
 export default function Example() {
-  const [other, setOther] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
