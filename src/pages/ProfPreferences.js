@@ -22,7 +22,7 @@ export default function Example() {
     };
 
     console.log(jsonData); // You can remove this line or customize how you want to handle the generated JSON data
-    API.post('/preferences', jsonData)
+    //API.post('/preferences', jsonData)
   };
 
   return (
@@ -47,12 +47,13 @@ export default function Example() {
 
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 mb-5">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Preferences</dt>
-                <input
-                name="other"
-                id="preferences-string"
-                type="text"
-                className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-grey-300 rounded-md"
-                />
+                <textarea
+                  name="other"
+                  id="preferences-string"
+                  rows="5"
+                  className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border border-grey-300 rounded-md"
+                  placeholder="Enter your preferences here..."
+                ></textarea>
                 
             </div>
 
