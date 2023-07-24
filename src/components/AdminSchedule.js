@@ -38,6 +38,7 @@ const AdminSchedule = () => {
     let updatedEvents = [];
     let extractedProfessors = [];
 
+
     // map day names to numbers
     const dayMap = {
       "Sunday": 0,
@@ -104,6 +105,9 @@ const AdminSchedule = () => {
     setProfessors(Array.from(extractedProfessors).sort());
     setResources(updatedResources);
     setEvents(updatedEvents);
+
+    console.log(roomMap)
+
     return;
   }
 
@@ -184,7 +188,7 @@ const AdminSchedule = () => {
     // const clickedId = info.event.id;
     // const eventEl = info.el;
 
-    setSelectedProfessor('')
+    setTemporaryProfessor('')
     // open modal
     document.getElementById('modal').classList.remove('hidden');
 
@@ -229,6 +233,7 @@ const AdminSchedule = () => {
 
 
     setEvents(updatedEvents);
+
 
   }
 
@@ -308,7 +313,7 @@ const AdminSchedule = () => {
       jsonSchedule.push(jsonEvent);
     }
 
-    // console.log(JSON.stringify(jsonSchedule, null, 2));
+    console.log(JSON.stringify(jsonSchedule, null, 2));
 
 
     return jsonSchedule;
@@ -412,10 +417,9 @@ const AdminSchedule = () => {
                 <p className='px-2'>Professor:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    value={selectedProfessor}
+                    value={temporaryProfessor}
                     onChange={(e) => {
-                      setSelectedProfessor(e.target.value);
-                      updateEvent(document.querySelector('#event-title').textContent, { professor: e.target.value });
+                      setTemporaryProfessor(e.target.value);
                     }}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
                     aria-pressed="true"
@@ -443,8 +447,6 @@ const AdminSchedule = () => {
                 <p className='px-2'>Building:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
 
                     aria-pressed="true"
@@ -463,8 +465,6 @@ const AdminSchedule = () => {
                 <p className='px-2'>Room:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
 
                     aria-pressed="true"
@@ -483,8 +483,6 @@ const AdminSchedule = () => {
                 <p className='px-2'>Time:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
 
                     aria-pressed="true"
@@ -506,7 +504,11 @@ const AdminSchedule = () => {
               <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-bl-xl bg-gray-100 border border-transparent font-semibold text-gray-800 hover:text-blue-600 focus:outline-none focus:ring-2 ring-offset-white focus:ring-gray-100 focus:ring-offset-2 transition-all text-sm dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Cancel
               </button>
-              <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
+              <button type="button" onClick={() => {
+                setSelectedProfessor(temporaryProfessor);
+                updateEvent(document.querySelector('#event-title').textContent, { professor: temporaryProfessor });
+              }}
+                class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Save
               </button>
             </div>
