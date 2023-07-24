@@ -16,7 +16,6 @@ const ProfessorSchedule = () => {
 
         let updatedEvents = [];
         let hard_coded_professor = "David Turner";
-        console.log("hello1");
    
         // map day names to numbers
         const dayMap = {
@@ -63,8 +62,27 @@ const ProfessorSchedule = () => {
 
     const fetchData = async () => {
         try{
-            const response = await API.get('/schedule');
-            setSchedule(response.data);
+            const config = {
+                headers:{
+                  name: "Bird, Bill",
+                  year: 2024,
+                  semester: 1
+                }
+              };
+            const configure = {
+            headers:{
+                year: 2024,
+                semester: 1
+            }
+            };
+            const response = await API.get('/schedule', config);
+            const published = await API.get('/publish', configure);
+            if(published.data.published == false){
+                setSchedule([]);
+            }else{
+                setSchedule(response.data);
+
+            }
         } catch (error) {
             console.error(error);
         }
@@ -76,7 +94,6 @@ const ProfessorSchedule = () => {
     
       useEffect(() => {
         if(schedule.length > 0){
-            console.log(schedule);
             convertJson(schedule);
         }
       }, [schedule]);

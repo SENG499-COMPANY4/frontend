@@ -104,15 +104,17 @@ const AdminSchedule = () => {
 
   const fetchData = async () => {
     try {
-        const sched = await API.get('/schedule');
-        setPublishStatus(sched.data.publishStatus);
-
-        let newSched = [];
-        for (let i = 0; i < 99; i += 1) {
-            newSched.push(sched.data.schedule[i]);
+      const config = {
+        headers:{
+          year: 2024,
+          semester: 1
         }
-
-        setSchedule(newSched);
+      };
+        const sched = await API.get('/schedule', config);
+        const published = await API.get('/publish', config);
+        console.log(published.data.published);
+        setPublishStatus(published.data.published);
+        setSchedule(sched.data);
     } catch (error) {
         console.error(error);
     }
@@ -358,8 +360,16 @@ const AdminSchedule = () => {
                 click: async function() {
                     // const output = await API.post('/schedule');
                     // console.log(output.data.publishStatus);
-                    const result = await API.post('/schedule')
-                    setPublishStatus(result.data.publishStatus);
+                    const data = {
+                      published: !publishStatus
+                    }
+                    const config = {
+                      headers:{
+                        term: "202401",
+                      }
+                    };
+                    const result = await API.post('/publish',data,config);
+                    setPublishStatus(result.data.published);
                 },
             },
         }}
