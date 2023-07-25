@@ -5,7 +5,8 @@ const STAGE_URL = 'https://spring-sky-3750.fly.dev/api';
 
 
 const API = axios.create({
-  baseURL: STAGE_URL
+  baseURL: STAGE_URL,
+  withCredentials: true
 });
 
 // Import this object instead of axios

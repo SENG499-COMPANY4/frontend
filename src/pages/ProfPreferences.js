@@ -1,5 +1,5 @@
 import { Routes } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import API from '../api';
 
 export default function Example() {
@@ -24,6 +24,19 @@ export default function Example() {
     console.log(jsonData); // You can remove this line or customize how you want to handle the generated JSON data
     //API.post('/preferences', jsonData)
   };
+
+  useEffect(() => {
+    fetchPreferences();
+  }, []);
+
+  async function fetchPreferences() {
+    try {
+      const response = await API.get('/preferences');
+      console.log(response.data)
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div class="container mx-auto px-10 max-w-screen-lg">
