@@ -20,8 +20,15 @@ function App() {
 
   const logIn = async (username, password) => {
     try {
-        let result = await API.post("/login", { username, password });
-        var resultData = result.data;
+      const result = await fetch("https://spring-sky-3750.fly.dev/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
+      const resultData = await result.json();
         
         if (resultData.accountType === "admin") {
             setUser({ role: 'admin', username: username });

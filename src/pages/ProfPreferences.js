@@ -18,11 +18,11 @@ export default function Example() {
     };
 
     const jsonData = {
-      preferences: [preferences],
+      preferences: otherText,
     };
 
     console.log(jsonData); // You can remove this line or customize how you want to handle the generated JSON data
-    //API.post('/preferences', jsonData)
+    API.post('/preferences', jsonData)
   };
 
   useEffect(() => {
