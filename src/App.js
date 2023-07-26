@@ -110,12 +110,12 @@ function App() {
                     <div>
                       <div class="flex justify-between items-center">
                         <label for="password" class="block text-sm mb-2 dark:text-white">Password</label>
-                        <a
+                        {/* <a
                           class="text-sm text-blue-600 decoration-2 hover:underline font-medium"
                           href="../examples/html/recover-account.html"
                         >
                           Forgot password?
-                        </a>
+                        </a> */}
                       </div>
                       <div class="relative">
                         <input
@@ -146,7 +146,7 @@ function App() {
                     {/* <!-- End Form Group --> */}
 
                     {/* <!-- Checkbox --> */}
-                    <div class="flex items-center">
+                    {/* <div class="flex items-center">
                       <div class="flex">
                         <input
                           id="remember-me"
@@ -159,7 +159,7 @@ function App() {
                       <div class="ml-3">
                         <label for="remember-me" class="text-sm dark:text-white">Remember me</label>
                       </div>
-                    </div>
+                    </div> */}
                     {/* <!-- End Checkbox --> */}
 
                     {/* <button
