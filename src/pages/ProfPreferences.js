@@ -57,6 +57,7 @@ export default function Example() {
                   rows="5"
                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:text-sm border border-grey-300 rounded-md"
                   placeholder="Enter your preferences here..."
+                  style={{ padding: '2px'}}
                 ></textarea>
                 
             </div>
