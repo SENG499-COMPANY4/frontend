@@ -58,6 +58,7 @@ function App() {
   };
 
   return (
+    <UserContext.Provider value={{ username, setUsername }}>
     <html class="h-full">
       <body class="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16 min-h-screen">
         <main class="w-full max-w-md mx-auto p-6">
@@ -194,7 +195,7 @@ function App() {
         </main>
       </body>
     </html>
-
+    </UserContext.Provider>
   );
 }
 

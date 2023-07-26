@@ -1,21 +1,25 @@
 import { Routes } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import API from '../api';
+import UserContext from '../contexts/UserContext';
+
+// Helper function to format the name
+const formatName = (name) => {
+  if (!name) return ''; // Handle the case when the name is not available
+  const nameParts = name.split(', ');
+  if (nameParts.length !== 2) return name; // In case the name is not in the expected format (e.g., "Bird" or "Bird, Bill Bird")
+  return `${nameParts[1]} ${nameParts[0]}`;
+};
 
 export default function Example() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const { user } = useContext(UserContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsSubmitted(true);
 
     const formData = new FormData(event.target);
     const otherText = formData.get('other');
-
-    const preferences = {
-      name: 'Christina Bersh',
-      other: otherText,
-    };
 
     const jsonData = {
       preferences: otherText,
@@ -24,19 +28,6 @@ export default function Example() {
     console.log(jsonData); // You can remove this line or customize how you want to handle the generated JSON data
     API.post('/preferences', jsonData)
   };
-
-  useEffect(() => {
-    fetchPreferences();
-  }, []);
-
-  async function fetchPreferences() {
-    try {
-      const response = await API.get('/preferences');
-      console.log(response.data)
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   return (
     <div class="container mx-auto px-10 max-w-screen-lg">
@@ -55,7 +46,7 @@ export default function Example() {
             <dl class="divide-y divide-gray-100">
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt class="text-sm font-medium leading-6 text-gray-900">Full name</dt>
-                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Christina Bersh</dd>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user && formatName(user.username)}</dd>
             </div>
 
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 mb-5">
