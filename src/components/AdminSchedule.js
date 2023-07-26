@@ -23,8 +23,6 @@ const AdminSchedule = () => {
 
 
   useEffect(() => {
-    // console.log("Schedule: ")
-    // console.log(events);
     convertEventsToJSONSchedule();
   }, [events]);
 
@@ -106,8 +104,6 @@ const AdminSchedule = () => {
     setResources(updatedResources);
     setEvents(updatedEvents);
 
-    console.log(roomMap)
-
     return;
   }
 
@@ -123,7 +119,6 @@ const AdminSchedule = () => {
   async function fetchProfessorList() {
     try {
       const response = await API.get('/instructors');
-      console.log(response.data)
       setAllProfessors(response.data);
 
     } catch (error) {
@@ -210,11 +205,6 @@ const AdminSchedule = () => {
     const index = events.findIndex(event => event.title === title);
     const updatedEvents = [...events];
 
-
-    console.log("title: " + title)
-    console.log(changes)
-
-
     // only update fields if they are not undefined or null
     updatedEvents[index] = {
       ...updatedEvents[index],
@@ -246,9 +236,6 @@ const AdminSchedule = () => {
 
     const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
     const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
-
-
-    console.log(info)
 
     var newResourceId = null;
     if (info.newResource !== null) {
@@ -285,8 +272,6 @@ const AdminSchedule = () => {
     const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
     const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
 
-    console.log(info)
-
     updateEvent(info.event.title, {
       start: start_formatted,
       end: end_formatted,
@@ -313,7 +298,7 @@ const AdminSchedule = () => {
       jsonSchedule.push(jsonEvent);
     }
 
-    console.log(JSON.stringify(jsonSchedule, null, 2));
+    // console.log(JSON.stringify(jsonSchedule, null, 2));
 
 
     return jsonSchedule;
