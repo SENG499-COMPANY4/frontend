@@ -20,8 +20,15 @@ function App() {
 
   const logIn = async (username, password) => {
     try {
-        let result = await API.post("/login", { username, password });
-        var resultData = result.data;
+      const result = await fetch("https://spring-sky-3750.fly.dev/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+        credentials: "include",
+      });
+      const resultData = await result.json();
         
         if (resultData.accountType === "admin") {
             setUser({ role: 'admin', username: username });
@@ -51,6 +58,7 @@ function App() {
   };
 
   return (
+    <UserContext.Provider value={{ username, setUsername }}>
     <html class="h-full">
       <body class="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16 min-h-screen">
         <main class="w-full max-w-md mx-auto p-6">
@@ -187,7 +195,7 @@ function App() {
         </main>
       </body>
     </html>
-
+    </UserContext.Provider>
   );
 }
 
