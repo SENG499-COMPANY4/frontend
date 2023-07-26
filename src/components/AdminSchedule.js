@@ -16,14 +16,16 @@ const AdminSchedule = () => {
   const [resources, setResources] = useState([]);
   const [events, setEvents] = useState([]);
   const [professors, setProfessors] = useState([]);
+  const [all_professors, setAllProfessors] = useState([]);
+  const [selectedProfessor, setSelectedProfessor] = useState('');
+  const [temporaryProfessor, setTemporaryProfessor] = useState('');
   const [isCalendarPublished, setIsCalendarPublished] = useState(false);
 
 
   useEffect(() => {
-    // console.log("Schedule: ")
-    // console.log(events);
     convertEventsToJSONSchedule();
   }, [events]);
+
 
 
   function convertJson() {
@@ -33,6 +35,7 @@ const AdminSchedule = () => {
     let updatedResources = [];
     let updatedEvents = [];
     let extractedProfessors = [];
+
 
     // map day names to numbers
     const dayMap = {
@@ -100,6 +103,7 @@ const AdminSchedule = () => {
     setProfessors(Array.from(extractedProfessors).sort());
     setResources(updatedResources);
     setEvents(updatedEvents);
+
     return;
   }
 
@@ -112,22 +116,24 @@ const AdminSchedule = () => {
     }
   }
 
-  // async function fetchProfessorData() {
-  //   try {
+  async function fetchProfessorList() {
+    try {
+      const response = await API.get('/instructors');
+      setAllProfessors(response.data);
 
-  //     console.log(await API);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-  //     const response = await API.get('/rooms');
-  //     console.log(response.data)
-  //     return response.data;
-  //   }
-  //   catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+
 
   useEffect(() => {
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    fetchProfessorList();
   }, []);
 
   useEffect(() => {
@@ -145,6 +151,7 @@ const AdminSchedule = () => {
     // info.el.style.backgroundColor = '#2a67a4';
 
     // console.log("event", info.event)
+
 
     const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
@@ -176,6 +183,7 @@ const AdminSchedule = () => {
     // const clickedId = info.event.id;
     // const eventEl = info.el;
 
+    setTemporaryProfessor('')
     // open modal
     document.getElementById('modal').classList.remove('hidden');
 
@@ -190,9 +198,6 @@ const AdminSchedule = () => {
     document.querySelector('#event-time').textContent = `${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
 
-
-
-
   };
 
   // Define a function to find and update an event in our events state
@@ -200,52 +205,52 @@ const AdminSchedule = () => {
     const index = events.findIndex(event => event.title === title);
     const updatedEvents = [...events];
 
-    // console.log(changes);
-
-    //only update resourceId and room if it is not undefined or null
+    // only update fields if they are not undefined or null
     updatedEvents[index] = {
       ...updatedEvents[index],
-      start: changes.start,
-      end: changes.end,
-      startTime: changes.startTime,
-      endTime: changes.endTime,
-      resourceId: (changes.resourceId !== undefined && changes.resourceId !== null) ? changes.resourceId : updatedEvents[index].resourceId,
+      start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
+      end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
+      startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
+      endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
+      resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
       extendedProps: {
         ...updatedEvents[index].extendedProps,
-        room: (changes.resourceId !== undefined && changes.resourceId !== null) ? changes.resourceId : updatedEvents[index].resourceId,
-        building: changes.building,
+        room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
+        building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
+        professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
       }
     };
 
 
     setEvents(updatedEvents);
 
+
   }
+
 
   const handleEventDrop = (info) => {
     // info.event contains the event that has been moved
     // We want to update this event in our state to reflect this change
 
+
+
     const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
     const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
 
-
-    console.log(info)
-    
     var newResourceId = null;
     if (info.newResource !== null) {
       newResourceId = info.newResource.id;
     }
-    
-    
+
+
     var building = null;
     if (info.newResource?.extendedProps?.building) {
       building = info.newResource.extendedProps.building;
     }
-    else{
+    else {
       building = info.oldEvent.extendedProps.building;
     }
-    
+
     updateEvent(info.event.title, {
       start: start_formatted,
       end: end_formatted,
@@ -255,19 +260,17 @@ const AdminSchedule = () => {
       room: newResourceId,
       building: building,
     });
-    
+
   }
-  
+
 
   // Define our eventResize handler
   const handleEventResize = (info) => {
     // info.event contains the event that has been resized
     // We want to update this event in our state to reflect this change
-    
+
     const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
     const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
-    
-    console.log(info)
 
     updateEvent(info.event.title, {
       start: start_formatted,
@@ -302,6 +305,7 @@ const AdminSchedule = () => {
   }
 
 
+
   return (
     <div>
       <div className="flex justify-end mb-4">
@@ -310,7 +314,7 @@ const AdminSchedule = () => {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
             className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-            
+
             aria-pressed="true"
           >
             <option value="">All Professors</option>
@@ -398,30 +402,38 @@ const AdminSchedule = () => {
                 <p className='px-2'>Professor:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
+                    value={temporaryProfessor}
+                    onChange={(e) => {
+                      setTemporaryProfessor(e.target.value);
+                    }}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    
                     aria-pressed="true"
                   >
-                    {/* CHANGE TO USE NEW API INSTEAD */}
-                    <option id='event-professor'>
+                    <option id='event-professor' value=''>
                       Select Professor
                     </option>
+                    {
+                      all_professors.instructors
+                        ? all_professors.instructors.map((professor, index) =>
+                          <option value={professor} key={index}>
+                            {professor}
+                          </option>
+                        )
+                        : null
+                    }
                   </select>
                 </div>
               </div>
               {/* End Professor Dropdown */}
+
 
               {/* Building Dropdown */}
               <div class="mb-4 w-full flex items-center justify-between">
                 <p className='px-2'>Building:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    
+
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
@@ -438,10 +450,8 @@ const AdminSchedule = () => {
                 <p className='px-2'>Room:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    
+
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
@@ -458,10 +468,8 @@ const AdminSchedule = () => {
                 <p className='px-2'>Time:</p>
                 <div className="py-1 px-2 bg-white border text-sm text-gray-600 rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-400 whitespace-pre">
                   <select
-                    // value={filter}
-                    // onChange={(e) => setFilter(e.target.value)}
                     className="fc-resourceTimelineDay-button fc-button fc-button-primary fc-button-active"
-                    
+
                     aria-pressed="true"
                   >
                     {/* CHANGE TO USE NEW API INSTEAD */}
@@ -481,7 +489,11 @@ const AdminSchedule = () => {
               <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-bl-xl bg-gray-100 border border-transparent font-semibold text-gray-800 hover:text-blue-600 focus:outline-none focus:ring-2 ring-offset-white focus:ring-gray-100 focus:ring-offset-2 transition-all text-sm dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-600 dark:text-white dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Cancel
               </button>
-              <button type="button" class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
+              <button type="button" onClick={() => {
+                setSelectedProfessor(temporaryProfessor);
+                updateEvent(document.querySelector('#event-title').textContent, { professor: temporaryProfessor });
+              }}
+                class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Save
               </button>
             </div>
