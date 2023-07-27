@@ -88,13 +88,13 @@ const AdminInbox = () => {
                                         {isLoading && (
                                             <tr>
                                                 <td class="h-px w-px whitespace-nowrap px-6 py-3">
-                                                    <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent rounded-full dark:text-white" role="status" aria-label="loading">
+                                                    <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent rounded-full text-gray-600 dark:text-white" role="status" aria-label="loading">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                 </td>
 
                                                 <td class="h-px w-px whitespace-nowrap px-6 py-3">
-                                                    <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent rounded-full dark:text-white" role="status" aria-label="loading">
+                                                    <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent rounded-full text-gray-600 dark:text-white" role="status" aria-label="loading">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                 </td>
