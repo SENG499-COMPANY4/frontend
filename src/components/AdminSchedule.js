@@ -135,16 +135,6 @@ const AdminSchedule = () => {
     }
 }
 
-async function fetchProfessorList() {
-  try {
-    const response = await API.get('/instructors');
-    setAllProfessors(response.data);
-
-  } catch (error) {
-    console.error(error);
-  }
-}
-
   useEffect(() => {
     fetchData();
   }, []);
