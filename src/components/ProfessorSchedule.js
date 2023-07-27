@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import API from "../api";
+import UserContext from '../contexts/UserContext';
 
 const ProfessorSchedule = () => {
     
@@ -10,8 +11,9 @@ const ProfessorSchedule = () => {
     const [tooltipContent, setTooltipContent] = useState('');
     const [ schedule, setSchedule] = useState([]);
     const [ events, setEvents] = useState([]);
+    const { user } = useContext(UserContext);
 
-
+    // Access the user like this:
     function convertJson() {
 
         let updatedEvents = [];
@@ -64,7 +66,7 @@ const ProfessorSchedule = () => {
         try{
             const config = {
                 headers:{
-                  name: "Bird, Bill",
+                  name: user?.username,
                   year: 2024,
                   semester: 1
                 }

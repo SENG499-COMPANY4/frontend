@@ -17,6 +17,7 @@ const AdminSchedule = () => {
   const [events, setEvents] = useState([]);
   const [professors, setProfessors] = useState([]);
   const [publishStatus, setPublishStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // console.log("Schedule: ")
@@ -356,10 +357,12 @@ const AdminSchedule = () => {
 
         customButtons={{
             publishButton: {
-                text: publishStatus ? 'Unpublish' : 'Publish',
+                text: loading ? 'Loading...' : (publishStatus ? 'Unpublish' : 'Publish'),
                 click: async function() {
                     // const output = await API.post('/schedule');
                     // console.log(output.data.publishStatus);
+                    setLoading(true);
+                    try{
                     const data = {
                       published: !publishStatus
                     }
@@ -370,6 +373,10 @@ const AdminSchedule = () => {
                     };
                     const result = await API.post('/publish',data,config);
                     setPublishStatus(result.data.published);
+                  } catch (error){
+
+                  }
+                  setLoading(false)
                 },
             },
         }}
