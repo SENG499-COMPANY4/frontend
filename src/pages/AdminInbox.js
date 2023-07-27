@@ -1,6 +1,7 @@
 //About React component
 import { useState, useEffect } from 'react';
 import { BiTrash } from 'react-icons/bi';
+import { BsPersonCircle } from 'react-icons/bs';
 import API from '../api';
 
 const handleDelete = (id) => {
@@ -82,7 +83,8 @@ const AdminInbox = () => {
                                             <td class="h-px w-px whitespace-nowrap">
                                                 <div class="px-6 py-3">
                                                     <div class="flex items-center gap-x-2">
-                                                        <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" />
+                                                        {/* <img class="inline-block h-6 w-6 rounded-full" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80" alt="Image Description" /> */}
+                                                        <BsPersonCircle class="h-[1.5rem] w-[1.5rem] text-gray-600 inline-block"/>
                                                         <div class="grow">
                                                             <span class="text-sm text-gray-600 dark:text-gray-400">{prof.professor}</span>
                                                         </div>
