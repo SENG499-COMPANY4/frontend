@@ -23,6 +23,7 @@ const AdminSchedule = () => {
   const [selectedProfessor, setSelectedProfessor] = useState('');
   const [temporaryProfessor, setTemporaryProfessor] = useState('');
   const [publishStatus, setPublishStatus] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingFall, setLoadingFall] = useState(false);
   const [loadingSpring, setLoadingSpring] = useState(false);
@@ -79,11 +80,30 @@ const AdminSchedule = () => {
         extractedProfessors.push(item.professor);
       }
 
+
+      // Check item.section. Make it a different colour for if it is A01, A02, A03, etc.
+
+
+      var colour = '#FFFFFF';
+      if (item.section.includes('A')) {
+        colour = '#3788D8';
+      }
+      else if (item.section.includes('B')) {
+        colour = '#ea292c';
+      }
+      else if (item.section.includes('T')) {
+        colour = '#fdb813';
+      }
+
+
       let startTime = item.start.split("T")[1];
       let endTime = item.end.split("T")[1];
 
       // create the new format for the schedule items
       let scheduleItem = {
+        id: item.id, // Assuming that the items in the schedule have an ID property
+        type: item.type, // And that they also have a type property
+        section: item.section,
         resourceId: item.room,
         title: item.coursename,
         start: item.start,
@@ -91,12 +111,20 @@ const AdminSchedule = () => {
         startTime: startTime,
         endTime: endTime,
         daysOfWeek: item.day.map(day => dayMap[day]),
+        color: colour,
+
+
+
         extendedProps: {
           professor: item.professor,
           building: item.building,
           room: item.room,
         }
+        // set colour based on type
+
       };
+
+      console.log("scheduleItem", scheduleItem)
 
 
       // add the new schedule item to the events
@@ -117,8 +145,8 @@ const AdminSchedule = () => {
     try {
       const config = {
         headers:{
-          year: 2024,
-          semester: 1
+          year: 2022,
+          semester: 9
         }
       };
         const sched = await API.get('/schedule', config);
@@ -166,7 +194,7 @@ const AdminSchedule = () => {
     // console.log("event", info.event)
 
 
-    const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
+    const content = `Course: ${info.event.title}\nSection: ${info.event.extendedProps.section}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
     const rect = info.el.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -196,6 +224,8 @@ const AdminSchedule = () => {
     // const clickedId = info.event.id;
     // const eventEl = info.el;
 
+    // console.log("event", info.event)
+
     setTemporaryProfessor('')
     // open modal
     document.getElementById('modal').classList.remove('hidden');
@@ -204,7 +234,7 @@ const AdminSchedule = () => {
     document.getElementById('modal-child').classList.remove('opacity-0');
 
     // populate modal content
-    document.querySelector('#event-title').textContent = info.event.title;
+    document.querySelector('#event-title').textContent = `${info.event.title} (${info.event.extendedProps.section})`;
     document.querySelector('#event-professor').textContent = info.event.extendedProps.professor;
     document.querySelector('#event-building').textContent = info.event.extendedProps.building;
     document.querySelector('#event-room').textContent = info.event.extendedProps.room;
@@ -213,86 +243,85 @@ const AdminSchedule = () => {
 
   };
 
-  // Define a function to find and update an event in our events state
-  const updateEvent = (title, changes) => {
-    const index = events.findIndex(event => event.title === title);
-    const updatedEvents = [...events];
+// Define a function to find and update an event in our events state
+const updateEvent = (id, changes) => {
+  const index = events.findIndex(event => event.id === id);
+  const updatedEvents = [...events];
 
-    // only update fields if they are not undefined or null
-    updatedEvents[index] = {
-      ...updatedEvents[index],
-      start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
-      end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
-      startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
-      endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
-      resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
-      extendedProps: {
-        ...updatedEvents[index].extendedProps,
-        room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
-        building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
-        professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
-      }
-    };
+  // only update fields if they are not undefined or null
+  updatedEvents[index] = {
+    ...updatedEvents[index],
+    id: changes.id !== undefined ? changes.id : updatedEvents[index].id,
+    type: changes.type !== undefined ? changes.type : updatedEvents[index].type,
+    section: changes.section !== undefined ? changes.section : updatedEvents[index].section,
+    start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
+    end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
+    startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
+    endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
+    resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
+    extendedProps: {
+      ...updatedEvents[index].extendedProps,
+      room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
+      building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
+      professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
+    }
+  };
+
+  setEvents(updatedEvents);
+}
 
 
-    setEvents(updatedEvents);
 
+const handleEventDrop = (info) => {
+  // info.event contains the event that has been moved
+  // We want to update this event in our state to reflect this change
 
+  const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
+  const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
+
+  var newResourceId = null;
+  if (info.newResource !== null) {
+    newResourceId = info.newResource.id;
   }
 
-
-  const handleEventDrop = (info) => {
-    // info.event contains the event that has been moved
-    // We want to update this event in our state to reflect this change
-
-
-
-    const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
-    const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
-
-    var newResourceId = null;
-    if (info.newResource !== null) {
-      newResourceId = info.newResource.id;
-    }
-
-
-    var building = null;
-    if (info.newResource?.extendedProps?.building) {
-      building = info.newResource.extendedProps.building;
-    }
-    else {
-      building = info.oldEvent.extendedProps.building;
-    }
-
-    updateEvent(info.event.title, {
-      start: start_formatted,
-      end: end_formatted,
-      startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-      resourceId: newResourceId,
-      room: newResourceId,
-      building: building,
-    });
-
+  var building = null;
+  if (info.newResource?.extendedProps?.building) {
+    building = info.newResource.extendedProps.building;
+  }
+  else {
+    building = info.oldEvent.extendedProps.building;
   }
 
+  updateEvent(info.event.id, {
+    start: start_formatted,
+    end: end_formatted,
+    startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+    endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+    resourceId: newResourceId,
+    room: newResourceId,
+    building: building,
+  });
+}
 
-  // Define our eventResize handler
-  const handleEventResize = (info) => {
-    // info.event contains the event that has been resized
-    // We want to update this event in our state to reflect this change
 
-    const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
-    const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
 
-    updateEvent(info.event.title, {
-      start: start_formatted,
-      end: end_formatted,
-      startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-      building: info.event.extendedProps.building,
-    });
-  }
+// Define our eventResize handler
+const handleEventResize = (info) => {
+  // info.event contains the event that has been resized
+  // We want to update this event in our state to reflect this change
+
+  const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
+  const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+
+  updateEvent(info.event.id, {
+    start: start_formatted,
+    end: end_formatted,
+    startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+    endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+    building: info.event.extendedProps.building,
+  });
+}
+
 
   const convertEventsToJSONSchedule = () => {
     const jsonSchedule = [];
@@ -311,7 +340,7 @@ const AdminSchedule = () => {
       jsonSchedule.push(jsonEvent);
     }
 
-    // console.log(JSON.stringify(jsonSchedule, null, 2));
+    console.log(JSON.stringify(jsonSchedule, null, 2));
 
 
     return jsonSchedule;
@@ -342,6 +371,9 @@ const AdminSchedule = () => {
         schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
         plugins={[resourceTimelinePlugin, interactionPlugin]}
 
+        rerenderDelay={10}
+        // lazyFetching={true}
+
         editable={true}
         eventStartEditable={true}
         eventResizableFromStart={true}
@@ -355,7 +387,7 @@ const AdminSchedule = () => {
         slotMaxTime={'21:00:00'} // 9pm
         slotDuration={'01:00:00'}
 
-        eventOverlap={false}
+        // eventOverlap={false}
         hiddenDays={[0, 6]} // Hide Sunday and Saturday
 
 
@@ -463,10 +495,33 @@ const AdminSchedule = () => {
                   setLoadingSummer(false);
               }
           },
+            saveButton: {
+                text: loading ? 'Loading...' : (saving ? 'Saving...' : 'Save'),
+                click: async function() {
+                    // const output = await API.post('/schedule');
+                    // console.log(output.data.publishStatus);
+                    setSaving(true);
+                    try{
+                    const data = {
+                      published: !publishStatus
+                    }
+                    const config = {
+                      headers:{
+                        term: "202401",
+                      }
+                    };
+                    const result = await API.post('/publish',data,config);
+                    setPublishStatus(result.data.published);
+                  } catch (error){
+
+                  }
+                  setSaving(false)
+                },
+            }
       }}
 
         headerToolbar={{
-          left: 'prev,next publishButton fallButton,springButton,summerButton',
+          left: 'prev,next publishButton fallButton,springButton,summerButton saveButton',
           center: 'title',
           right: 'resourceTimelineDay,resourceTimelineWeek'
         }}
