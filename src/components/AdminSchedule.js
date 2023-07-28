@@ -23,6 +23,8 @@ const AdminSchedule = () => {
   const [selectedProfessor, setSelectedProfessor] = useState('');
   const [temporaryProfessor, setTemporaryProfessor] = useState('');
   const [publishStatus, setPublishStatus] = useState(false);
+  const [selectedClassID, setSelectedClassID] = useState('');
+  const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingFall, setLoadingFall] = useState(false);
   const [loadingSpring, setLoadingSpring] = useState(false);
@@ -79,11 +81,34 @@ const AdminSchedule = () => {
         extractedProfessors.push(item.professor);
       }
 
+
+      // Check item.section. Make it a different colour for if it is A01, A02, A03, etc.
+
+      var colour = '#FFFFFF';
+      if (item.section.includes('A')) {
+        colour = '#3788D8';
+      }
+      else if (item.section.includes('B')) {
+        colour = '#ea292c';
+      }
+      else if (item.section.includes('T')) {
+        colour = '#fdb813';
+      }
+
+      // console.log("item", item.start)
+
       let startTime = item.start.split("T")[1];
       let endTime = item.end.split("T")[1];
 
+      console.log("ITEM")
+      console.log(item)
+
       // create the new format for the schedule items
       let scheduleItem = {
+        id: item.id, // Assuming that the items in the schedule have an ID property
+        type: item.type, // And that they also have a type property
+        day: item.day,
+        section: item.section,
         resourceId: item.room,
         title: item.coursename,
         start: item.start,
@@ -91,12 +116,20 @@ const AdminSchedule = () => {
         startTime: startTime,
         endTime: endTime,
         daysOfWeek: item.day.map(day => dayMap[day]),
+        color: colour,
+
+
+
         extendedProps: {
           professor: item.professor,
           building: item.building,
           room: item.room,
         }
+        // set colour based on type
+
       };
+
+      // console.log("scheduleItem", scheduleItem)
 
 
       // add the new schedule item to the events
@@ -116,20 +149,20 @@ const AdminSchedule = () => {
   const fetchData = async () => {
     try {
       const config = {
-        headers:{
+        headers: {
           year: 2024,
           semester: 1
         }
       };
-        const sched = await API.get('/schedule', config);
-        const published = await API.get('/publish', config);
-        console.log(published.data.published);
-        setPublishStatus(published.data.published);
-        setSchedule(sched.data);
+      const sched = await API.get('/schedule', config);
+      const published = await API.get('/publish', config);
+      console.log(published.data.published);
+      setPublishStatus(published.data.published);
+      setSchedule(sched.data);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
 
   async function fetchProfessorList() {
     try {
@@ -137,9 +170,9 @@ const AdminSchedule = () => {
       setAllProfessors(response.data);
 
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
 
   useEffect(() => {
     fetchData();
@@ -166,7 +199,8 @@ const AdminSchedule = () => {
     // console.log("event", info.event)
 
 
-    const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
+
+    const content = `Course: ${info.event.title}\nSection: ${info.event.extendedProps.section}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
     const rect = info.el.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -196,6 +230,10 @@ const AdminSchedule = () => {
     // const clickedId = info.event.id;
     // const eventEl = info.el;
 
+    // console.log("event", info.event)
+
+    setSelectedClassID(info.event.id);
+
     setTemporaryProfessor('')
     // open modal
     document.getElementById('modal').classList.remove('hidden');
@@ -204,7 +242,7 @@ const AdminSchedule = () => {
     document.getElementById('modal-child').classList.remove('opacity-0');
 
     // populate modal content
-    document.querySelector('#event-title').textContent = info.event.title;
+    document.querySelector('#event-title').textContent = `${info.event.title} (${info.event.extendedProps.section})`;
     document.querySelector('#event-professor').textContent = info.event.extendedProps.professor;
     document.querySelector('#event-building').textContent = info.event.extendedProps.building;
     document.querySelector('#event-room').textContent = info.event.extendedProps.room;
@@ -214,13 +252,16 @@ const AdminSchedule = () => {
   };
 
   // Define a function to find and update an event in our events state
-  const updateEvent = (title, changes) => {
-    const index = events.findIndex(event => event.title === title);
+  const updateEvent = (id, changes) => {
+    const index = events.findIndex(event => event.id === id);
     const updatedEvents = [...events];
 
     // only update fields if they are not undefined or null
     updatedEvents[index] = {
       ...updatedEvents[index],
+      id: changes.id !== undefined ? changes.id : updatedEvents[index].id,
+      type: changes.type !== undefined ? changes.type : updatedEvents[index].type,
+      section: changes.section !== undefined ? changes.section : updatedEvents[index].section,
       start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
       end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
       startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
@@ -234,27 +275,19 @@ const AdminSchedule = () => {
       }
     };
 
-
     setEvents(updatedEvents);
-
-
   }
+
 
 
   const handleEventDrop = (info) => {
     // info.event contains the event that has been moved
     // We want to update this event in our state to reflect this change
 
-
-
-    const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
-    const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
-
     var newResourceId = null;
     if (info.newResource !== null) {
       newResourceId = info.newResource.id;
     }
-
 
     var building = null;
     if (info.newResource?.extendedProps?.building) {
@@ -264,17 +297,23 @@ const AdminSchedule = () => {
       building = info.oldEvent.extendedProps.building;
     }
 
-    updateEvent(info.event.title, {
-      start: start_formatted,
-      end: end_formatted,
+    // console.log(info)
+    // console.log(info.event.start.toLocaleTimeString(undefined, { hour12: false }))
+
+
+    const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+
+    updateEvent(info.event.id, {
+      start: adjustTimeZone(info.event.start),
+      end: adjustTimeZone(info.event.end),
       startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
       endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
       resourceId: newResourceId,
       room: newResourceId,
       building: building,
     });
-
   }
+
 
 
   // Define our eventResize handler
@@ -282,27 +321,42 @@ const AdminSchedule = () => {
     // info.event contains the event that has been resized
     // We want to update this event in our state to reflect this change
 
-    const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
-    const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+    const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 
-    updateEvent(info.event.title, {
-      start: start_formatted,
-      end: end_formatted,
+    updateEvent(info.event.id, {
+      start: adjustTimeZone(info.event.start),
+      end: adjustTimeZone(info.event.end),
       startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
       endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
       building: info.event.extendedProps.building,
     });
   }
 
+
   const convertEventsToJSONSchedule = () => {
     const jsonSchedule = [];
 
+    // Map of day indices to day names.
+    const dayIndexToName = {
+      0: 'Sunday',
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday'
+    };
+
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
+
       const jsonEvent = {
+        id: event.id,
         start: event.start,
         end: event.end,
-        // day: event.start.getDay(),
+        type: event.type,
+        day: event.daysOfWeek.map(dayIndex => dayIndexToName[dayIndex]),
+        section: event.section,
         coursename: event.title,
         building: event.extendedProps.building,
         room: event.resourceId,
@@ -311,7 +365,7 @@ const AdminSchedule = () => {
       jsonSchedule.push(jsonEvent);
     }
 
-    // console.log(JSON.stringify(jsonSchedule, null, 2));
+    console.log(JSON.stringify(jsonSchedule, null, 2));
 
 
     return jsonSchedule;
@@ -342,6 +396,9 @@ const AdminSchedule = () => {
         schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
         plugins={[resourceTimelinePlugin, interactionPlugin]}
 
+        rerenderDelay={10}
+        // lazyFetching={true}
+
         editable={true}
         eventStartEditable={true}
         eventResizableFromStart={true}
@@ -355,121 +412,145 @@ const AdminSchedule = () => {
         slotMaxTime={'21:00:00'} // 9pm
         slotDuration={'01:00:00'}
 
-        eventOverlap={false}
+        // eventOverlap={false}
         hiddenDays={[0, 6]} // Hide Sunday and Saturday
 
 
         resourceAreaWidth={'20%'}
 
         customButtons={{
-            publishButton: {
-                text: loading ? 'Loading...' : (publishStatus ? 'Unpublish' : 'Publish'),
-                click: async function() {
-                    // const output = await API.post('/schedule');
-                    // console.log(output.data.publishStatus);
-                    setLoading(true);
-                    try{
-                    const data = {
-                      published: !publishStatus
+          publishButton: {
+              text: loading ? 'Loading...' : (publishStatus ? 'Unpublish' : 'Publish'),
+              click: async function() {
+                  // const output = await API.post('/schedule');
+                  // console.log(output.data.publishStatus);
+                  setLoading(true);
+                  try{
+                  const data = {
+                    published: !publishStatus
+                  }
+                  const config = {
+                    headers:{
+                      term: "202401",
                     }
-                    const config = {
-                      headers:{
-                        term: "202401",
-                      }
-                    };
-                    const result = await API.post('/publish',data,config);
-                    setPublishStatus(result.data.published);
-                  } catch (error){
+                  };
+                  const result = await API.post('/publish',data,config);
+                  setPublishStatus(result.data.published);
+                } catch (error){
 
-                  }
-                  setLoading(false)
-                },
-            },
-            fallButton: {
-              text: loadingFall ? 'Loading...' : 'Fall',
-              click: async function() {
-                  setLoadingFall(true);
-                  const header = {
-                      headers: {
-                          'semester': '9',
-                          'year': '2025'
-                      }
-                  };
-                  try {
-                      const response1 = await API.post('/algo2', fallSchedule, header);
-                      console.log("/algo2 response", response1)
-                      const response2 = await API.post('/algo1/generateSchedule', {}, header);
-                      console.log("/algo1 response", response2);
-                      const response3 = await API.get('/schedule', header);
-                      console.log("/schedule response", response3.data);
-                      if (response3.data) {
-                          setSchedule(response3.data); 
-                      }
-                  } catch (error) {
+                }
+                setLoading(false)
+              },
+          },
+          fallButton: {
+            text: loadingFall ? 'Loading...' : 'Fall',
+            click: async function() {
+                setLoadingFall(true);
+                const header = {
+                    headers: {
+                        'semester': '9',
+                        'year': '2025'
+                    }
+                };
+                try {
+                    const response1 = await API.post('/algo2', fallSchedule, header);
+                    console.log("/algo2 response", response1)
+                    const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                    console.log("/algo1 response", response2);
+                    const response3 = await API.get('/schedule', header);
+                    console.log("/schedule response", response3.data);
+                    if (response3.data) {
+                        setSchedule(response3.data); 
+                    }
+                } catch (error) {
+                  console.error("Error during API call", error.response || error);
+                }
+                setLoadingFall(false);
+            }
+        },
+        springButton: {
+            text: loadingSpring ? 'Loading...' : 'Spring',
+            click: async function() {
+                setLoadingSpring(true);
+                const header = {
+                    headers: {
+                        'semester': '1',
+                        'year': '2024'
+                    }
+                };
+                try {
+                    const response1 = await API.post('/algo2', springSchedule, header);
+                    console.log("/algo2 response", response1)
+                    const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                    console.log("/algo1 response", response2);
+                    const response3 = await API.get('/schedule', header);
+                    console.log("/schedule response", response3.data);
+                    if (response3.data) {
+                        setSchedule(response3.data); 
+                    }
+                } catch (error) {
+                  console.error("Error during API call", error.response || error);
+                }
+                setLoadingSpring(false);
+            }
+        },
+        summerButton: {
+            text: loadingSummer ? 'Loading...' : 'Summer',
+            click: async function() {
+                setLoadingSummer(true);
+                const header = {
+                    headers: {
+                        'semester': '5',
+                        'year': '2024'
+                    }
+                };
+                try {
+                    const response1 = await API.post('/algo2', summerSchedule, header);
+                    console.log("/algo2 response", response1);
+                    const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                    console.log("/algo1 response", response2);
+                    const response3 = await API.get('/schedule', header);
+                    console.log("/schedule response", response3.data);
+                    if (response3.data) {
+                        setSchedule(response3.data); 
+                    }
+                } catch (error) {
                     console.error("Error during API call", error.response || error);
-                  }
-                  setLoadingFall(false);
+                }
+                setLoadingSummer(false);
+            }
+        },
+        saveButton: {
+          text: loading ? 'Loading...' : (saving ? 'Saving...' : 'Save'),
+          click: async function () {
+            // const output = await API.post('/schedule');
+            // console.log(output.data.publishStatus);
+            try {
+              setSaving(true);
+              const theSchedule = convertEventsToJSONSchedule();
+              console.log(theSchedule);
+              const headers = {
+                year: "2024",
+                semester: "1"
               }
+
+              const response = await API.post('/schedule/publish', { schedule: theSchedule }, { headers: headers });
+              console.log(response);
+              setSaving(false);
+
+            } catch (error) {
+              setSaving(false)
+              console.error(error);
+            }
           },
-          springButton: {
-              text: loadingSpring ? 'Loading...' : 'Spring',
-              click: async function() {
-                  setLoadingSpring(true);
-                  const header = {
-                      headers: {
-                          'semester': '1',
-                          'year': '2024'
-                      }
-                  };
-                  try {
-                      const response1 = await API.post('/algo2', springSchedule, header);
-                      console.log("/algo2 response", response1)
-                      const response2 = await API.post('/algo1/generateSchedule', {}, header);
-                      console.log("/algo1 response", response2);
-                      const response3 = await API.get('/schedule', header);
-                      console.log("/schedule response", response3.data);
-                      if (response3.data) {
-                          setSchedule(response3.data); 
-                      }
-                  } catch (error) {
-                    console.error("Error during API call", error.response || error);
-                  }
-                  setLoadingSpring(false);
-              }
-          },
-          summerButton: {
-              text: loadingSummer ? 'Loading...' : 'Summer',
-              click: async function() {
-                  setLoadingSummer(true);
-                  const header = {
-                      headers: {
-                          'semester': '5',
-                          'year': '2024'
-                      }
-                  };
-                  try {
-                      const response1 = await API.post('/algo2', summerSchedule, header);
-                      console.log("/algo2 response", response1);
-                      const response2 = await API.post('/algo1/generateSchedule', {}, header);
-                      console.log("/algo1 response", response2);
-                      const response3 = await API.get('/schedule', header);
-                      console.log("/schedule response", response3.data);
-                      if (response3.data) {
-                          setSchedule(response3.data); 
-                      }
-                  } catch (error) {
-                      console.error("Error during API call", error.response || error);
-                  }
-                  setLoadingSummer(false);
-              }
-          },
+        }
+    }}
+
+      headerToolbar={{
+        left: 'prev,next fallButton,springButton,summerButton publishButton saveButton',
+        center: 'title',
+        right: 'resourceTimelineDay,resourceTimelineWeek'
       }}
-
-        headerToolbar={{
-          left: 'prev,next publishButton fallButton,springButton,summerButton',
-          center: 'title',
-          right: 'resourceTimelineDay,resourceTimelineWeek'
-        }}
         titleFormat={{ weekday: 'long' }}
         
         initialView='resourceTimelineDay'
@@ -607,7 +688,7 @@ const AdminSchedule = () => {
               </button>
               <button type="button" onClick={() => {
                 setSelectedProfessor(temporaryProfessor);
-                updateEvent(document.querySelector('#event-title').textContent, { professor: temporaryProfessor });
+                updateEvent(selectedClassID, { professor: temporaryProfessor });
               }}
                 class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Save
