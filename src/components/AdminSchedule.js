@@ -392,13 +392,14 @@ const AdminSchedule = () => {
                   const header = {
                       headers: {
                           'semester': '9',
-                          'year': '2024'
+                          'year': '2025'
                       }
                   };
                   try {
                       const response1 = await API.post('/algo2', fallSchedule, header);
                       const response2 = await API.post('/algo1/generateSchedule', {}, header);
                       const response3 = await API.get('/schedule', header);
+                      console.log(response3.data);
                       if (response3.data) {
                           setSchedule(response3.data); 
                       }
@@ -422,6 +423,7 @@ const AdminSchedule = () => {
                       const response1 = await API.post('/algo2', springSchedule, header);
                       const response2 = await API.post('/algo1/generateSchedule', {}, header);
                       const response3 = await API.get('/schedule', header);
+                      console.log(response3.data);
                       if (response3.data) {
                           setSchedule(response3.data); 
                       }
@@ -445,6 +447,7 @@ const AdminSchedule = () => {
                       const response1 = await API.post('/algo2', summerSchedule, header);
                       const response2 = await API.post('/algo1/generateSchedule', {}, header);
                       const response3 = await API.get('/schedule', header);
+                      console.log(response3.data);
                       if (response3.data) {
                           setSchedule(response3.data); 
                       }
