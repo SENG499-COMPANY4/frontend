@@ -20,6 +20,7 @@ const AdminSchedule = () => {
   const [selectedProfessor, setSelectedProfessor] = useState('');
   const [temporaryProfessor, setTemporaryProfessor] = useState('');
   const [publishStatus, setPublishStatus] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -78,6 +79,8 @@ const AdminSchedule = () => {
 
       // create the new format for the schedule items
       let scheduleItem = {
+        id: item.id, // Assuming that the items in the schedule have an ID property
+        type: item.type, // And that they also have a type property
         resourceId: item.room,
         title: item.coursename,
         start: item.start,
@@ -91,6 +94,8 @@ const AdminSchedule = () => {
           room: item.room,
         }
       };
+
+      console.log("scheduleItem", scheduleItem)
 
 
       // add the new schedule item to the events
@@ -111,8 +116,8 @@ const AdminSchedule = () => {
     try {
       const config = {
         headers:{
-          year: 2024,
-          semester: 1
+          year: 2022,
+          semester: 9
         }
       };
         const sched = await API.get('/schedule', config);
@@ -190,6 +195,8 @@ const AdminSchedule = () => {
     // const clickedId = info.event.id;
     // const eventEl = info.el;
 
+    // console.log("event", info.event)
+
     setTemporaryProfessor('')
     // open modal
     document.getElementById('modal').classList.remove('hidden');
@@ -207,86 +214,84 @@ const AdminSchedule = () => {
 
   };
 
-  // Define a function to find and update an event in our events state
-  const updateEvent = (title, changes) => {
-    const index = events.findIndex(event => event.title === title);
-    const updatedEvents = [...events];
+// Define a function to find and update an event in our events state
+const updateEvent = (id, changes) => {
+  const index = events.findIndex(event => event.id === id);
+  const updatedEvents = [...events];
 
-    // only update fields if they are not undefined or null
-    updatedEvents[index] = {
-      ...updatedEvents[index],
-      start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
-      end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
-      startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
-      endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
-      resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
-      extendedProps: {
-        ...updatedEvents[index].extendedProps,
-        room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
-        building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
-        professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
-      }
-    };
+  // only update fields if they are not undefined or null
+  updatedEvents[index] = {
+    ...updatedEvents[index],
+    id: changes.id !== undefined ? changes.id : updatedEvents[index].id,
+    type: changes.type !== undefined ? changes.type : updatedEvents[index].type,
+    start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
+    end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
+    startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
+    endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
+    resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
+    extendedProps: {
+      ...updatedEvents[index].extendedProps,
+      room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
+      building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
+      professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
+    }
+  };
+
+  setEvents(updatedEvents);
+}
 
 
-    setEvents(updatedEvents);
 
+const handleEventDrop = (info) => {
+  // info.event contains the event that has been moved
+  // We want to update this event in our state to reflect this change
 
+  const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
+  const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
+
+  var newResourceId = null;
+  if (info.newResource !== null) {
+    newResourceId = info.newResource.id;
   }
 
-
-  const handleEventDrop = (info) => {
-    // info.event contains the event that has been moved
-    // We want to update this event in our state to reflect this change
-
-
-
-    const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
-    const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
-
-    var newResourceId = null;
-    if (info.newResource !== null) {
-      newResourceId = info.newResource.id;
-    }
-
-
-    var building = null;
-    if (info.newResource?.extendedProps?.building) {
-      building = info.newResource.extendedProps.building;
-    }
-    else {
-      building = info.oldEvent.extendedProps.building;
-    }
-
-    updateEvent(info.event.title, {
-      start: start_formatted,
-      end: end_formatted,
-      startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-      resourceId: newResourceId,
-      room: newResourceId,
-      building: building,
-    });
-
+  var building = null;
+  if (info.newResource?.extendedProps?.building) {
+    building = info.newResource.extendedProps.building;
+  }
+  else {
+    building = info.oldEvent.extendedProps.building;
   }
 
+  updateEvent(info.event.id, {
+    start: start_formatted,
+    end: end_formatted,
+    startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+    endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+    resourceId: newResourceId,
+    room: newResourceId,
+    building: building,
+  });
+}
 
-  // Define our eventResize handler
-  const handleEventResize = (info) => {
-    // info.event contains the event that has been resized
-    // We want to update this event in our state to reflect this change
 
-    const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
-    const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
 
-    updateEvent(info.event.title, {
-      start: start_formatted,
-      end: end_formatted,
-      startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-      building: info.event.extendedProps.building,
-    });
-  }
+// Define our eventResize handler
+const handleEventResize = (info) => {
+  // info.event contains the event that has been resized
+  // We want to update this event in our state to reflect this change
+
+  const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
+  const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+
+  updateEvent(info.event.id, {
+    start: start_formatted,
+    end: end_formatted,
+    startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+    endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+    building: info.event.extendedProps.building,
+  });
+}
+
 
   const convertEventsToJSONSchedule = () => {
     const jsonSchedule = [];
@@ -305,7 +310,7 @@ const AdminSchedule = () => {
       jsonSchedule.push(jsonEvent);
     }
 
-    // console.log(JSON.stringify(jsonSchedule, null, 2));
+    console.log(JSON.stringify(jsonSchedule, null, 2));
 
 
     return jsonSchedule;
@@ -379,10 +384,33 @@ const AdminSchedule = () => {
                   setLoading(false)
                 },
             },
+            saveButton: {
+                text: loading ? 'Loading...' : (saving ? 'Saving...' : 'Save'),
+                click: async function() {
+                    // const output = await API.post('/schedule');
+                    // console.log(output.data.publishStatus);
+                    setSaving(true);
+                    try{
+                    const data = {
+                      published: !publishStatus
+                    }
+                    const config = {
+                      headers:{
+                        term: "202401",
+                      }
+                    };
+                    const result = await API.post('/publish',data,config);
+                    setPublishStatus(result.data.published);
+                  } catch (error){
+
+                  }
+                  setSaving(false)
+                },
+            }
         }}
 
         headerToolbar={{
-          left: 'today prev,next publishButton',
+          left: 'today prev,next publishButton saveButton',
           center: 'title',
           right: 'resourceTimelineDay,resourceTimelineWeek'
         }}
