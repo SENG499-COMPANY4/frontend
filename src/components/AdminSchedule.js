@@ -397,14 +397,16 @@ const AdminSchedule = () => {
                   };
                   try {
                       const response1 = await API.post('/algo2', fallSchedule, header);
+                      console.log("/algo2 response", response1)
                       const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                      console.log("/algo1 response", response2);
                       const response3 = await API.get('/schedule', header);
-                      console.log(response3.data);
+                      console.log("/schedule response", response3.data);
                       if (response3.data) {
                           setSchedule(response3.data); 
                       }
                   } catch (error) {
-                      // Handle error here
+                    console.error("Error during API call", error.response || error);
                   }
                   setLoadingFall(false);
               }
@@ -421,14 +423,16 @@ const AdminSchedule = () => {
                   };
                   try {
                       const response1 = await API.post('/algo2', springSchedule, header);
+                      console.log("/algo2 response", response1)
                       const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                      console.log("/algo1 response", response2);
                       const response3 = await API.get('/schedule', header);
-                      console.log(response3.data);
+                      console.log("/schedule response", response3.data);
                       if (response3.data) {
                           setSchedule(response3.data); 
                       }
                   } catch (error) {
-                      // Handle error here
+                    console.error("Error during API call", error.response || error);
                   }
                   setLoadingSpring(false);
               }
@@ -445,14 +449,16 @@ const AdminSchedule = () => {
                   };
                   try {
                       const response1 = await API.post('/algo2', summerSchedule, header);
+                      console.log("/algo2 response", response1);
                       const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                      console.log("/algo1 response", response2);
                       const response3 = await API.get('/schedule', header);
-                      console.log(response3.data);
+                      console.log("/schedule response", response3.data);
                       if (response3.data) {
                           setSchedule(response3.data); 
                       }
                   } catch (error) {
-                      // Handle error here
+                      console.error("Error during API call", error.response || error);
                   }
                   setLoadingSummer(false);
               }
