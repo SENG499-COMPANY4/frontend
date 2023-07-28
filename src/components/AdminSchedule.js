@@ -145,8 +145,8 @@ const AdminSchedule = () => {
     try {
       const config = {
         headers:{
-          year: 2022,
-          semester: 9
+          year: 2024,
+          semester: 1
         }
       };
         const sched = await API.get('/schedule', config);
@@ -521,9 +521,9 @@ const handleEventResize = (info) => {
       }}
 
         headerToolbar={{
-          left: 'prev,next publishButton fallButton,springButton,summerButton saveButton',
+          left: 'prev,next publishButton fallButton,springButton,summerButton',
           center: 'title',
-          right: 'resourceTimelineDay,resourceTimelineWeek'
+          right: 'saveButton resourceTimelineDay,resourceTimelineWeek'
         }}
         titleFormat={{ weekday: 'long' }}
         

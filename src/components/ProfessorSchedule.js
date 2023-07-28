@@ -140,7 +140,7 @@ const ProfessorSchedule = () => {
         <div className="mb-4 ml-5 mr-5">
             <FullCalendar schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"               
                 plugins={[timeGridPlugin]} 
-                
+                dayHeaderFormat={{ weekday: 'long' }}
                 slotMinTime={'08:00:00'} // 8am
                 slotMaxTime={'21:00:00'} // 9pm
                 slotDuration={'01:00:00'}
@@ -148,7 +148,7 @@ const ProfessorSchedule = () => {
                 resourceAreaWidth={'20%'}
                 headerToolbar={{
                     left: 'prev,next',
-                    center: 'title',
+                    center: '',
                     right: ''
                 }}
                 initialView='timeGridWeek'
@@ -159,6 +159,7 @@ const ProfessorSchedule = () => {
                 eventMouseEnter={handleMouseEnter}
                 eventMouseLeave={handleMouseLeave}
                 eventContent={eventContent} 
+                
 
             />
             {tooltip &&
