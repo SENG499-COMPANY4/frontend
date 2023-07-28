@@ -81,6 +81,7 @@ const AdminSchedule = () => {
       let scheduleItem = {
         id: item.id, // Assuming that the items in the schedule have an ID property
         type: item.type, // And that they also have a type property
+        section: item.section,
         resourceId: item.room,
         title: item.coursename,
         start: item.start,
@@ -165,7 +166,7 @@ const AdminSchedule = () => {
     // console.log("event", info.event)
 
 
-    const content = `Course: ${info.event.title}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
+    const content = `Course: ${info.event.title}\nSection: ${info.event.extendedProps.section}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
     const rect = info.el.getBoundingClientRect();
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -205,7 +206,7 @@ const AdminSchedule = () => {
     document.getElementById('modal-child').classList.remove('opacity-0');
 
     // populate modal content
-    document.querySelector('#event-title').textContent = info.event.title;
+    document.querySelector('#event-title').textContent = `${info.event.title} (${info.event.extendedProps.section})`;
     document.querySelector('#event-professor').textContent = info.event.extendedProps.professor;
     document.querySelector('#event-building').textContent = info.event.extendedProps.building;
     document.querySelector('#event-room').textContent = info.event.extendedProps.room;
@@ -224,6 +225,7 @@ const updateEvent = (id, changes) => {
     ...updatedEvents[index],
     id: changes.id !== undefined ? changes.id : updatedEvents[index].id,
     type: changes.type !== undefined ? changes.type : updatedEvents[index].type,
+    section: changes.section !== undefined ? changes.section : updatedEvents[index].section,
     start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
     end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
     startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
@@ -341,6 +343,9 @@ const handleEventResize = (info) => {
         schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
         plugins={[resourceTimelinePlugin, interactionPlugin]}
 
+        rerenderDelay={10}
+        // lazyFetching={true}
+
         editable={true}
         eventStartEditable={true}
         eventResizableFromStart={true}
@@ -354,7 +359,7 @@ const handleEventResize = (info) => {
         slotMaxTime={'21:00:00'} // 9pm
         slotDuration={'01:00:00'}
 
-        eventOverlap={false}
+        // eventOverlap={false}
         hiddenDays={[0, 6]} // Hide Sunday and Saturday
 
 
