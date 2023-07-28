@@ -9,6 +9,19 @@ const API = axios.create({
   withCredentials: true
 });
 
+// Adding function to check the schedule's validity
+export const validateSchedule = (scheduleData) => {
+  return API.post('/schedule/validate', scheduleData)
+    .then((response) => {
+      return response.data.isValid;
+    })
+    .catch((error) => {
+      // Handle any error that might occur during the API request
+      console.error('Error validating schedule:', error);
+      throw error; 
+    });
+};
+
 // Import this object instead of axios
 // make API requests like:
 // API.get("/api/login").then(...)
