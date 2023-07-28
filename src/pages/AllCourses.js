@@ -26,6 +26,21 @@ const AllCourses = () => {
     return <div>Loading...</div>;
   }
 
+  function formatUTCTime(dateString) {
+    const date = new Date(dateString);
+
+    let hours = date.getUTCHours();
+    let minutes = date.getUTCMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    const strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  }
+
   return (
     <div className="container mx-auto max-w-screen-max-w-xl">
       {/* Table Section */}
@@ -55,6 +70,10 @@ const AllCourses = () => {
                     {schedule.map(item => {
                       const { building, coursename, day, end, id, professor, room, start, type } = item;
 
+                      // Use the helper function to format the start and end times
+                      const startTime = formatUTCTime(start);
+                      const endTime = formatUTCTime(end);
+
                       return (
                         <tr key={id}>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -81,7 +100,7 @@ const AllCourses = () => {
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="text-sm text-gray-500 dark:text-gray-400">
-                              {`${start} - ${end}`}
+                              {`${startTime} - ${endTime}`}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
