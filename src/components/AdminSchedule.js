@@ -94,12 +94,14 @@ const AdminSchedule = () => {
       let startTime = item.start.split("T")[1];
       let endTime = item.end.split("T")[1];
 
-
+      console.log("ITEM")
+      console.log(item)
 
       // create the new format for the schedule items
       let scheduleItem = {
         id: item.id, // Assuming that the items in the schedule have an ID property
         type: item.type, // And that they also have a type property
+        day: item.day,
         section: item.section,
         resourceId: item.room,
         title: item.coursename,
@@ -141,20 +143,20 @@ const AdminSchedule = () => {
   const fetchData = async () => {
     try {
       const config = {
-        headers:{
+        headers: {
           year: 2024,
           semester: 1
         }
       };
-        const sched = await API.get('/schedule', config);
-        const published = await API.get('/publish', config);
-        console.log(published.data.published);
-        setPublishStatus(published.data.published);
-        setSchedule(sched.data);
+      const sched = await API.get('/schedule', config);
+      const published = await API.get('/publish', config);
+      console.log(published.data.published);
+      setPublishStatus(published.data.published);
+      setSchedule(sched.data);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
 
   async function fetchProfessorList() {
     try {
@@ -162,9 +164,9 @@ const AdminSchedule = () => {
       setAllProfessors(response.data);
 
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  }
 
   useEffect(() => {
     fetchData();
@@ -243,98 +245,112 @@ const AdminSchedule = () => {
 
   };
 
-// Define a function to find and update an event in our events state
-const updateEvent = (id, changes) => {
-  const index = events.findIndex(event => event.id === id);
-  const updatedEvents = [...events];
+  // Define a function to find and update an event in our events state
+  const updateEvent = (id, changes) => {
+    const index = events.findIndex(event => event.id === id);
+    const updatedEvents = [...events];
 
-  // only update fields if they are not undefined or null
-  updatedEvents[index] = {
-    ...updatedEvents[index],
-    id: changes.id !== undefined ? changes.id : updatedEvents[index].id,
-    type: changes.type !== undefined ? changes.type : updatedEvents[index].type,
-    section: changes.section !== undefined ? changes.section : updatedEvents[index].section,
-    start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
-    end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
-    startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
-    endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
-    resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
-    extendedProps: {
-      ...updatedEvents[index].extendedProps,
-      room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
-      building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
-      professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
+    // only update fields if they are not undefined or null
+    updatedEvents[index] = {
+      ...updatedEvents[index],
+      id: changes.id !== undefined ? changes.id : updatedEvents[index].id,
+      type: changes.type !== undefined ? changes.type : updatedEvents[index].type,
+      section: changes.section !== undefined ? changes.section : updatedEvents[index].section,
+      start: changes.start !== undefined ? changes.start : updatedEvents[index].start,
+      end: changes.end !== undefined ? changes.end : updatedEvents[index].end,
+      startTime: changes.startTime !== undefined ? changes.startTime : updatedEvents[index].startTime,
+      endTime: changes.endTime !== undefined ? changes.endTime : updatedEvents[index].endTime,
+      resourceId: changes.resourceId !== undefined && changes.resourceId !== null ? changes.resourceId : updatedEvents[index].resourceId,
+      extendedProps: {
+        ...updatedEvents[index].extendedProps,
+        room: changes.room !== undefined && changes.room !== null ? changes.room : updatedEvents[index].extendedProps.room,
+        building: changes.building !== undefined ? changes.building : updatedEvents[index].extendedProps.building,
+        professor: changes.professor !== undefined ? changes.professor : updatedEvents[index].extendedProps.professor,
+      }
+    };
+
+    setEvents(updatedEvents);
+  }
+
+
+
+  const handleEventDrop = (info) => {
+    // info.event contains the event that has been moved
+    // We want to update this event in our state to reflect this change
+
+    var newResourceId = null;
+    if (info.newResource !== null) {
+      newResourceId = info.newResource.id;
     }
-  };
 
-  setEvents(updatedEvents);
-}
+    var building = null;
+    if (info.newResource?.extendedProps?.building) {
+      building = info.newResource.extendedProps.building;
+    }
+    else {
+      building = info.oldEvent.extendedProps.building;
+    }
+
+    // console.log(info)
+    // console.log(info.event.start.toLocaleTimeString(undefined, { hour12: false }))
 
 
+    const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 
-const handleEventDrop = (info) => {
-  // info.event contains the event that has been moved
-  // We want to update this event in our state to reflect this change
-
-  var newResourceId = null;
-  if (info.newResource !== null) {
-    newResourceId = info.newResource.id;
+    updateEvent(info.event.id, {
+      start: adjustTimeZone(info.event.start),
+      end: adjustTimeZone(info.event.end),
+      startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+      resourceId: newResourceId,
+      room: newResourceId,
+      building: building,
+    });
   }
 
-  var building = null;
-  if (info.newResource?.extendedProps?.building) {
-    building = info.newResource.extendedProps.building;
+
+
+  // Define our eventResize handler
+  const handleEventResize = (info) => {
+    // info.event contains the event that has been resized
+    // We want to update this event in our state to reflect this change
+
+    const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+
+    updateEvent(info.event.id, {
+      start: adjustTimeZone(info.event.start),
+      end: adjustTimeZone(info.event.end),
+      startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
+      endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
+      building: info.event.extendedProps.building,
+    });
   }
-  else {
-    building = info.oldEvent.extendedProps.building;
-  }
-
-  // console.log(info)
-  // console.log(info.event.start.toLocaleTimeString(undefined, { hour12: false }))
-
-
-  const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
-
-  updateEvent(info.event.id, {
-    start: adjustTimeZone(info.event.start),
-    end: adjustTimeZone(info.event.end),
-    startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-    endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-    resourceId: newResourceId,
-    room: newResourceId,
-    building: building,
-  });
-}
-
-
-
-// Define our eventResize handler
-const handleEventResize = (info) => {
-  // info.event contains the event that has been resized
-  // We want to update this event in our state to reflect this change
-
-  const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
-
-  updateEvent(info.event.id, {
-    start: adjustTimeZone(info.event.start),
-    end: adjustTimeZone(info.event.end),
-    startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
-    endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
-    building: info.event.extendedProps.building,
-  });
-}
 
 
   const convertEventsToJSONSchedule = () => {
     const jsonSchedule = [];
 
+    // Map of day indices to day names.
+    const dayIndexToName = {
+      0: 'Sunday',
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday'
+    };
+
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
 
       const jsonEvent = {
+        id: event.id,
         start: event.start,
         end: event.end,
-       
+        type: event.type,
+        day: event.daysOfWeek.map(dayIndex => dayIndexToName[dayIndex]),
+        section: event.section,
         coursename: event.title,
         building: event.extendedProps.building,
         room: event.resourceId,
@@ -386,8 +402,8 @@ const handleEventResize = (info) => {
         droppable={true}
         snapDuration={'00:10:00'}
 
-        slotMinTime={'08:00:00'} // 8am
-        slotMaxTime={'21:00:00'} // 9pm
+        // slotMinTime={'08:00:00'} // 8am
+        // slotMaxTime={'21:00:00'} // 9pm
         slotDuration={'01:00:00'}
 
         // eventOverlap={false}
@@ -397,53 +413,53 @@ const handleEventResize = (info) => {
         resourceAreaWidth={'20%'}
 
         customButtons={{
-            publishButton: {
-                text: loading ? 'Loading...' : (publishStatus ? 'Unpublish' : 'Publish'),
-                click: async function() {
-                    // const output = await API.post('/schedule');
-                    // console.log(output.data.publishStatus);
-                    setLoading(true);
-                    try{
-                    const data = {
-                      published: !publishStatus
-                    }
-                    const config = {
-                      headers:{
-                        term: "202401",
-                      }
-                    };
-                    const result = await API.post('/publish',data,config);
-                    setPublishStatus(result.data.published);
-                  } catch (error){
-
+          publishButton: {
+            text: loading ? 'Loading...' : (publishStatus ? 'Unpublish' : 'Publish'),
+            click: async function () {
+              // const output = await API.post('/schedule');
+              // console.log(output.data.publishStatus);
+              setLoading(true);
+              try {
+                const data = {
+                  published: !publishStatus
+                }
+                const config = {
+                  headers: {
+                    term: "202401",
                   }
-                  setLoading(false)
-                },
+                };
+                const result = await API.post('/publish', data, config);
+                setPublishStatus(result.data.published);
+              } catch (error) {
+
+              }
+              setLoading(false)
             },
-            saveButton: {
-                text: loading ? 'Loading...' : (saving ? 'Saving...' : 'Save'),
-                click: async function() {
-                    // const output = await API.post('/schedule');
-                    // console.log(output.data.publishStatus);
-                  try{
-                      setSaving(true);
-                      const theSchedule = convertEventsToJSONSchedule();
-                      console.log(theSchedule);
-                      const headers = {
-                        year: "2024",
-                        semester: "1"
-                      }
+          },
+          saveButton: {
+            text: loading ? 'Loading...' : (saving ? 'Saving...' : 'Save'),
+            click: async function () {
+              // const output = await API.post('/schedule');
+              // console.log(output.data.publishStatus);
+              try {
+                setSaving(true);
+                const theSchedule = convertEventsToJSONSchedule();
+                console.log(theSchedule);
+                const headers = {
+                  year: "2024",
+                  semester: "1"
+                }
 
-                      const response = await API.post('/schedule/publish', {schedule: theSchedule}, {headers: headers});
-                      console.log(response);
-                      setSaving(false);
+                const response = await API.post('/schedule/publish', { schedule: theSchedule }, { headers: headers });
+                console.log(response);
+                setSaving(false);
 
-                  } catch (error){
-                    setSaving(false)
-                    console.error(error);
-                  }
-                },
-            }
+              } catch (error) {
+                setSaving(false)
+                console.error(error);
+              }
+            },
+          }
         }}
 
         headerToolbar={{
