@@ -20,6 +20,7 @@ const AdminSchedule = () => {
   const [selectedProfessor, setSelectedProfessor] = useState('');
   const [temporaryProfessor, setTemporaryProfessor] = useState('');
   const [publishStatus, setPublishStatus] = useState(false);
+  const [selectedClassID, setSelectedClassID] = useState('');
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -77,7 +78,6 @@ const AdminSchedule = () => {
 
       // Check item.section. Make it a different colour for if it is A01, A02, A03, etc.
 
-
       var colour = '#FFFFFF';
       if (item.section.includes('A')) {
         colour = '#3788D8';
@@ -89,9 +89,12 @@ const AdminSchedule = () => {
         colour = '#fdb813';
       }
 
+      // console.log("item", item.start)
 
       let startTime = item.start.split("T")[1];
       let endTime = item.end.split("T")[1];
+
+
 
       // create the new format for the schedule items
       let scheduleItem = {
@@ -118,7 +121,7 @@ const AdminSchedule = () => {
 
       };
 
-      console.log("scheduleItem", scheduleItem)
+      // console.log("scheduleItem", scheduleItem)
 
 
       // add the new schedule item to the events
@@ -139,8 +142,8 @@ const AdminSchedule = () => {
     try {
       const config = {
         headers:{
-          year: 2022,
-          semester: 9
+          year: 2024,
+          semester: 1
         }
       };
         const sched = await API.get('/schedule', config);
@@ -188,6 +191,7 @@ const AdminSchedule = () => {
     // console.log("event", info.event)
 
 
+
     const content = `Course: ${info.event.title}\nSection: ${info.event.extendedProps.section}\nProfessor: ${info.event.extendedProps.professor}\nBuilding: ${info.event.extendedProps.building}\nRoom: ${info.event.extendedProps.room}\nTime: ${convertTime(info.event.start)} - ${convertTime(info.event.end)}`;
 
     const rect = info.el.getBoundingClientRect();
@@ -219,6 +223,8 @@ const AdminSchedule = () => {
     // const eventEl = info.el;
 
     // console.log("event", info.event)
+
+    setSelectedClassID(info.event.id);
 
     setTemporaryProfessor('')
     // open modal
@@ -270,9 +276,6 @@ const handleEventDrop = (info) => {
   // info.event contains the event that has been moved
   // We want to update this event in our state to reflect this change
 
-  const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0];
-  const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0];
-
   var newResourceId = null;
   if (info.newResource !== null) {
     newResourceId = info.newResource.id;
@@ -286,9 +289,15 @@ const handleEventDrop = (info) => {
     building = info.oldEvent.extendedProps.building;
   }
 
+  // console.log(info)
+  // console.log(info.event.start.toLocaleTimeString(undefined, { hour12: false }))
+
+
+  const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+
   updateEvent(info.event.id, {
-    start: start_formatted,
-    end: end_formatted,
+    start: adjustTimeZone(info.event.start),
+    end: adjustTimeZone(info.event.end),
     startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
     endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
     resourceId: newResourceId,
@@ -304,12 +313,11 @@ const handleEventResize = (info) => {
   // info.event contains the event that has been resized
   // We want to update this event in our state to reflect this change
 
-  const start_formatted = info.event.start.toISOString().split('T')[0] + 'T' + info.event.start.toTimeString().split(' ')[0]
-  const end_formatted = info.event.end.toISOString().split('T')[0] + 'T' + info.event.end.toTimeString().split(' ')[0]
+  const adjustTimeZone = date => new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
 
   updateEvent(info.event.id, {
-    start: start_formatted,
-    end: end_formatted,
+    start: adjustTimeZone(info.event.start),
+    end: adjustTimeZone(info.event.end),
     startTime: info.event.start.toLocaleTimeString(undefined, { hour12: false }),
     endTime: info.event.end.toLocaleTimeString(undefined, { hour12: false }),
     building: info.event.extendedProps.building,
@@ -322,10 +330,11 @@ const handleEventResize = (info) => {
 
     for (let i = 0; i < events.length; i++) {
       const event = events[i];
+
       const jsonEvent = {
         start: event.start,
         end: event.end,
-        // day: event.start.getDay(),
+       
         coursename: event.title,
         building: event.extendedProps.building,
         room: event.resourceId,
@@ -416,22 +425,23 @@ const handleEventResize = (info) => {
                 click: async function() {
                     // const output = await API.post('/schedule');
                     // console.log(output.data.publishStatus);
-                    setSaving(true);
-                    try{
-                    const data = {
-                      published: !publishStatus
-                    }
-                    const config = {
-                      headers:{
-                        term: "202401",
+                  try{
+                      setSaving(true);
+                      const theSchedule = convertEventsToJSONSchedule();
+                      console.log(theSchedule);
+                      const headers = {
+                        year: "2024",
+                        semester: "1"
                       }
-                    };
-                    const result = await API.post('/publish',data,config);
-                    setPublishStatus(result.data.published);
-                  } catch (error){
 
+                      const response = await API.post('/schedule/publish', {schedule: theSchedule}, {headers: headers});
+                      console.log(response);
+                      setSaving(false);
+
+                  } catch (error){
+                    setSaving(false)
+                    console.error(error);
                   }
-                  setSaving(false)
                 },
             }
         }}
@@ -577,7 +587,7 @@ const handleEventResize = (info) => {
               </button>
               <button type="button" onClick={() => {
                 setSelectedProfessor(temporaryProfessor);
-                updateEvent(document.querySelector('#event-title').textContent, { professor: temporaryProfessor });
+                updateEvent(selectedClassID, { professor: temporaryProfessor });
               }}
                 class="p-4 w-full inline-flex justify-center items-center gap-2 rounded-br-xl border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" data-hs-overlay="#modal">
                 Save
