@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import API from "../api";
+import UserContext from '../contexts/UserContext';
 
 const ProfessorSchedule = () => {
     
@@ -10,13 +11,13 @@ const ProfessorSchedule = () => {
     const [tooltipContent, setTooltipContent] = useState('');
     const [ schedule, setSchedule] = useState([]);
     const [ events, setEvents] = useState([]);
+    const { user } = useContext(UserContext);
 
-
+    // Access the user like this:
     function convertJson() {
 
         let updatedEvents = [];
         let hard_coded_professor = "David Turner";
-        console.log("hello1");
    
         // map day names to numbers
         const dayMap = {
@@ -32,14 +33,13 @@ const ProfessorSchedule = () => {
         // iterate over each item in the schedule
         for (let item of schedule) {
             //Only display the event for the desired professor
-            if (item.professor.toLowerCase() === hard_coded_professor.toLowerCase()){
                 let startTime = item.start.split("T")[1];
                 let endTime = item.end.split("T")[1];
-    
+                const courseTitle = item.coursename.split(' ').slice(-2).join(' ');
                 // create the new format for the schedule items
                 let scheduleItem = {
                     resourceId: item.room,
-                    title: item.coursename,
+                    title: courseTitle,
                     start: item.start,
                     end: item.end,
                     startTime: startTime,
@@ -56,7 +56,7 @@ const ProfessorSchedule = () => {
                 // add the new schedule item to the events
                     updatedEvents.push(scheduleItem);
             }
-        }
+        
 
         setEvents(updatedEvents);
         return;
@@ -64,8 +64,27 @@ const ProfessorSchedule = () => {
 
     const fetchData = async () => {
         try{
-            const response = await API.get('/administrator');
-            setSchedule(response.data);
+            const config = {
+                headers:{
+                  name: user?.username,
+                  year: 2024,
+                  semester: 1
+                }
+              };
+            const configure = {
+            headers:{
+                year: 2024,
+                semester: 1
+            }
+            };
+            const response = await API.get('/schedule', config);
+            const published = await API.get('/publish', configure);
+            if(published.data.published == false){
+                setSchedule([]);
+            }else{
+                setSchedule(response.data);
+
+            }
         } catch (error) {
             console.error(error);
         }
@@ -76,7 +95,9 @@ const ProfessorSchedule = () => {
       }, []);
     
       useEffect(() => {
-        convertJson();
+        if(schedule.length > 0){
+            convertJson(schedule);
+        }
       }, [schedule]);
 
     const convertTime = (time24) => {

@@ -19,8 +19,8 @@ const AdminSchedule = () => {
   const [all_professors, setAllProfessors] = useState([]);
   const [selectedProfessor, setSelectedProfessor] = useState('');
   const [temporaryProfessor, setTemporaryProfessor] = useState('');
-  const [isCalendarPublished, setIsCalendarPublished] = useState(false);
-
+  const [publishStatus, setPublishStatus] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     convertEventsToJSONSchedule();
@@ -109,12 +109,21 @@ const AdminSchedule = () => {
 
   const fetchData = async () => {
     try {
-      const response = await API.get('/administrator');
-      setSchedule(response.data);
+      const config = {
+        headers:{
+          year: 2024,
+          semester: 1
+        }
+      };
+        const sched = await API.get('/schedule', config);
+        const published = await API.get('/publish', config);
+        console.log(published.data.published);
+        setPublishStatus(published.data.published);
+        setSchedule(sched.data);
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
-  }
+}
 
   async function fetchProfessorList() {
     try {
@@ -122,11 +131,9 @@ const AdminSchedule = () => {
       setAllProfessors(response.data);
 
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
-  }
-
-
+}
 
   useEffect(() => {
     fetchData();
@@ -304,8 +311,6 @@ const AdminSchedule = () => {
     return jsonSchedule;
   }
 
-
-
   return (
     <div>
       <div className="flex justify-end mb-4">
@@ -350,8 +355,34 @@ const AdminSchedule = () => {
 
         resourceAreaWidth={'20%'}
 
+        customButtons={{
+            publishButton: {
+                text: loading ? 'Loading...' : (publishStatus ? 'Unpublish' : 'Publish'),
+                click: async function() {
+                    // const output = await API.post('/schedule');
+                    // console.log(output.data.publishStatus);
+                    setLoading(true);
+                    try{
+                    const data = {
+                      published: !publishStatus
+                    }
+                    const config = {
+                      headers:{
+                        term: "202401",
+                      }
+                    };
+                    const result = await API.post('/publish',data,config);
+                    setPublishStatus(result.data.published);
+                  } catch (error){
+
+                  }
+                  setLoading(false)
+                },
+            },
+        }}
+
         headerToolbar={{
-          left: 'today prev,next',
+          left: 'today prev,next publishButton',
           center: 'title',
           right: 'resourceTimelineDay,resourceTimelineWeek'
         }}
