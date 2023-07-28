@@ -5,6 +5,9 @@ import scheduleData from '../mock_data/sample_schedule.json';
 import interactionPlugin from "@fullcalendar/interaction";
 import API from "../api";
 import ProfessorSchedule from './ProfessorSchedule';
+import fallSchedule from '../mock_data/fall.json';
+import springSchedule from '../mock_data/spring.json';
+import summerSchedule from '../mock_data/summer.json';
 
 const AdminSchedule = () => {
 
@@ -21,6 +24,9 @@ const AdminSchedule = () => {
   const [temporaryProfessor, setTemporaryProfessor] = useState('');
   const [publishStatus, setPublishStatus] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingFall, setLoadingFall] = useState(false);
+  const [loadingSpring, setLoadingSpring] = useState(false);
+  const [loadingSummer, setLoadingSummer] = useState(false);
 
   useEffect(() => {
     convertEventsToJSONSchedule();
@@ -379,14 +385,93 @@ const AdminSchedule = () => {
                   setLoading(false)
                 },
             },
-        }}
+            fallButton: {
+              text: loadingFall ? 'Loading...' : 'Fall',
+              click: async function() {
+                  setLoadingFall(true);
+                  const header = {
+                      headers: {
+                          'semester': '9',
+                          'year': '2025'
+                      }
+                  };
+                  try {
+                      const response1 = await API.post('/algo2', fallSchedule, header);
+                      console.log("/algo2 response", response1)
+                      const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                      console.log("/algo1 response", response2);
+                      const response3 = await API.get('/schedule', header);
+                      console.log("/schedule response", response3.data);
+                      if (response3.data) {
+                          setSchedule(response3.data); 
+                      }
+                  } catch (error) {
+                    console.error("Error during API call", error.response || error);
+                  }
+                  setLoadingFall(false);
+              }
+          },
+          springButton: {
+              text: loadingSpring ? 'Loading...' : 'Spring',
+              click: async function() {
+                  setLoadingSpring(true);
+                  const header = {
+                      headers: {
+                          'semester': '1',
+                          'year': '2024'
+                      }
+                  };
+                  try {
+                      const response1 = await API.post('/algo2', springSchedule, header);
+                      console.log("/algo2 response", response1)
+                      const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                      console.log("/algo1 response", response2);
+                      const response3 = await API.get('/schedule', header);
+                      console.log("/schedule response", response3.data);
+                      if (response3.data) {
+                          setSchedule(response3.data); 
+                      }
+                  } catch (error) {
+                    console.error("Error during API call", error.response || error);
+                  }
+                  setLoadingSpring(false);
+              }
+          },
+          summerButton: {
+              text: loadingSummer ? 'Loading...' : 'Summer',
+              click: async function() {
+                  setLoadingSummer(true);
+                  const header = {
+                      headers: {
+                          'semester': '5',
+                          'year': '2024'
+                      }
+                  };
+                  try {
+                      const response1 = await API.post('/algo2', summerSchedule, header);
+                      console.log("/algo2 response", response1);
+                      const response2 = await API.post('/algo1/generateSchedule', {}, header);
+                      console.log("/algo1 response", response2);
+                      const response3 = await API.get('/schedule', header);
+                      console.log("/schedule response", response3.data);
+                      if (response3.data) {
+                          setSchedule(response3.data); 
+                      }
+                  } catch (error) {
+                      console.error("Error during API call", error.response || error);
+                  }
+                  setLoadingSummer(false);
+              }
+          },
+      }}
 
         headerToolbar={{
-          left: 'today prev,next publishButton',
+          left: 'prev,next publishButton fallButton,springButton,summerButton',
           center: 'title',
           right: 'resourceTimelineDay,resourceTimelineWeek'
         }}
-
+        titleFormat={{ weekday: 'long' }}
+        
         initialView='resourceTimelineDay'
         resourceGroupField='building'
         resources={resources}
