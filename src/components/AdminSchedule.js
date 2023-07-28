@@ -375,11 +375,12 @@ const AdminSchedule = () => {
         }}
 
         headerToolbar={{
-          left: 'today prev,next publishButton',
+          left: 'prev,next publishButton',
           center: 'title',
           right: 'resourceTimelineDay,resourceTimelineWeek'
         }}
-
+        titleFormat={{ weekday: 'long' }}
+        
         initialView='resourceTimelineDay'
         resourceGroupField='building'
         resources={resources}
