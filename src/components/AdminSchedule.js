@@ -408,8 +408,8 @@ const AdminSchedule = () => {
         droppable={true}
         snapDuration={'00:10:00'}
 
-        // slotMinTime={'08:00:00'} // 8am
-        // slotMaxTime={'21:00:00'} // 9pm
+        slotMinTime={'08:00:00'} // 8am
+        slotMaxTime={'21:00:00'} // 9pm
         slotDuration={'01:00:00'}
 
         // eventOverlap={false}
