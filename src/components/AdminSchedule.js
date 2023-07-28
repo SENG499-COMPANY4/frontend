@@ -74,6 +74,22 @@ const AdminSchedule = () => {
         extractedProfessors.push(item.professor);
       }
 
+
+      // Check item.section. Make it a different colour for if it is A01, A02, A03, etc.
+
+
+      var colour = '#FFFFFF';
+      if (item.section.includes('A')) {
+        colour = '#3788D8';
+      }
+      else if (item.section.includes('B')) {
+        colour = '#ea292c';
+      }
+      else if (item.section.includes('T')) {
+        colour = '#fdb813';
+      }
+
+
       let startTime = item.start.split("T")[1];
       let endTime = item.end.split("T")[1];
 
@@ -89,11 +105,17 @@ const AdminSchedule = () => {
         startTime: startTime,
         endTime: endTime,
         daysOfWeek: item.day.map(day => dayMap[day]),
+        color: colour,
+
+
+
         extendedProps: {
           professor: item.professor,
           building: item.building,
           room: item.room,
         }
+        // set colour based on type
+
       };
 
       console.log("scheduleItem", scheduleItem)
