@@ -547,9 +547,9 @@ const AdminSchedule = () => {
     }}
 
       headerToolbar={{
-        left: 'prev,next fallButton,springButton,summerButton publishButton saveButton',
+        left: 'prev,next fallButton,springButton,summerButton publishButton',
         center: 'title',
-        right: 'resourceTimelineDay,resourceTimelineWeek'
+        right: 'saveButton resourceTimelineDay,resourceTimelineWeek'
       }}
         titleFormat={{ weekday: 'long' }}
         
